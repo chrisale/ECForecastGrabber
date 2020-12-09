@@ -27,7 +27,7 @@ $outputForecastOnlyfile = 'ECForecastTmp.txt';
 ## **TEMPORARY** TEXT OUTPUT FILE THAT CONTAINS BOTH CONDITIONS AND FORECAST. THIS SHOULD BE DIFFERENT
 ## FROM YOUR ACTUAL FINAL FILE SO THAT THIS SCRIPT CAN SAFELY DELETE IT BEFORE UPDATING IT.
 
-$outputConditionsandForecastfile = '/your/location/ECCurCondTmp.txt';
+$outputConditionsandForecastfile = 'ECCurCondTmp.txt';
 
 ## FULL URL WEB ADDRESS OF THE ENVIRONMENT CANADA FORECAST PAGE
 

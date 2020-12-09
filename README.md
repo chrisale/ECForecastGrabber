@@ -15,13 +15,31 @@ The forecast.pl script then outputs a temporary file that forecastgrabber.sh the
 
 * Ensure forecastgrabber.sh has +x permissions so that it can be run as a script by cron.
 
-* Open forecastgrabber.sh in an text editor.
+* Open forecastgrabber.sh in a text editor.
 
-** Modify the file paths for wget (or curl)
+* Modify the file paths for wget (or curl)
 
-** Modify the paths for your local files to be stored including the location of the final html file that can be accessed by the webpage.
+* Modify the URL for the RSS feed to your location's forecast. If you're not sure what this path is, go to https://weather.gc.ca/canada_e.html, go to your desired city or town, and then look for the orange RSS or ATOM button near the bottom of the page. This will provide the proper URL for the RSS feed. 
 
-** Modify the URL for the RSS feed to your location's forecast. If you're not sure what this path is, go to https://weather.gc.ca, go to your desired city or town, and then look for the orange RSS or ATOM button. This will provide the proper URL for the RSS feed.
+* Modify the paths for your local files to be stored including the location of the final html file that can be accessed by the webpage.
+
+* Open forecast.pl in a text editor.
+
+* Modify the configurations listed as required and desired. Ensure your filenames and paths match those used in forecastgrabber.sh
+
+* Add a cronjob in your system to run the forecastgrabber.sh file however often you like. * * * * * /your/location/forecastgrabber.sh would run it every 60 seconds.
+
+* Add the HTML file to your webpage with an iframe element like this:
+	<iframe title="Your Local Forecast" width="1700" height="200" src="/ECForecast.html" name="YourTextForecast" style="border:none; width:1700px; height:200px; " >
+</iframe>
+	This can be added as a Custom HTML block in a modern wordpress blog or widget, or it can be added directly inside an HTML webpage.
+	
+# Please Send Suggestions and Updates
+
+I created this script and added to it over time as I discovered more Environment Canada warnings and messages. If you see something that Environment Canada is producing in your forecast that this script is not handling well, please post an issue here!  There will be many at first!
+
+Thanks!
+Chris
 
 
 # Credits and Acknowledgements
