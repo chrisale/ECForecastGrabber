@@ -9,7 +9,10 @@ These scripts are intended to be run on your webserver or on a computer and then
 
 The forecast.pl script then outputs a temporary file that forecastgrabber.sh then copies to its final web accessible destination.  These two operations are separate to minimize disruption on the web side and to allow for uploading.
 
-**What does it look like?**
+* What does it look like?
+
+Something like this:
+![image](https://github.com/chrisale/ECForecastGrabber/blob/main/images/forecastscreenshot.png)
 
 
 # Setup and Installation
