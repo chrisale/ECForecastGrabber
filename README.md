@@ -3,6 +3,10 @@ This cronjob and perl script will pull the text forecasts from Environment Canad
 
 You can embed the resulting file into your webpage with an \<iframe> element.
 
+It also augments the text with links, colours and other features that bring a little more interactivity to the plain text.
+
+You can also make copies of these two files and have as many forecasts downloaded and processed as you like.
+
 # How does it work?
 
 These scripts are intended to be run on your webserver or on a computer and then uploaded to your webserver.  The forecastgrabber.sh file is initiated by cron. Forecastgrabber.sh fetches the latest forecast from Environment Canada and then runs the forecast.pl perl script to parse it and modify it.
