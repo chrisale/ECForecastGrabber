@@ -30,8 +30,8 @@ The forecast.pl script then outputs a temporary file that forecastgrabber.sh the
 * Add a cronjob in your system to run the forecastgrabber.sh file however often you like. * * * * * /your/location/forecastgrabber.sh would run it every 60 seconds.
 
 * Add the HTML file to your webpage with an iframe element like this:
-	<iframe title="Your Local Forecast" width="1700" height="200" src="/ECForecast.html" name="YourTextForecast" style="border:none; width:1700px; height:200px; " >
-</iframe>
+	<iframe title="Your Local Forecast" width="1700" height="200" src="/ECForecast.html" name="YourTextForecast" style="border:none; width:1700px; height:200px; " > </iframe>
+	
 	This can be added as a Custom HTML block in a modern wordpress blog or widget, or it can be added directly inside an HTML webpage.
 	
 # Please Send Suggestions and Updates
@@ -39,6 +39,7 @@ The forecast.pl script then outputs a temporary file that forecastgrabber.sh the
 I created this script and added to it over time as I discovered more Environment Canada warnings and messages. If you see something that Environment Canada is producing in your forecast that this script is not handling well, please post an issue here!  There will be many at first!
 
 Thanks!
+
 Chris
 
 
