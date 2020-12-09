@@ -7,21 +7,27 @@ use HTTP::Date;
 ### CUSTOMIZATION RECOMMENDED ONLY IN FOLLOWING SECTION
 #########################################################################################
 
+## FULL PATH OF THE DIRECTORY WHERE forecast.pl IS LOCATED. THIS WILL BE THE LOCATION OF THE
+##TEMPORARY FILES ASWELL. MUST INCLUDE TRAILING SLASH. IT iS A GOOD IDEA THAT THIS IS NOT
+## IN YOUR PUBLIC WEB DIRECTORY.
+
+$localpath = '/your/location/'
+
 ##TEXT INPUT FILE SHOULD BE THE NAME OF THE FILE CREATED BY THE CRON JOB THAT CONTAINS
 ##THE FETCHED FORECAST INFORMATION.
 
-$textinputfile = '/your/path/httpdocs/ECXMLfile.txt';
+$textinputfile = 'ECXMLfile.txt';
 
 
 ## **TEMPORARY** TEXT OUTPUT FILE THAT CONTAINS ONLY THE FORECAST. THIS SHOULD BE DIFFERENT
 ## FROM YOUR ACTUAL FINAL FILE SO THAT THIS SCRIPT CAN SAFELY DELETE IT BEFORE UPDATING IT.
 
-$outputForecastOnlyfile = '/your/path/httpdocs/ECForcastTmp.txt';
+$outputForecastOnlyfile = 'ECForecastTmp.txt';
 
 ## **TEMPORARY** TEXT OUTPUT FILE THAT CONTAINS BOTH CONDITIONS AND FORECAST. THIS SHOULD BE DIFFERENT
 ## FROM YOUR ACTUAL FINAL FILE SO THAT THIS SCRIPT CAN SAFELY DELETE IT BEFORE UPDATING IT.
 
-$outputConditionsandForecastfile = '/your/path/httpdocs/ECCurCondTmp.txt';
+$outputConditionsandForecastfile = '/your/location/ECCurCondTmp.txt';
 
 ## FULL URL WEB ADDRESS OF THE ENVIRONMENT CANADA FORECAST PAGE
 
@@ -69,6 +75,10 @@ $forecastlinkpreamble = "<p><strong><a target='_blank' id='curforcst' href='";
 $forecastlinkpostamble = "'>";
 $forecastnamepostamble = "</a></strong>";
 $forecastlink = $forecastlinkpreamble . $forecastURL . $forecastlinkpostamble . $forecastName . $forecastnamepostamble;
+
+$textinputfile = $localpath . $textinputfile;
+$outputForecastOnlyfile = $localpath . $outputForecastOnlyfile;
+$outputConditionsandForecastfile = $localpath . $outputConditionsandForecastfile;
 
 
 
@@ -540,12 +550,12 @@ $finalconditions2 = $fullforecast;
 
 
 #print $finalconditions;
-unlink($outputConditionsandForecastfile);
+#unlink($outputConditionsandForecastfile);
 unlink($outputForecastOnlyfile);
 
-open(newdata, ">>$outputConditionsandForecastfile");
-print newdata ($finalconditions);
-close(newdata);
+#open(newdata, ">>$outputConditionsandForecastfile");
+#print newdata ($finalconditions);
+#close(newdata);
 
 open(newdata, ">>$outputForecastOnlyfile");
 print newdata ($finalconditions2);
