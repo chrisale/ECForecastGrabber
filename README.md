@@ -17,13 +17,11 @@ The forecast.pl script then outputs a temporary file that forecastgrabber.sh the
 
 * Open forecastgrabber.sh in an text editor.
 
-* Modify the file paths for wget (or curl)
+** Modify the file paths for wget (or curl)
 
-* Modify the paths for your local files to be stored including the location of the final html file that can be accessed by the webpage.
+** Modify the paths for your local files to be stored including the location of the final html file that can be accessed by the webpage.
 
-* Modify the URL for the RSS feed to your location's forecast. If you're not sure what this path is, go to https://weather.gc.ca, go to your desired city or town, and then look for the orange RSS or ATOM button. This will provide the proper URL for the RSS feed.
-
-* M
+** Modify the URL for the RSS feed to your location's forecast. If you're not sure what this path is, go to https://weather.gc.ca, go to your desired city or town, and then look for the orange RSS or ATOM button. This will provide the proper URL for the RSS feed.
 
 
 # Credits and Acknowledgements
