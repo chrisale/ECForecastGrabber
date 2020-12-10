@@ -49,7 +49,7 @@ $thunderLink = "https://weather.gc.ca/lightning/index_e.html?id=PAC#mapTop";
 
 $forecastName = "Vancouver Island Inland Sections - Gold River - Port Alberni - Cowichan Lake - Forecast";
 
-##COLOURS FOR WARNINGS - MUST INCLUDE HASHTAG AND SEMICOLON
+##COLOURS FOR WARNINGS - MUST INCLUDE HASHTAG AND SEMICOLON YOU CAN FIND CODES FOR ANY COLOR BY GOOGLING 4096 COLOR WHEEL
 #IF YOU WISH TO USE A NAME IT SHOULD LOOK LIKE THIS: "red;"
 
 $freezeDrizzleWarn = "#ff7777;";
