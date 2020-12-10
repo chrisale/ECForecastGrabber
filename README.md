@@ -21,6 +21,8 @@ Something like this (from https://www.alberniweather.ca):
 
 # Setup and Installation
 
+Initial requirements are minimal and should exist on any system. If you have problems with PERL, make sure that XML::Simple, Data::Dumper and HTTP::Date; are installed.
+
 * Move the forecast.pl and forecastgrabber.sh to a suitable directory where they can be activated.
 
 * Ensure forecastgrabber.sh has +x permissions so that it can be run as a script by cron.
