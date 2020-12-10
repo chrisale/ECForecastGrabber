@@ -3,87 +3,53 @@
 use XML::Simple;
 use Data::Dumper;
 use HTTP::Date;
-#########################################################################################
-### CUSTOMIZATION RECOMMENDED ONLY IN FOLLOWING SECTION
-#########################################################################################
+use warnings;
+use diagnostics;
 
-## FULL PATH OF THE DIRECTORY WHERE forecast.pl IS LOCATED. THIS WILL BE THE LOCATION OF THE
-##TEMPORARY FILES ASWELL. MUST INCLUDE TRAILING SLASH. IT iS A GOOD IDEA THAT THIS IS NOT
-## IN YOUR PUBLIC WEB DIRECTORY.
+## Adding trailing slash from user configuration
 
-$localpath = '/your/location/';
+my $perlWebPath = $ENV{'perlwebPath'}.'/';
 
-##TEXT INPUT FILE SHOULD BE THE NAME OF THE FILE CREATED BY THE CRON JOB THAT CONTAINS
-##THE FETCHED FORECAST INFORMATION.
+## XML file is the source of all data from Environment Canada
 
-$textinputfile = 'ECXMLfile.txt';
+my $xmlFile = $ENV{'perlxmlFile'};
 
 
-## **TEMPORARY** TEXT OUTPUT FILE THAT CONTAINS ONLY THE FORECAST. THIS SHOULD BE DIFFERENT
-## FROM YOUR ACTUAL FINAL FILE SO THAT THIS SCRIPT CAN SAFELY DELETE IT BEFORE UPDATING IT.
+## Temporary text file 
+my $outputForecastOnlyfile = $ENV{'perlfinalForecasttmp'};
 
-$outputForecastOnlyfile = 'ECForecastTmp.txt';
+## Placeholder as we were doing current conditions at one point.
 
-## **TEMPORARY** TEXT OUTPUT FILE THAT CONTAINS BOTH CONDITIONS AND FORECAST. THIS SHOULD BE DIFFERENT
-## FROM YOUR ACTUAL FINAL FILE SO THAT THIS SCRIPT CAN SAFELY DELETE IT BEFORE UPDATING IT.
+my $outputConditionsandForecastfile = 'ECCurCondTmp.txt';
 
-$outputConditionsandForecastfile = 'ECCurCondTmp.txt';
+my $forecastURL = $ENV{'perlforecastURL'};
+my $forecastPlaceName = $ENV{'perlforecastPlaceName'};
+my $warnLink = $ENV{'perlwarnLink'};
+my $thunderLink = $ENV{'perlthunderLink'};
+my $forecastName = $ENV{'perlforecastName'};
 
-## FULL URL WEB ADDRESS OF THE ENVIRONMENT CANADA FORECAST PAGE
+##COLOURS 
+my $freezeDrizzleWarn = $ENV{'perlfreezeDrizzleWarn'};
+my $freezeRainWarn = $ENV{'perlfreezeRainWarn'};
+my $freezingTemp = $ENV{'perlfreezingTemp'};
+my $hotTemp = $ENV{'perlhotTemp'};
+my $thunderWarn = $ENV{'perlthunderWarn'};
 
-$forecastURL = "https://weather.gc.ca/city/pages/bc-46_metric_e.html";
-
-## NAME OF THE CITY ASSOCIATED WITH THE ENVIRONMENT CANADA FORECAST PAGE - IF YOU GET A DOUBLE VIEW OF THE WARNING LINK CHECK THE NAME HERE TO ENSURE IT IS SPELLED EXACTLY THE SAME AND INCLUDES ALL SPACES.
-
-$forecastPlaceName = "Port Alberni";
-
-## FULL URL WEB ADDRESS OF YOUR LOCATIONS WEATHER WARNINGS PAGE
-
-$warnLink = "https://weather.gc.ca/warnings/report_e.html?bc45";
-
-## FULL URL WEB ADDRESS OF YOUR LOCATIONS WEATHER WARNINGS PAGE
-
-$thunderLink = "https://weather.gc.ca/lightning/index_e.html?id=PAC#mapTop";
-
-## CLICKABLE NAME YOU WISH TO DISPLAY FOR THE FORECAST - THIS CAN BE ANYTHING
-
-$forecastName = "Vancouver Island Inland Sections - Gold River - Port Alberni - Cowichan Lake - Forecast";
-
-##COLOURS FOR WARNINGS - MUST INCLUDE HASHTAG AND SEMICOLON YOU CAN FIND CODES FOR ANY COLOR BY GOOGLING 4096 COLOR WHEEL
-#IF YOU WISH TO USE A NAME IT SHOULD LOOK LIKE THIS: "red;"
-
-$freezeDrizzleWarn = "#ff7777;";
-$freezeRainWarn = "#ff66dd;";
-$freezingTemp = "#0000ff;";
-$hotTemp = "#ff0000;";
-$thunderWarn = "#ffaa00;";
-
-#########################################################################################
-#########################################################################################
-#########################################################################################
-##
-## CUSTOMIZE PAST THIS POINT AT YOUR PERIL. YOU MIGHT BREAK SOMETHING AND UPDATES TO THIS
-## FILE FROM THE ORIGINAL SOURCE MAY REVERT OR CHANGE ANY CUSTOMIZATIONS BEYOND THIS POINT.
-##
-#########################################################################################
-#########################################################################################
-#########################################################################################
-
-$comma = ";";
+my $comma = ";";
 $xml = new XML::Simple;
-$forecastlinkpreamble = "<p><strong><a target='_blank' id='curforcst' href='";
-$forecastlinkpostamble = "'>";
-$forecastnamepostamble = "</a></strong>";
-$forecastlink = $forecastlinkpreamble . $forecastURL . $forecastlinkpostamble . $forecastName . $forecastnamepostamble;
+my $forecastlinkpreamble = "<p><strong><a target='_blank' id='curforcst' href='";
+my $forecastlinkpostamble = "'>";
+my $forecastnamepostamble = "</a></strong>";
+my $forecastlink = $forecastlinkpreamble . $forecastURL . $forecastlinkpostamble . $forecastName . $forecastnamepostamble;
 
-$textinputfile = $localpath . $textinputfile;
-$outputForecastOnlyfile = $localpath . $outputForecastOnlyfile;
-$outputConditionsandForecastfile = $localpath . $outputConditionsandForecastfile;
+$xmlFile = $perlWebPath . $xmlFile;
+$outputForecastOnlyfile = $perlWebPath . $outputForecastOnlyfile;
+$outputConditionsandForecastfile = $perlWebPath . $outputConditionsandForecastfile;
 
 
 
 # read XML file
-$data = $xml->XMLin($textinputfile);
+my $data = $xml->XMLin($xmlFile);
 
 ## IF THE CURRENT CONDITIONS ARE OFFLINE THEN WE DON"T DO ANYTHING HERE AND JUST SWITCH TO GETTING THE FIRST (0) LINE SO IT DOESN"T GET THE FORECAST BY MISTAKE
 ## GRABBING THE PROPER PART OF THE XML DOCUMENT STRUCTURE FOR CURRENT CONDITIONS
@@ -211,7 +177,7 @@ $chill = $values[5];
 my @chillval = split(':', $chill);
 #print $chillval[0];
 
-if ($chillval[0] == 'Dewpoint') {
+if ($chillval[0] eq 'Dewpoint') {
 $chill = 'NA';
 $chill =~ s/\s+//g;
 $chill = $chill . $comma;
@@ -272,7 +238,7 @@ $airq = $airq . $comma;
 
 
 # read XML file
-$data = $xml->XMLin($textinputfile);
+$data = $xml->XMLin($xmlFile);
 
 ## GRABBING THE PROPER PART OF THE XML DOCUMENT STRUCTURE FOR CURRENT CONDITIONS
 $fullforecast = '';
@@ -533,7 +499,7 @@ $fullforecast =~ s/FOG ADVISORY IN EFFECT, $forecastPlaceName/<strong><a target=
 
 #print $fullforecast;
 
-$copyrightEC = "<span style='font-size: xx-small;'>This forecast is generated and processed from Environment Canada reports. No guarantees are made or given on its accuracy.</span>";
+my $copyrightEC = "<span style='font-size: xx-small;'>This forecast is generated and processed from Environment Canada reports. No guarantees are made or given on its accuracy.</span>";
 $fullforecast = $fullforecast . $copyrightEC;
 #print $fullforecast;
 
@@ -541,13 +507,12 @@ $fullforecast = $fullforecast . $copyrightEC;
 #PRINT $finalconditions;
 
 ##NOW WE STICK THEM ALL IN A FINAL COMMA DELIMITED LIST AND PUT THEM IN A FILE READY TO INGEST
-$finalconditions = "ECTime;" . $obstime . "ECTemp;" . $temp . "ECPressure;" . $pressure . "ECTrend;" . $pressuretrend . "ECHumidity;" . $humidity . "ECChill;" . $chill . "ECDew;" . $dew . "ECWind;" . $wind . "ECAirQ;" . $airq . "ECForecast;" . $fullforecast;
+my $finalconditions = "ECTime;" . $obstime . "ECTemp;" . $temp . "ECPressure;" . $pressure . "ECTrend;" . $pressuretrend . "ECHumidity;" . $humidity . "ECChill;" . $chill . "ECDew;" . $dew . "ECWind;" . $wind . "ECAirQ;" . $airq . "ECForecast;" . $fullforecast;
 #$finalconditions = "ECTime;" . $obstime . "ECTemp;" . $temp . "ECPressure;" . $pressure . "ECTrend;" . $pressuretrend . "ECHumidity;" . $humidity . "ECChill;" . "N/A;" . "ECDew;" . $dew . "ECWind;" . $wind . "ECAirQ;" . $airq . "ECForecast;" . $fullforecast;
 
-
 ### VALID HTML PAGE PREAMBLE AND POSTAMBLE
-$htmlPreamble = "<!DOCTYPE html><html lang='en'><head><title>EC Forecast Grabber</title><meta charset='utf-8' /> </head><body>";
-$htmlPostamble = "</body></html>";
+my $htmlPreamble = "<!DOCTYPE html><html lang='en'><head><title>EC Forecast Grabber</title><meta charset='utf-8' /> </head><body>";
+my $htmlPostamble = "</body></html>";
 
 ##NOW make one 
 $finalconditions = $htmlPreamble . $fullforecast . $htmlPostamble;
@@ -558,10 +523,10 @@ $finalconditions = $htmlPreamble . $fullforecast . $htmlPostamble;
 #unlink($outputConditionsandForecastfile);
 unlink($outputForecastOnlyfile);
 
-#open(newdata, ">>$outputConditionsandForecastfile");
-#print newdata ($finalconditions);
-#close(newdata);
+#open(curdata, ">>$outputConditionsandForecastfile");
+#print curdata ($finalconditions);
+#close(curdata);
 
-open(newdata, ">>$outputForecastOnlyfile");
-print newdata ($finalconditions);
-close(newdata);
+open(forecastData, ">>$outputForecastOnlyfile");
+print forecastData ($finalconditions);
+close(forecastData);

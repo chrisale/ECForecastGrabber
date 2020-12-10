@@ -9,7 +9,7 @@ You can also make copies of these two files and have as many forecasts downloade
 
 # How does it work?
 
-These scripts are intended to be run on your webserver or on a computer and then uploaded to your webserver.  The forecastgrabber.sh file is initiated by cron. Forecastgrabber.sh fetches the latest forecast from Environment Canada and then runs the forecast.pl perl script to parse it and modify it.
+These scripts are intended to be run on your webserver or on a computer and then uploaded to your webserver.  The forecastgrabber.sh file is initiated by cron. Using your configuration parameters from config.sh, the forecastgrabber.sh shell script fetches the latest forecast from Environment Canada and then runs the forecast.pl perl script to parse it and modify it.
 
 The forecast.pl script then outputs a temporary file that forecastgrabber.sh then copies to its final web accessible destination.  These two operations are separate to minimize disruption on the web side and to allow for uploading.
 
@@ -23,23 +23,17 @@ Something like this (from https://www.alberniweather.ca):
 
 Initial requirements are minimal and should exist on any system. If you have problems with PERL, make sure that XML::Simple, Data::Dumper and HTTP::Date; are installed.
 
-* Move the forecast.pl and forecastgrabber.sh to a suitable directory where they can be activated.
+* Move the entire downloaded directory into a suitable location to be activated on your computer or web server. Somewhere outside the public web directory is best.
 
 * Ensure forecastgrabber.sh has +x permissions so that it can be run as a script by cron.
 
-* Open forecastgrabber.sh in a text editor.
+* Open config.sh in a text editor.
 
-* Modify the file paths for wget (or curl)
+* Modify the file paths and other configurations according to the instructions in the config file.
 
-* Modify the URL for the RSS feed to your location's forecast. If you're not sure what this path is, go to https://weather.gc.ca/canada_e.html, go to your desired city or town, and then look for the orange RSS or ATOM button near the bottom of the page. This will provide the proper URL for the RSS feed. 
+* Add a cronjob in your system to run the forecastgrabber.sh file however often you like. 
 
-* Modify the paths for your local files to be stored including the location of the final html file that can be accessed by the webpage.
-
-* Open forecast.pl in a text editor.
-
-* Modify the configurations listed as required and desired. Ensure your filenames and paths match those used in forecastgrabber.sh
-
-* Add a cronjob in your system to run the forecastgrabber.sh file however often you like. * * * * * /your/location/forecastgrabber.sh would run it every 60 seconds.
+* A setting of */15 * * * * /your/location/forecastgrabber.sh would run it every 15 minutes.
 
 * Add the HTML file to your webpage with an iframe element like this:
 	<iframe title="Your Local Forecast" width="1700" height="200" src="/ECForecast.html" name="YourTextForecast" style="border:none; width:1700px; height:200px; " > </iframe>
