@@ -1,5 +1,5 @@
 # Environment Canada Forecast Perl Script
-This cronjob and perl script will pull the text forecasts from Environment Canada and make them into a text and HTML based file that can be embedded into any webpage or blog.
+This cronjob and perl script running on your webserver or local computer will pull the text forecasts from Environment Canada and make them into a text and HTML based file that can be embedded into any webpage or blog.
 
 You can embed the resulting file into your webpage with an \<iframe> element.
 
