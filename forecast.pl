@@ -544,8 +544,13 @@ $fullforecast = $fullforecast . $copyrightEC;
 $finalconditions = "ECTime;" . $obstime . "ECTemp;" . $temp . "ECPressure;" . $pressure . "ECTrend;" . $pressuretrend . "ECHumidity;" . $humidity . "ECChill;" . $chill . "ECDew;" . $dew . "ECWind;" . $wind . "ECAirQ;" . $airq . "ECForecast;" . $fullforecast;
 #$finalconditions = "ECTime;" . $obstime . "ECTemp;" . $temp . "ECPressure;" . $pressure . "ECTrend;" . $pressuretrend . "ECHumidity;" . $humidity . "ECChill;" . "N/A;" . "ECDew;" . $dew . "ECWind;" . $wind . "ECAirQ;" . $airq . "ECForecast;" . $fullforecast;
 
+
+### VALID HTML PAGE PREAMBLE AND POSTAMBLE
+$htmlPreamble = "<!DOCTYPE html><html lang='en'><head><title>About Myself</title><meta charset='utf-8' /> </head><body>";
+$htmlPostamble = "</body></html>";
+
 ##NOW make one 
-$finalconditions2 = $fullforecast;
+$finalconditions = $htmlPreamble . $fullforecast . $htmlPostamble;
 #$finalconditions = "ECTime;" . $obstime . "ECTemp;" . $temp . "ECPressure;" . $pressure . "ECTrend;" . $pressuretrend . "ECHumidity;" . $humidity . "ECChill;" . "N/A;" . "ECDew;" . $dew . "ECWind;" . $wind . "ECAirQ;" . $airq . "ECForecast;" . $fullforecast;
 
 
@@ -558,5 +563,5 @@ unlink($outputForecastOnlyfile);
 #close(newdata);
 
 open(newdata, ">>$outputForecastOnlyfile");
-print newdata ($finalconditions2);
+print newdata ($finalconditions);
 close(newdata);
