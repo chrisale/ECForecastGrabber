@@ -546,7 +546,7 @@ $finalconditions = "ECTime;" . $obstime . "ECTemp;" . $temp . "ECPressure;" . $p
 
 
 ### VALID HTML PAGE PREAMBLE AND POSTAMBLE
-$htmlPreamble = "<!DOCTYPE html><html lang='en'><head><title>About Myself</title><meta charset='utf-8' /> </head><body>";
+$htmlPreamble = "<!DOCTYPE html><html lang='en'><head><title>EC Forecast Grabber</title><meta charset='utf-8' /> </head><body>";
 $htmlPostamble = "</body></html>";
 
 ##NOW make one 
