@@ -528,7 +528,7 @@ $fullforecast =~ s/FOG ADVISORY IN EFFECT, $forecastPlaceName/<strong><a target=
 
 #print $fullforecast;
 
-my $copyrightEC = "<span style='font-size: xx-small;'>" . $footerMsg . "</span>";
+my $copyrightEC = "<span style='font-size: xx-small;'>" . $footerMsg . " - Powered by <a href='https://github.com/chrisale/ECForecastGrabber' target='_blank'> ECForecastGrabber</a></span>";
 $fullforecast = $fullforecast . $copyrightEC;
 #print $fullforecast;
 
