@@ -27,6 +27,8 @@ Initial requirements are minimal and should exist on any system. If you have pro
 
 * Ensure forecastgrabber.sh has +x permissions so that it can be run as a script by cron.
 
+* Copy or rename config.sh.default to config.sh
+
 * Open config.sh in a text editor.
 
 * Modify the file paths and other configurations according to the instructions in the config file.

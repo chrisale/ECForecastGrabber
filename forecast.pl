@@ -3,8 +3,8 @@
 use XML::Simple;
 use Data::Dumper;
 use HTTP::Date;
-use warnings;
-use diagnostics;
+#use warnings;
+#use diagnostics;
 
 ## Adding trailing slash from user configuration
 
@@ -19,7 +19,6 @@ my $xmlFile = $ENV{'perlxmlFile'};
 my $outputForecastOnlyfile = $ENV{'perlfinalForecasttmp'};
 
 ## Placeholder as we were doing current conditions at one point.
-
 my $outputConditionsandForecastfile = 'ECCurCondTmp.txt';
 
 my $forecastURL = $ENV{'perlforecastURL'};
@@ -27,6 +26,13 @@ my $forecastPlaceName = $ENV{'perlforecastPlaceName'};
 my $warnLink = $ENV{'perlwarnLink'};
 my $thunderLink = $ENV{'perlthunderLink'};
 my $forecastName = $ENV{'perlforecastName'};
+my $footerMsg = $ENV{'perlfooterMsg'};
+
+
+##STYLES
+my $boldDays = $ENV{'perlboldDays'};
+my $textColor = $ENV{'perltextColor'};
+
 
 ##COLOURS 
 my $freezeDrizzleWarn = $ENV{'perlfreezeDrizzleWarn'};
@@ -34,6 +40,8 @@ my $freezeRainWarn = $ENV{'perlfreezeRainWarn'};
 my $freezingTemp = $ENV{'perlfreezingTemp'};
 my $hotTemp = $ENV{'perlhotTemp'};
 my $thunderWarn = $ENV{'perlthunderWarn'};
+my $flurriesColor = $ENV{'perlflurriesColor'};
+
 
 my $comma = ";";
 $xml = new XML::Simple;
@@ -45,6 +53,9 @@ my $forecastlink = $forecastlinkpreamble . $forecastURL . $forecastlinkpostamble
 $xmlFile = $perlWebPath . $xmlFile;
 $outputForecastOnlyfile = $perlWebPath . $outputForecastOnlyfile;
 $outputConditionsandForecastfile = $perlWebPath . $outputConditionsandForecastfile;
+
+
+
 
 
 
@@ -412,44 +423,62 @@ $fullforecast = $fullforecast . $day13dc;
 
 
 ## GETTING RID OF WHAT WE DO NOT WANT IN THE STRING AND ADDING SOME FEATURES TO THE TEXT. 
+####### BUILDING INLINE STYLE ATTRIBUTE VALUES
 
+my $mainStyleElement = "<style>.warning {color: #ff0000; font-size:large;} </style>";
+
+my $mainparaStyle = "style='color:" . $textColor . ";'";
+my $daystrongStyle = "style='font-weight:" . $boldDays . ";'";
+my $drizzstrongStyle = "style='color:" . $freezeDrizzleWarn . ";'";
+my $frainstrongStyle = "style='color:" . $freezeRainWarn . ";'";
+my $flurstrongStyle = "style='color:" . $flurriesColor . ";'";
+my $snowflstrongStyle = "style='color:" . $freezingTemp . ";'";
+my $snowstrongStyle = "style='color:" . $freezingTemp . ";'";
+my $ftempstrongStyle = "style='color:" . $freezingTemp . ";'";
+my $htempstrongStyle = "style='color:" . $hotTemp . ";'";
+my $thunderstrongStyle = "style='color:" . $thunderWarn . ";'";
+
+
+
+
+$fullforecast =~ s/<p><em>/<p $mainparaStyle ><em>/g;
 $fullforecast =~ s/Forecast issued/ Forecast Issued/g;
 $fullforecast =~ s/Today/ Today: /g;
-$fullforecast =~ s/Day:/ <strong> Day:<\/strong>/g;
-$fullforecast =~ s/Tomorrow/ <strong> Tomorrow:<\/strong>/g;
-$fullforecast =~ s/Tonight/ <strong> Tonight:<\/strong>/g;
-$fullforecast =~ s/Night:/<strong> Night:<\/strong>/g;
-$fullforecast =~ s/Monday:/<strong> Monday:<\/strong>/g;
-$fullforecast =~ s/Monday night:/<strong> Monday night:<\/strong>/g;
-$fullforecast =~ s/Tuesday:/<strong> Tuesday:<\/strong>/g;
-$fullforecast =~ s/Tuesday night:/<strong> Tuesday night:<\/strong>/g;
-$fullforecast =~ s/Wednesday:/<strong> Wednesday:<\/strong>/g;
-$fullforecast =~ s/Wednesday night:/<strong> Wednesday night:<\/strong>/g;
-$fullforecast =~ s/Thursday:/<strong> Thursday:<\/strong>/g;
-$fullforecast =~ s/Thursday night:/<strong> Thursday night:<\/strong>/g;
-$fullforecast =~ s/Friday:/<strong> Friday:<\/strong>/g;
-$fullforecast =~ s/Friday night:/<strong> Friday night:<\/strong>/g;
-$fullforecast =~ s/Saturday:/<strong> Saturday:<\/strong>/g;
-$fullforecast =~ s/Saturday night:/<strong> Saturday night:<\/strong>/g;
-$fullforecast =~ s/Sunday:/<strong> Sunday:<\/strong>/g;
-$fullforecast =~ s/Sunday night:/<strong> Sunday night:<\/strong>/g;
+$fullforecast =~ s/Day:/ <strong $daystrongStyle > Day:<\/strong>/g;
+$fullforecast =~ s/Tomorrow/ <strong $daystrongStyle > Tomorrow:<\/strong>/g;
+$fullforecast =~ s/Tonight/ <strong $daystrongStyle > Tonight:<\/strong>/g;
+$fullforecast =~ s/Night:/<strong $daystrongStyle > Night:<\/strong>/g;
+$fullforecast =~ s/Monday:/<strong $daystrongStyle > Monday:<\/strong>/g;
+$fullforecast =~ s/Monday night:/<strong $daystrongStyle > Monday night:<\/strong>/g;
+$fullforecast =~ s/Tuesday:/<strong $daystrongStyle > Tuesday:<\/strong>/g;
+$fullforecast =~ s/Tuesday night:/<strong $daystrongStyle > Tuesday night:<\/strong>/g;
+$fullforecast =~ s/Wednesday:/<strong $daystrongStyle > Wednesday:<\/strong>/g;
+$fullforecast =~ s/Wednesday night:/<strong $daystrongStyle > Wednesday night:<\/strong>/g;
+$fullforecast =~ s/Thursday:/<strong $daystrongStyle > Thursday:<\/strong>/g;
+$fullforecast =~ s/Thursday night:/<strong $daystrongStyle > Thursday night:<\/strong>/g;
+$fullforecast =~ s/Friday:/<strong $daystrongStyle > Friday:<\/strong>/g;
+$fullforecast =~ s/Friday night:/<strong $daystrongStyle > Friday night:<\/strong>/g;
+$fullforecast =~ s/Saturday:/<strong style="font-weight: normal;"> Saturday:<\/strong>/g;
+$fullforecast =~ s/Saturday night:/<strong $daystrongStyle > Saturday night:<\/strong>/g;
+$fullforecast =~ s/Sunday:/<strong $daystrongStyle > Sunday:<\/strong>/g;
+$fullforecast =~ s/Sunday night:/<strong $daystrongStyle > Sunday night:<\/strong>/g;
 $fullforecast =~ s/thunderstorm/<a href="$thunderLink" target="_blank"><strong style="color: $thunderWarn">thunderstorm<\/strong><\/a>/g;
 $fullforecast =~ s/thunderstorms/<a href="$thunderLink"  target="_blank"><strong style="color: $thunderWarn">thunderstorms<\/strong><\/a>/g;
 $fullforecast =~ s/thundershowers/<a href="$thunderLink"  target="_blank"><strong style="color: $thunderWarn">thundershowers<\/strong><\/a>/g;
 $fullforecast =~ s/thundershowers/<a href="$thunderLink"  target="_blank"><strong style="color: $thunderWarn">thundershowers<\/strong><\/a>/g;
 $fullforecast =~ s/Normals/<strong> Normals:<\/strong>/g;
-$fullforecast =~ s/Freezing drizzle/<strong style="color: $freezeDrizzleWarn">Freezing drizzle<\/strong>/g;
-$fullforecast =~ s/freezing drizzle/<strong style="color: $freezeDrizzleWarn">freezing drizzle<\/strong>/g;
-$fullforecast =~ s/Freezing rain/<strong style="color: $freezeRainWarn">Freezing rain<\/strong>/g;
-$fullforecast =~ s/freezing rain/<strong style="color: $freezeRainWarn">freezing rain<\/strong>/g;
-$fullforecast =~ s/Flurries/<strong style="color: $freezingTemp">Flurries<\/strong>/g;
-$fullforecast =~ s/flurries/<strong style="color: $freezingTemp">flurries<\/strong>/g;
-$fullforecast =~ s/Snowfall/<strong style="color: $freezingTemp">Snowfall<\/strong>/g;
-$fullforecast =~ s/snowfall/<strong style="color: $freezingTemp">snowfall<\/strong>/g;
-$fullforecast =~ s/Snow/<strong style="color: $freezingTemp">Snow<\/strong>/g;
-$fullforecast =~ s/snow/<strong style="color: $freezingTemp">snow<\/strong>/g;
-$fullforecast =~ s/freezing rain/<strong style="color: #ff66dd;">freezing rain<\/strong>/g;
-$fullforecast =~ s/Freezing rain/<strong style="color: #ff66dd;">Freezing rain<\/strong>/g;
+#COLD STUFF
+$fullforecast =~ s/Freezing drizzle/<strong $drizzstrongStyle >Freezing drizzle<\/strong>/g;
+$fullforecast =~ s/freezing drizzle/<strong $drizzstrongStyle >freezing drizzle<\/strong>/g;
+$fullforecast =~ s/Freezing rain/<strong $frainstrongStyle >Freezing rain<\/strong>/g;
+$fullforecast =~ s/freezing rain/<strong $frainstrongStyle >freezing rain<\/strong>/g;
+$fullforecast =~ s/Flurries/<strong $flurstrongStyle >Flurries<\/strong>/g;
+$fullforecast =~ s/flurries/<strong $flurstrongStyle >flurries<\/strong>/g;
+$fullforecast =~ s/Snowfall/<strong $snowflstrongStyle >Snowfall<\/strong>/g;
+$fullforecast =~ s/snowfall/<strong $snowflstrongStyle >snowfall<\/strong>/g;
+$fullforecast =~ s/Snow/<strong $snowstrongStyle >Snow<\/strong>/g;
+$fullforecast =~ s/snow/<strong $snowstrongStyle >snow<\/strong>/g;
+#HOT STUFF
 $fullforecast =~ s/High 30/<strong style="color: $hotTemp">High 30<\/strong>/g;
 $fullforecast =~ s/High 31/<strong style="color: $hotTemp">High 31<\/strong>/g;
 $fullforecast =~ s/High 32/<strong style="color: $hotTemp">High 32<\/strong>/g;
@@ -499,7 +528,7 @@ $fullforecast =~ s/FOG ADVISORY IN EFFECT, $forecastPlaceName/<strong><a target=
 
 #print $fullforecast;
 
-my $copyrightEC = "<span style='font-size: xx-small;'>This forecast is generated and processed from Environment Canada reports. No guarantees are made or given on its accuracy.</span>";
+my $copyrightEC = "<span style='font-size: xx-small;'>" . $footerMsg . "</span>";
 $fullforecast = $fullforecast . $copyrightEC;
 #print $fullforecast;
 
@@ -511,7 +540,7 @@ my $finalconditions = "ECTime;" . $obstime . "ECTemp;" . $temp . "ECPressure;" .
 #$finalconditions = "ECTime;" . $obstime . "ECTemp;" . $temp . "ECPressure;" . $pressure . "ECTrend;" . $pressuretrend . "ECHumidity;" . $humidity . "ECChill;" . "N/A;" . "ECDew;" . $dew . "ECWind;" . $wind . "ECAirQ;" . $airq . "ECForecast;" . $fullforecast;
 
 ### VALID HTML PAGE PREAMBLE AND POSTAMBLE
-my $htmlPreamble = "<!DOCTYPE html><html lang='en'><head><title>EC Forecast Grabber</title><meta charset='utf-8' /> </head><body>";
+my $htmlPreamble = "<!DOCTYPE html><html lang='en'><head><title>EC Forecast Grabber</title><meta charset='utf-8' />" . $mainStyleElement . "</head><body>";
 my $htmlPostamble = "</body></html>";
 
 ##NOW make one 

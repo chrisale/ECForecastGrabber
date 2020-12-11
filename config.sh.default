@@ -39,23 +39,35 @@ thunderLink=https://weather.gc.ca/lightning/index_e.html?id=PAC#mapTop
 forecastName='Vancouver Island Inland Sections - Forecast'
 
 
-#### THE FOLLOWING DON'T NEED TO BE CHANGED BUT CAN BE
+#### THE FOLLOWING DON'T NEED TO BE CHANGED BUT CAN BE.
 
 ## Name of the XML file
 ## eg. ECXMLfile.xml
 xmlFile=ECXMLfile.xml
 
-## Final Web File Name - A temporary file will also be derived from this filename and placed in 
-## the same directory when the script runs.
-## eg. ECForecast.html
+##Final Web File Name - A temporary file will also be derived from this filename and placed in the same directory when the script runs.
 finalForecast=ECForecast.html
 
-##Colours for warnings.
-## eg. #ff7777;
-## or for a name eg. red;
-freezeDrizzleWarn=#ff7777;
-freezeRainWarn=#ff66dd;
-freezingTemp=#0000ff;
-hotTemp=#ff0000;
-thunderWarn=#ffaa00;
+##Message that appears at the bottom of the text forecast
+footerMsg='This forecast is generated and processed from Environment Canada reports. No guarantees are made or given on its accuracy.'
 
+##Style information for formatting and display of the text forecasts.
+
+## Would you like to days bolded
+## Options are: bold or normal
+boldDays=bold
+
+## Colors for warnings and events.
+## eg. #ff7777
+## or for a name eg. red
+freezeDrizzleWarn=#ff7777
+freezeRainWarn=#ff66dd
+freezingTemp=#0000ff
+flurriesColor=#0000ff
+hotTemp=#ff0000
+thunderWarn=#ffaa00
+thunderWarn=#ffaa00
+
+## Other adjustable colours
+#Default colour of the whole paragraph containing the forecast.
+textColor=black

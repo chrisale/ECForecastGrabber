@@ -10,7 +10,7 @@ tmp=tmp
 finalForecasttmp="$tmp$finalForecast"
 
 echo 'Running forecastgrabber.sh. Fetching XML feed.'
-$wgetPath -O "$webPath/$xmlFile" https://weather.gc.ca/rss/city/bc-46_e.xml
+$wgetPath -O "$webPath/$xmlFile" $rssURL
 
 ## IF YOUR SYSTEM USES CURL COMMENT OUT THE PREVIOUS LINE AND UNCOMMENT THE FOLLOWING LINE
 #/path/to/curl -o /your/location/ECXMLfile.txt https://weather.gc.ca/rss/city/bc-46_e.xml
@@ -33,6 +33,12 @@ export perlfreezeRainWarn=$freezeRainWarn
 export perlfreezingTemp=$freezingTemp
 export perlhotTemp=$hotTemp
 export perlthunderWarn=$thunderWarn
+export perlboldDays=$boldDays
+export perltextColor=$textColor
+export perlflurriesColor=$flurriesColor
+export perlfooterMsg=$footerMsg
+
+
 
 ## THE LOCATION OF forecast.pl
 echo 'running perl script'
@@ -42,7 +48,7 @@ perl $scriptPath/forecast.pl
 ## THE LOCATION OF THE TEMPORARY FILE CAN BE THE SAME AS YOUR forecast.pl and ECXMLFile.
 
 ##ECForecast.html must be in a public web directory to be included on your webpage.
-echo "$webPath/$finalForecasttmp $webPath/$finalForecast"
+
 cp $webPath/$finalForecasttmp $webPath/$finalForecast
 rm $webPath/$finalForecasttmp
 
