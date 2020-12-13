@@ -1,5 +1,9 @@
 # Change Log
 
+**v1.2.1** # Not Yet Added to Release, Download Git Source only
+
+* Added low zero capture and colouring for freezing temp.
+
 **v1.2.0**
 
 * fixed leftover perl warning messages.
