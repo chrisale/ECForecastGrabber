@@ -67,6 +67,8 @@ flurriesColor=#0000ff
 hotTemp=#ff0000
 thunderWarn=#ffaa00
 thunderWarn=#ffaa00
+windyColor=#990088
+hRainColor=#00ff00
 
 ## Other adjustable colours
 #Default colour of the whole paragraph containing the forecast.

@@ -41,6 +41,8 @@ my $freezingTemp = $ENV{'perlfreezingTemp'};
 my $hotTemp = $ENV{'perlhotTemp'};
 my $thunderWarn = $ENV{'perlthunderWarn'};
 my $flurriesColor = $ENV{'perlflurriesColor'};
+my $windyColor = $ENV{'perlwindyColor'};
+my $hRainColor = $ENV{'perlhRainColor'};
 
 
 my $comma = ";";
@@ -478,19 +480,6 @@ $fullforecast =~ s/Snowfall/<strong $snowflstrongStyle >Snowfall<\/strong>/g;
 $fullforecast =~ s/snowfall/<strong $snowflstrongStyle >snowfall<\/strong>/g;
 $fullforecast =~ s/Snow/<strong $snowstrongStyle >Snow<\/strong>/g;
 $fullforecast =~ s/snow/<strong $snowstrongStyle >snow<\/strong>/g;
-#HOT STUFF
-$fullforecast =~ s/High 30/<strong style="color: $hotTemp">High 30<\/strong>/g;
-$fullforecast =~ s/High 31/<strong style="color: $hotTemp">High 31<\/strong>/g;
-$fullforecast =~ s/High 32/<strong style="color: $hotTemp">High 32<\/strong>/g;
-$fullforecast =~ s/High 33/<strong style="color: $hotTemp">High 33<\/strong>/g;
-$fullforecast =~ s/High 34/<strong style="color: $hotTemp">High 34<\/strong>/g;
-$fullforecast =~ s/High 35/<strong style="color: $hotTemp">High 35<\/strong>/g;
-$fullforecast =~ s/High 36/<strong style="color: $hotTemp">High 36<\/strong>/g;
-$fullforecast =~ s/High 37/<strong style="color: $hotTemp">High 37<\/strong>/g;
-$fullforecast =~ s/High 38/<strong style="color: $hotTemp">High 38<\/strong>/g;
-$fullforecast =~ s/High 39/<strong style="color: $hotTemp">High 39<\/strong>/g;
-$fullforecast =~ s/High 40/<strong style="color: $hotTemp">High 40<\/strong>/g;
-$fullforecast =~ s/High 41/<strong style="color: $hotTemp">High 41<\/strong>/g;
 $fullforecast =~ s/plus 1/<strong style="color: $freezingTemp">plus 1<\/strong>/g;
 $fullforecast =~ s/Low 0/<strong style="color: $freezingTemp">Low 0<\/strong>/g;
 $fullforecast =~ s/low 0/<strong style="color: $freezingTemp">low 0<\/strong>/g;
@@ -506,6 +495,26 @@ $fullforecast =~ s/minus 7/<strong style="color: $freezingTemp">minus 7<\/strong
 $fullforecast =~ s/minus 8/<strong style="color: $freezingTemp">minus 8<\/strong>/g;
 $fullforecast =~ s/minus 9/<strong style="color: $freezingTemp">minus 9<\/strong>/g;
 $fullforecast =~ s/minus 10/<strong style="color: blue;">minus 10<\/strong>/g;
+#HOT STUFF
+$fullforecast =~ s/High 30/<strong style="color: $hotTemp">High 30<\/strong>/g;
+$fullforecast =~ s/High 31/<strong style="color: $hotTemp">High 31<\/strong>/g;
+$fullforecast =~ s/High 32/<strong style="color: $hotTemp">High 32<\/strong>/g;
+$fullforecast =~ s/High 33/<strong style="color: $hotTemp">High 33<\/strong>/g;
+$fullforecast =~ s/High 34/<strong style="color: $hotTemp">High 34<\/strong>/g;
+$fullforecast =~ s/High 35/<strong style="color: $hotTemp">High 35<\/strong>/g;
+$fullforecast =~ s/High 36/<strong style="color: $hotTemp">High 36<\/strong>/g;
+$fullforecast =~ s/High 37/<strong style="color: $hotTemp">High 37<\/strong>/g;
+$fullforecast =~ s/High 38/<strong style="color: $hotTemp">High 38<\/strong>/g;
+$fullforecast =~ s/High 39/<strong style="color: $hotTemp">High 39<\/strong>/g;
+$fullforecast =~ s/High 40/<strong style="color: $hotTemp">High 40<\/strong>/g;
+$fullforecast =~ s/High 41/<strong style="color: $hotTemp">High 41<\/strong>/g;
+#WINDY STUFF
+$fullforecast =~ s/windy/<strong style="color: $windyColor">windy<\/strong>/g;
+$fullforecast =~ s/Windy/<strong style="color: $windyColor">Windy<\/strong>/g;
+#RAINY STUFF
+$fullforecast =~ s/heavy rain/<strong style="color: $windyColor">heavy rain<\/strong>/g;
+$fullforecast =~ s/Heavy rain/<strong style="color: $hRainColor">Heavy rain<\/strong>/g;
+#WARNINGS
 $fullforecast =~ s/No watches or warnings in effect. $forecastPlaceName//g;
 $fullforecast =~ s/SNOWFALL WARNING ENDED, $forecastPlaceName/<strong class="warning"><a target='_blank' href="$warnLink">SNOWFALL WARNING ENDED<\/a><\/strong>/g;
 $fullforecast =~ s/WIND WARNING ENDED, $forecastPlaceName/<strong class="warning"><a target='_blank' href="$warnLink">WIND WARNING ENDED<\/a><\/strong>/g;

@@ -37,7 +37,8 @@ export perlboldDays=$boldDays
 export perltextColor=$textColor
 export perlflurriesColor=$flurriesColor
 export perlfooterMsg=$footerMsg
-
+export perlwindyColor=$windyColor
+export perlhRainColor=$hRainColor
 
 
 ## THE LOCATION OF forecast.pl

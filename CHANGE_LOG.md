@@ -2,7 +2,11 @@
 
 **v1.2.1** # In Progress - Not Yet Added to Release - Git Clone only
 
-* Added low zero capture and colouring for freezing temp.
+* Added 'heavy rain' colouring.
+
+* Added 'windy' colouring.
+
+* Added 'low zero' colouring for freezing temp.
 
 **v1.2.0**
 
