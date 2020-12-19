@@ -1,12 +1,24 @@
 # Change Log
 
-**v1.2.1** # In Progress - Not Yet Added to Release - Git Clone only
+**v1.2.1**
 
-* Added 'heavy rain' colouring.
+* Updated the README file.
 
-* Added 'windy' colouring.
+* Added multiple rain amount captures for colouring by hraincolor and vhraincolor values. eg. '10 to 15 mm'
 
-* Added 'low zero' colouring for freezing temp.
+* Added 'rain at times heavy'. - Added to heavy rain colouring
+
+* Added 'gusty wind'. - Added to 'windy' colouring
+
+* Fixed Saturday bug introduced earlier.
+
+* Added 'very heavy rain'. Added new colouring (default red).
+
+* Added 'heavy rain'. - Added new colouring (default green).
+
+* Added 'windy'. - Added new colouring (default purple).
+
+* Added 'low zero'. - colouring for freezing temp.
 
 **v1.2.0**
 

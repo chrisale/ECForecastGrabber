@@ -39,7 +39,7 @@ export perlflurriesColor=$flurriesColor
 export perlfooterMsg=$footerMsg
 export perlwindyColor=$windyColor
 export perlhRainColor=$hRainColor
-
+export perlvhRainColor=$vhRainColor
 
 ## THE LOCATION OF forecast.pl
 echo 'running perl script'

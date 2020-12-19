@@ -43,7 +43,7 @@ my $thunderWarn = $ENV{'perlthunderWarn'};
 my $flurriesColor = $ENV{'perlflurriesColor'};
 my $windyColor = $ENV{'perlwindyColor'};
 my $hRainColor = $ENV{'perlhRainColor'};
-
+my $vhRainColor = $ENV{'perlvhRainColor'};
 
 my $comma = ";";
 $xml = new XML::Simple;
@@ -460,7 +460,7 @@ $fullforecast =~ s/Thursday:/<strong $daystrongStyle > Thursday:<\/strong>/g;
 $fullforecast =~ s/Thursday night:/<strong $daystrongStyle > Thursday night:<\/strong>/g;
 $fullforecast =~ s/Friday:/<strong $daystrongStyle > Friday:<\/strong>/g;
 $fullforecast =~ s/Friday night:/<strong $daystrongStyle > Friday night:<\/strong>/g;
-$fullforecast =~ s/Saturday:/<strong style="font-weight: normal;"> Saturday:<\/strong>/g;
+$fullforecast =~ s/Saturday:/<strong $daystrongStyle > Saturday:<\/strong>/g;
 $fullforecast =~ s/Saturday night:/<strong $daystrongStyle > Saturday night:<\/strong>/g;
 $fullforecast =~ s/Sunday:/<strong $daystrongStyle > Sunday:<\/strong>/g;
 $fullforecast =~ s/Sunday night:/<strong $daystrongStyle > Sunday night:<\/strong>/g;
@@ -511,9 +511,25 @@ $fullforecast =~ s/High 41/<strong style="color: $hotTemp">High 41<\/strong>/g;
 #WINDY STUFF
 $fullforecast =~ s/windy/<strong style="color: $windyColor">windy<\/strong>/g;
 $fullforecast =~ s/Windy/<strong style="color: $windyColor">Windy<\/strong>/g;
+$fullforecast =~ s/gusty winds/<strong style="color: $windyColor">gusty winds<\/strong>/g;
+$fullforecast =~ s/Gusty winds/<strong style="color: $windyColor">Gusty winds<\/strong>/g;
 #RAINY STUFF
-$fullforecast =~ s/heavy rain/<strong style="color: $windyColor">heavy rain<\/strong>/g;
+$fullforecast =~ s/Rain at times heavy/<strong style="color: $hRainColor">Rain at times heavy<\/strong>/g;
+$fullforecast =~ s/rain at times heavy/<strong style="color: $hRainColor">rain at times heavy<\/strong>/g;
+$fullforecast =~ s/heavy rain/<strong style="color: $hRainColor">heavy rain<\/strong>/g;
 $fullforecast =~ s/Heavy rain/<strong style="color: $hRainColor">Heavy rain<\/strong>/g;
+$fullforecast =~ s/20 mm/<strong style="color: $hRainColor">20 mm<\/strong>/g;
+$fullforecast =~ s/25 mm/<strong style="color: $hRainColor">25 mm<\/strong>/g;
+$fullforecast =~ s/15 to 20 mm/<strong style="color: $hRainColor">15 to 20 mm<\/strong>/g;
+$fullforecast =~ s/15 to 25 mm/<strong style="color: $hRainColor">15 to 25 mm<\/strong>/g;
+$fullforecast =~ s/20 to 25 mm/<strong style="color: $hRainColor">20 to 25 mm<\/strong>/g;
+
+
+$fullforecast =~ s/25 to 30 mm/<strong style="color: $vhRainColor">25 to 30 mm<\/strong>/g;
+$fullforecast =~ s/30 to 40 mm/<strong style="color: $vhRainColor">30 to 40 mm<\/strong>/g;
+$fullforecast =~ s/35 to 40 mm/<strong style="color: $vhRainColor">35 to 40 mm<\/strong>/g;
+$fullforecast =~ s/40 to 45 mm/<strong style="color: $vhRainColor">40 to 45 mm<\/strong>/g;
+$fullforecast =~ s/45 to 50 mm/<strong style="color: $vhRainColor">45 to 50 mm<\/strong>/g;
 #WARNINGS
 $fullforecast =~ s/No watches or warnings in effect. $forecastPlaceName//g;
 $fullforecast =~ s/SNOWFALL WARNING ENDED, $forecastPlaceName/<strong class="warning"><a target='_blank' href="$warnLink">SNOWFALL WARNING ENDED<\/a><\/strong>/g;
