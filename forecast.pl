@@ -28,7 +28,6 @@ my $thunderLink = $ENV{'perlthunderLink'};
 my $forecastName = $ENV{'perlforecastName'};
 my $footerMsg = $ENV{'perlfooterMsg'};
 
-
 ##STYLES
 my $boldDays = $ENV{'perlboldDays'};
 my $textColor = $ENV{'perltextColor'};
@@ -55,11 +54,6 @@ my $forecastlink = $forecastlinkpreamble . $forecastURL . $forecastlinkpostamble
 $xmlFile = $perlWebPath . $xmlFile;
 $outputForecastOnlyfile = $perlWebPath . $outputForecastOnlyfile;
 $outputConditionsandForecastfile = $perlWebPath . $outputConditionsandForecastfile;
-
-
-
-
-
 
 # read XML file
 my $data = $xml->XMLin($xmlFile);
@@ -485,6 +479,37 @@ $fullforecast =~ s/Low 0/<strong style="color: $freezingTemp">Low 0<\/strong>/g;
 $fullforecast =~ s/low 0/<strong style="color: $freezingTemp">low 0<\/strong>/g;
 $fullforecast =~ s/Low zero/<strong style="color: $freezingTemp">Low zero<\/strong>/g;
 $fullforecast =~ s/low zero/<strong style="color: $freezingTemp">low zero<\/strong>/g;
+$fullforecast =~ s/minus 10/<strong style="color: blue;">minus 10<\/strong>/g;
+$fullforecast =~ s/minus 11/<strong style="color: blue;">minus 11<\/strong>/g;
+$fullforecast =~ s/minus 12/<strong style="color: blue;">minus 12<\/strong>/g;
+$fullforecast =~ s/minus 13/<strong style="color: blue;">minus 13<\/strong>/g;
+$fullforecast =~ s/minus 14/<strong style="color: blue;">minus 14<\/strong>/g;
+$fullforecast =~ s/minus 15/<strong style="color: blue;">minus 15<\/strong>/g;
+$fullforecast =~ s/minus 16/<strong style="color: blue;">minus 16<\/strong>/g;
+$fullforecast =~ s/minus 17/<strong style="color: blue;">minus 17<\/strong>/g;
+$fullforecast =~ s/minus 18/<strong style="color: blue;">minus 18<\/strong>/g;
+$fullforecast =~ s/minus 19/<strong style="color: blue;">minus 19<\/strong>/g;
+$fullforecast =~ s/minus 20/<strong style="color: blue;">minus 20<\/strong>/g;
+$fullforecast =~ s/minus 21/<strong style="color: blue;">minus 21<\/strong>/g;
+$fullforecast =~ s/minus 22/<strong style="color: blue;">minus 22<\/strong>/g;
+$fullforecast =~ s/minus 23/<strong style="color: blue;">minus 23<\/strong>/g;
+$fullforecast =~ s/minus 24/<strong style="color: blue;">minus 24<\/strong>/g;
+$fullforecast =~ s/minus 25/<strong style="color: blue;">minus 25<\/strong>/g;
+$fullforecast =~ s/minus 26/<strong style="color: blue;">minus 26<\/strong>/g;
+$fullforecast =~ s/minus 27/<strong style="color: blue;">minus 27<\/strong>/g;
+$fullforecast =~ s/minus 28/<strong style="color: blue;">minus 28<\/strong>/g;
+$fullforecast =~ s/minus 29/<strong style="color: blue;">minus 29<\/strong>/g;
+$fullforecast =~ s/minus 30/<strong style="color: blue;">minus 30<\/strong>/g;
+$fullforecast =~ s/minus 31/<strong style="color: blue;">minus 31<\/strong>/g;
+$fullforecast =~ s/minus 32/<strong style="color: blue;">minus 32<\/strong>/g;
+$fullforecast =~ s/minus 33/<strong style="color: blue;">minus 33<\/strong>/g;
+$fullforecast =~ s/minus 34/<strong style="color: blue;">minus 34<\/strong>/g;
+$fullforecast =~ s/minus 35/<strong style="color: blue;">minus 35<\/strong>/g;
+$fullforecast =~ s/minus 36/<strong style="color: blue;">minus 36<\/strong>/g;
+$fullforecast =~ s/minus 37/<strong style="color: blue;">minus 37<\/strong>/g;
+$fullforecast =~ s/minus 38/<strong style="color: blue;">minus 38<\/strong>/g;
+$fullforecast =~ s/minus 39/<strong style="color: blue;">minus 39<\/strong>/g;
+$fullforecast =~ s/minus 40/<strong style="color: blue;">minus 40<\/strong>/g;
 $fullforecast =~ s/minus 1/<strong style="color: $freezingTemp">minus 1<\/strong>/g;
 $fullforecast =~ s/minus 2/<strong style="color: $freezingTemp">minus 2<\/strong>/g;
 $fullforecast =~ s/minus 3/<strong style="color: $freezingTemp">minus 3<\/strong>/g;
@@ -494,7 +519,9 @@ $fullforecast =~ s/minus 6/<strong style="color: $freezingTemp">minus 6<\/strong
 $fullforecast =~ s/minus 7/<strong style="color: $freezingTemp">minus 7<\/strong>/g;
 $fullforecast =~ s/minus 8/<strong style="color: $freezingTemp">minus 8<\/strong>/g;
 $fullforecast =~ s/minus 9/<strong style="color: $freezingTemp">minus 9<\/strong>/g;
-$fullforecast =~ s/minus 10/<strong style="color: blue;">minus 10<\/strong>/g;
+
+
+
 #HOT STUFF
 $fullforecast =~ s/High 30/<strong style="color: $hotTemp">High 30<\/strong>/g;
 $fullforecast =~ s/High 31/<strong style="color: $hotTemp">High 31<\/strong>/g;
@@ -511,6 +538,13 @@ $fullforecast =~ s/High 41/<strong style="color: $hotTemp">High 41<\/strong>/g;
 #WINDY STUFF
 $fullforecast =~ s/windy/<strong style="color: $windyColor">windy<\/strong>/g;
 $fullforecast =~ s/Windy/<strong style="color: $windyColor">Windy<\/strong>/g;
+$fullforecast =~ s/15 km\/h/<strong style="color: $windyColor">15 km\/h<\/strong>/g;
+$fullforecast =~ s/20 km\/h/<strong style="color: $windyColor">20 km\/h<\/strong>/g;
+$fullforecast =~ s/25 km\/h/<strong style="color: $windyColor">25 km\/h<\/strong>/g;
+$fullforecast =~ s/30 km\/h/<strong style="color: $windyColor">30 km\/h<\/strong>/g;
+$fullforecast =~ s/35 km\/h/<strong style="color: $windyColor">35 km\/h<\/strong>/g;
+$fullforecast =~ s/40 km\/h/<strong style="color: $windyColor">40 km\/h<\/strong>/g;
+
 $fullforecast =~ s/gusty winds/<strong style="color: $windyColor">gusty winds<\/strong>/g;
 $fullforecast =~ s/Gusty winds/<strong style="color: $windyColor">Gusty winds<\/strong>/g;
 #RAINY STUFF
@@ -523,8 +557,6 @@ $fullforecast =~ s/25 mm/<strong style="color: $hRainColor">25 mm<\/strong>/g;
 $fullforecast =~ s/15 to 20 mm/<strong style="color: $hRainColor">15 to 20 mm<\/strong>/g;
 $fullforecast =~ s/15 to 25 mm/<strong style="color: $hRainColor">15 to 25 mm<\/strong>/g;
 $fullforecast =~ s/20 to 25 mm/<strong style="color: $hRainColor">20 to 25 mm<\/strong>/g;
-
-
 $fullforecast =~ s/25 to 30 mm/<strong style="color: $vhRainColor">25 to 30 mm<\/strong>/g;
 $fullforecast =~ s/30 to 40 mm/<strong style="color: $vhRainColor">30 to 40 mm<\/strong>/g;
 $fullforecast =~ s/35 to 40 mm/<strong style="color: $vhRainColor">35 to 40 mm<\/strong>/g;
@@ -553,15 +585,10 @@ $fullforecast =~ s/HEAT WARNING , $forecastPlaceName/<strong class="warning"><a 
 $fullforecast =~ s/Persons in or near this area should be on the lookout for adverse weather conditions and take necessary safety precautions./<br\/>/g;
 $fullforecast =~ s/No watches or warnings in effect./<strong><a target='_blank' href="$warnLink">No watches or warnings in effect.<\/a><\/strong>/g;
 $fullforecast =~ s/FOG ADVISORY IN EFFECT, $forecastPlaceName/<strong><a target='_blank' href="$warnLink">FOG ADVISORY IN EFFECT<\/a><\/strong>/g;
-
-#print $fullforecast;
+$fullforecast =~ s/SMOG WARNING , $forecastPlaceName/<strong><a target='_blank' href="$warnLink">SMOG WARNING<\/a><\/strong>/g;
 
 my $copyrightEC = "<span style='font-size: xx-small;'>" . $footerMsg . " - Powered by <a href='https://github.com/chrisale/ECForecastGrabber' target='_blank'> ECForecastGrabber</a></span>";
 $fullforecast = $fullforecast . $copyrightEC;
-#print $fullforecast;
-
-
-#PRINT $finalconditions;
 
 ##NOW WE STICK THEM ALL IN A FINAL COMMA DELIMITED LIST AND PUT THEM IN A FILE READY TO INGEST
 my $finalconditions = "ECTime;" . $obstime . "ECTemp;" . $temp . "ECPressure;" . $pressure . "ECTrend;" . $pressuretrend . "ECHumidity;" . $humidity . "ECChill;" . $chill . "ECDew;" . $dew . "ECWind;" . $wind . "ECAirQ;" . $airq . "ECForecast;" . $fullforecast;

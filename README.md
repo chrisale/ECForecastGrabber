@@ -7,7 +7,7 @@ You can also make copies of these files and have as many forecasts downloaded an
 
 # How does it work?
 
-These scripts are intended to be run on your webserver or on a computer and then uploaded to your webserver.  The forecastgrabber.sh file is initiated by cron. Using your configuration parameters from config.sh, the forecastgrabber.sh shell script fetches the latest forecast from Environment Canada and then runs the forecast.pl perl script to parse it and modify it.
+These scripts are intended to be run on your webserver or on a computer and then uploaded to your webserver.  The forecastgrabber.sh file is initiated by cron. Using your configuration parameters from config.sh, the forecastgrabber.sh shell script fetches the latest forecast from Environment Canada and then runs the forecast.pl perl script to parse it and augment it.
 
 The forecast.pl script then outputs a temporary file that forecastgrabber.sh then copies to its final web accessible destination.  These two operations are separate to minimize disruption on the web side and to allow for uploading.
 
@@ -41,11 +41,15 @@ wGet is also required.
 	
 	This can be added as a Custom HTML block in a modern wordpress blog or widget, or it can be added directly inside an HTML webpage.
 	
+# Known Issues
+
+* French Language support: Note that at this time French place names using accented characters are not supported. 
+	
 # Please Send Suggestions and Updates
 
 I created this script and added to it over time as I discovered more Environment Canada warnings and messages. If you see something that Environment Canada is producing in your forecast that this script is not handling well, please post an issue here!  There will be many at first!
 
-When sending a potential addition to the capture and modification of the text, it is very helpful to provide the exact RSS file downloaded from Environment Canada that produced the text you wish to modify so that the exact wording and syntax can be seen.
+When sending a potential addition to the capture and augmentation of the text, it is very helpful to provide the exact RSS file downloaded from Environment Canada that produced the text you wish to augment so that the exact wording and syntax can be seen.
 
 Thanks!
 

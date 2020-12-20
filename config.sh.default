@@ -3,74 +3,79 @@
 
 ## Full path to wget 
 #eg. /usr/bin/wget
-wgetPath=/usr/bin/wget
+wgetPath="/usr/bin/wget"
 
-## Path to your script files. Recommended outside your web accessible directory.
+## Path to your script directory. Recommended outside your web accessible directory.
 #eg. /var/www/supportfiles/ECForecastGrabber-main
-scriptPath=/var/www/supportfiles/ECForecastGrabber-main
+scriptPath="/var/www/supportfiles/ECForecastGrabber-main"
 
 ## Path to final web directory where XML and HTML file will be stored.
 #eg. /var/www/httpdocs
-webPath=/var/www/httpdocs
-
-## Full URL to the RSS feed for your desired city.
-#eg. https://weather.gc.ca/rss/city/bc-46_e.xml
-rssURL=https://weather.gc.ca/rss/city/bc-46_e.xml
+webPath="/var/www/httpdocs"
 
 ## Full URL to the to your desired city's forecast page.
 #eg. https://weather.gc.ca/city/pages/bc-46_metric_e.html
-forecastURL=https://weather.gc.ca/city/pages/bc-46_metric_e.html
+forecastURL="https://weather.gc.ca/city/pages/bc-46_metric_e.html"
 
-## Exact name of the City associated with the forecast page - If you get a double output of the name or warning
-#link you might need to check this to ensure it is exactly the same as the webpage.
-## eg. 'Port Alberni'
-forecastPlaceName='Port Alberni'
+## Full URL to the RSS feed for your desired city.
+## Look for the orange RSS/Atom link at the bottom of the forecast page.
+#eg. https://weather.gc.ca/rss/city/bc-46_e.xml
+rssURL="https://weather.gc.ca/rss/city/bc-46_e.xml"
 
-## Full URL of the forecast web page for your city or town.
+## Exact name of the location associated with the forecast page - If you get a double output of the name or warning link you might need to check this to ensure it is exactly the same as the webpage. 
+## If the name has an apostrophe or brackets you must escape them.
+## French characters are not supported at this time.
+## eg. Ottawa \(Richmond - Metcalfe\)
+forecastPlaceName="Port Alberni"
+
+## Clickable name for your forecast, this can be anything but is often the same as the forecastPlaceName. No need for escape characters.
+## eg. Vancouver Island Inland Sections - Forecast
+forecastName="Port Alberni"
+
+## Full URL of the warnings page for your location.
 ## eg. https://weather.gc.ca/warnings/report_e.html?bc45
-warnLink=https://weather.gc.ca/warnings/report_e.html?bc45
+warnLink="https://weather.gc.ca/warnings/report_e.html?bc45"
 
-## Full URL of the warnings web page for your area.
+## Full URL of the lightning detection web page for your region.
 ## eg. https://weather.gc.ca/lightning/index_e.html?id=PAC#mapTop
-thunderLink=https://weather.gc.ca/lightning/index_e.html?id=PAC#mapTop
+thunderLink="https://weather.gc.ca/lightning/index_e.html?id=PAC#mapTop"
 
-## Clickable name for your forecast, this can be anything.
-## eg. 'Vancouver Island Inland Sections - Forecast'
-forecastName='Vancouver Island Inland Sections - Forecast'
-
-
+###############################################################################
 #### THE FOLLOWING DON'T NEED TO BE CHANGED BUT CAN BE.
+###############################################################################
 
 ## Name of the XML file
 ## eg. ECXMLfile.xml
-xmlFile=ECXMLfile.xml
+xmlFile="ECXMLfile.xml"
 
 ##Final Web File Name - A temporary file will also be derived from this filename and placed in the same directory when the script runs.
-finalForecast=ECForecast.html
+## eg. ECForecast,html
+finalForecast="ECForecast.html"
 
 ##Message that appears at the bottom of the text forecast
-footerMsg='This forecast is generated and processed from Environment Canada reports. No guarantees are made or given on its accuracy.'
+footerMsg="This forecast is generated and processed from Environment Canada reports. No guarantees are made or given on its accuracy."
 
 ##Style information for formatting and display of the text forecasts.
 
 ## Would you like to days bolded
 ## Options are: bold or normal
-boldDays=bold
+boldDays="bold"
 
 ## Colors for warnings and events.
 ## eg. #ff7777
 ## or for a name eg. red
-freezeDrizzleWarn=#ff7777
-freezeRainWarn=#ff66dd
-freezingTemp=#0000ff
-flurriesColor=#0000ff
-hotTemp=#ff0000
-thunderWarn=#ffaa00
-thunderWarn=#ffaa00
-windyColor=#990088
-hRainColor=#008800
-vhRainColor=#880000
+freezeDrizzleWarn="#ff7777"
+freezeRainWarn="#ff66dd"
+freezingTemp="#0000ff"
+flurriesColor="#0000ff"
+hotTemp="#ff0000"
+thunderWarn="#ffaa00"
+thunderWarn="#ffaa00"
+windyColor="#990088"
+hRainColor="#008800"
+vhRainColor="#880000"
 
 ## Other adjustable colours
 #Default colour of the whole paragraph containing the forecast.
-textColor=black
+textColor="black"
+

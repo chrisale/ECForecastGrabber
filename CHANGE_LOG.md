@@ -1,5 +1,19 @@
 # Change Log
 
+**v1.3.0**
+
+* All values in config.sh should now be contained in double quotes.
+
+* Added wind speed colouring.
+
+* Added more cold temperature colouring.
+
+* Added warning that french language accents are not supported yet.
+
+* Added instructions to support place names with special characters.
+
+* Other bugfixes
+
 **v1.2.1**
 
 * Updated the README file.

@@ -15,8 +15,6 @@ $wgetPath -O "$webPath/$xmlFile" $rssURL
 ## IF YOUR SYSTEM USES CURL COMMENT OUT THE PREVIOUS LINE AND UNCOMMENT THE FOLLOWING LINE
 #/path/to/curl -o /your/location/ECXMLfile.txt https://weather.gc.ca/rss/city/bc-46_e.xml
 
-
-
 #Export all the variables for perl
 
 export perlwebPath=$webPath
