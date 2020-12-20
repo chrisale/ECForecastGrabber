@@ -44,7 +44,7 @@ wGet is also required.
 	
 # Known Issues
 
-* French Language support: Note that at this time French place names using accented characters are not supported from the English language forecasts. French language versions of Environment Canada forecasts are also not supported at this time. I would be grateful for your assistance.
+French Language support: Note that at this time French place names using accented characters are not supported from the English language forecasts. French language versions of Environment Canada forecasts are also not supported at this time. I would be grateful for your assistance.
 	
 # Please Send Suggestions and Updates
 
