@@ -34,6 +34,7 @@ wGet is also required.
 * Modify the file paths and other configurations according to the instructions in the config file.
 
 * Add a cronjob in your system to run the forecastgrabber.sh file.
+	
 	A setting of */15 * * * * /your/location/forecastgrabber.sh would run it every 15 minutes.
 
 * Add the HTML file to your webpage with an iframe element like this:
