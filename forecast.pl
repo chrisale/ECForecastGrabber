@@ -31,9 +31,7 @@ my $forecastName = $ENV{'perlforecastName'};
 my $footerMsg = $ENV{'perlfooterMsg'};
 
 ## The variables end up getting double-encoded in UTF8 so decoding them seems to work to get perl to treat everything as utf8
-utf8::decode($forecastName);
 utf8::decode($forecastPlaceName);
-utf8::decode($footerMsg);
 
 my $warnLink = $ENV{'perlwarnLink'};
 my $thunderLink = $ENV{'perlthunderLink'};
