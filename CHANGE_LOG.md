@@ -1,4 +1,7 @@
 # Change Log
+**v1.3.1** In Progress
+
+* Added support for UTF-8 so accented characters work in config.sh. This means English language forecasts with French place names will now work properly.
 
 **v1.3.0**
 

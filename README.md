@@ -44,8 +44,8 @@ wGet is also required.
 	
 # Known Issues
 
-French Language support: Note that at this time French place names using accented characters are not supported from the English language forecasts. French language versions of Environment Canada forecasts are also not supported at this time. I would be grateful for your assistance.
-	
+French Language support: French language Environment Canada forecasts are not supported at this time but will be added. English language forecasts of locations with French place names are supported.
+
 # Please Send Suggestions and Updates
 
 I created this script and added to it over time as I discovered more Environment Canada warnings and messages. If you see something that Environment Canada is producing in your forecast that this script is not handling well, please post an issue here!  There will be many at first!

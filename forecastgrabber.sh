@@ -16,7 +16,6 @@ $wgetPath -O "$webPath/$xmlFile" $rssURL
 #/path/to/curl -o /your/location/ECXMLfile.txt https://weather.gc.ca/rss/city/bc-46_e.xml
 
 #Export all the variables for perl
-
 export perlwebPath=$webPath
 export perlxmlFile=$xmlFile
 export perlforecastURL=$forecastURL
@@ -42,7 +41,7 @@ export perlvhRainColor=$vhRainColor
 ## THE LOCATION OF forecast.pl
 echo 'running perl script'
 
-perl $scriptPath/forecast.pl
+perl -C $scriptPath/forecast.pl
 
 ## THE LOCATION OF THE TEMPORARY FILE CAN BE THE SAME AS YOUR forecast.pl and ECXMLFile.
 

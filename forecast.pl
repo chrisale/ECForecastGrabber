@@ -3,12 +3,14 @@
 use XML::Simple;
 use Data::Dumper;
 use HTTP::Date;
+use utf8;
 #use warnings;
 #use diagnostics;
 
 ## Adding trailing slash from user configuration
 
-my $perlWebPath = $ENV{'perlwebPath'}.'/';
+my $perlWebPath = $ENV{'perlwebPath'};
+$perlWebPath = $perlWebPath . '/';
 
 ## XML file is the source of all data from Environment Canada
 
@@ -22,11 +24,19 @@ my $outputForecastOnlyfile = $ENV{'perlfinalForecasttmp'};
 my $outputConditionsandForecastfile = 'ECCurCondTmp.txt';
 
 my $forecastURL = $ENV{'perlforecastURL'};
+
+
 my $forecastPlaceName = $ENV{'perlforecastPlaceName'};
-my $warnLink = $ENV{'perlwarnLink'};
-my $thunderLink = $ENV{'perlthunderLink'};
 my $forecastName = $ENV{'perlforecastName'};
 my $footerMsg = $ENV{'perlfooterMsg'};
+
+## The variables end up getting double-encoded in UTF8 so decoding them seems to work to get perl to treat everything as utf8
+utf8::decode($forecastName);
+utf8::decode($forecastPlaceName);
+utf8::decode($footerMsg);
+
+my $warnLink = $ENV{'perlwarnLink'};
+my $thunderLink = $ENV{'perlthunderLink'};
 
 ##STYLES
 my $boldDays = $ENV{'perlboldDays'};
@@ -117,7 +127,7 @@ foreach (@weatherkeys) {
 #print @weatherkeyfinal[2];
 #print $weathercc;
 #print $weatherwarn;
-$allforecast = '';
+my $allforecast = '';
 foreach (@weatherkeyfinal) {
 $allforecast = $allforecast . $data->{entry}{$_}{title};
 $allforecast = $allforecast . $data->{entry}{$_}{summary}{content};
@@ -248,7 +258,7 @@ $airq = $airq . $comma;
 $data = $xml->XMLin($xmlFile);
 
 ## GRABBING THE PROPER PART OF THE XML DOCUMENT STRUCTURE FOR CURRENT CONDITIONS
-$fullforecast = '';
+my $fullforecast = '';
 #$warnLink = $data->{channel}->{item}->[0]->{link};
 
 $fullforecast = $forecastlink . " - ";

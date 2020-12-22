@@ -6,8 +6,8 @@
 wgetPath="/usr/bin/wget"
 
 ## Path to your script directory. Recommended outside your web accessible directory.
-#eg. /var/www/supportfiles/ECForecastGrabber-main
-scriptPath="/var/www/supportfiles/ECForecastGrabber-main"
+#eg. /var/www/supportfiles/ECForecastGrabber
+scriptPath="/var/www/supportfiles/ECForecastGrabber"
 
 ## Path to final web directory where XML and HTML file will be stored.
 #eg. /var/www/httpdocs
@@ -22,10 +22,9 @@ forecastURL="https://weather.gc.ca/city/pages/bc-46_metric_e.html"
 #eg. https://weather.gc.ca/rss/city/bc-46_e.xml
 rssURL="https://weather.gc.ca/rss/city/bc-46_e.xml"
 
-## Exact name of the location associated with the forecast page - If you get a double output of the name or warning link you might need to check this to ensure it is exactly the same as the webpage. 
-## If the name has an apostrophe or brackets you must escape them.
-## French characters are not supported at this time.
-## eg. Ottawa \(Richmond - Metcalfe\)
+## Exact name of the location associated with the forecast page as outputted by the XML file. This includes spaces and must be precise - If you get a double output of the name or warning, double check this variable.
+## If the name has an apostrophe or brackets you must escape them with a backslash.
+## eg. Ottawa \(Kanata - Orléans\)
 forecastPlaceName="Port Alberni"
 
 ## Clickable name for your forecast, this can be anything but is often the same as the forecastPlaceName. No need for escape characters.
