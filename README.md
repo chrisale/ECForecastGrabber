@@ -16,6 +16,8 @@ The forecast.pl script then outputs a temporary file that forecastgrabber.sh the
 Something like this (from https://www.alberniweather.ca):
 ![image](https://github.com/chrisale/ECForecastGrabber/blob/main/images/forecastscreenshot.png)
 
+There is an example html file in the samples directory that can be used as a template.  It also includes a sample of the XML file produced by Environment Canada that is parsed by these scripts.
+
 
 # Setup and Installation
 
