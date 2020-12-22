@@ -46,7 +46,7 @@ wGet is also required.
 	
 # Known Issues
 
-French Language support: French language Environment Canada forecasts are not supported at this time but will be added. English language forecasts of locations with French place names are supported.
+* French Language support: French language Environment Canada forecasts are not supported at this time but will be added. English language forecasts of locations with French place names are supported.
 
 # Please Send Suggestions and Updates
 
