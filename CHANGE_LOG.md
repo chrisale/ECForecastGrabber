@@ -1,6 +1,8 @@
 # Change Log
 **v1.3.1** In Progress
 
+* Added docs directory with example web page with embedded forecast and sample XML file.
+
 * Added support for UTF-8 so accented characters work in config.sh. This means English language forecasts with French place names will now work properly.
 
 **v1.3.0**
