@@ -25,7 +25,7 @@ Initial requirements are minimal and should exist on any system.
 PERL requirements: XML::Simple, Data::Dumper and HTTP::Date.
 wGet is also required.
 
-* Move the entire downloaded directory into a suitable location to be activated on your computer or web server. Somewhere outside the public web directory is best.
+* Clone the repository or move the binary release directory into a suitable location to be activated on your computer or web server. Somewhere outside the public web directory is best.
 
 * Ensure forecastgrabber.sh has +x permissions so that it can be run as a script by cron.
 
