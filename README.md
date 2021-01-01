@@ -46,6 +46,8 @@ wGet is also required.
 	
 # Known Issues
 
+* Display of warning and forecast links and place names is highly dependent on perfect place name rendering. Double check your place name or send in an issue if you can't get yours to behave. Will be working on modifications to make this more robust in time.
+
 * French Language support: 
 	
 	French language Environment Canada forecasts are not supported at this time but will be added. English language forecasts of locations with French place names are supported.

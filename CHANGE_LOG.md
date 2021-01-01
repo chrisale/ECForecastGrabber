@@ -1,5 +1,11 @@
 # Change Log
-**v1.3.1** In Progress
+**v1.3.1**
+
+* Added more highlighting for rain, wind, and temperatures.
+
+* Worked on logic to better capture and highlight wind speed statements.
+
+* Added nearFreezing value for near 0 degree temperatures.
 
 * Added samples directory with example web page with embedded forecast and sample XML file.
 

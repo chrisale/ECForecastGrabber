@@ -28,6 +28,7 @@ export perlfinalForecasttmp=$finalForecasttmp
 export perlfreezeDrizzleWarn=$freezeDrizzleWarn
 export perlfreezeRainWarn=$freezeRainWarn
 export perlfreezingTemp=$freezingTemp
+export perlnearfreezeTemp=$nearfreezeTemp
 export perlhotTemp=$hotTemp
 export perlthunderWarn=$thunderWarn
 export perlboldDays=$boldDays

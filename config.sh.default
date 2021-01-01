@@ -65,6 +65,7 @@ boldDays="bold"
 ## or for a name eg. red
 freezeDrizzleWarn="#ff7777"
 freezeRainWarn="#ff66dd"
+nearfreezeTemp="#9999ff"
 freezingTemp="#0000ff"
 flurriesColor="#0000ff"
 hotTemp="#ff0000"
@@ -77,4 +78,3 @@ vhRainColor="#880000"
 ## Other adjustable colours
 #Default colour of the whole paragraph containing the forecast.
 textColor="black"
-
