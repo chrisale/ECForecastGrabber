@@ -1,11 +1,14 @@
 #!/bin/bash
-## THIS SCRIPT WILL NEED TO BE MADE EXECUTABLE (chmod +x) AND THEN ADDED TO YOUR CRONJOBS
-## * * * * * /path/to/this/forecastgrabber.sh will run the forecast grabber every 60 seconds.
-## YOU MUST MODIFY forecast.pl with similar paths and other configurations for this to function.
+## This is the main script for the ECFORECASTGRABBER tool. If you're in here I hope you know what you're doing. :)
+## Any issues, suggestions or contributions are welcome and can be made on github.
+export LANGUAGE=UTF8
 
-## MODIFY THE FILE PATHS TO SUIT YOUR SYSTEM. ECXMLfile, forecast.pl, and EC ForecastTmp.txt can all be in the same place.
+version="v2.0.0"
+
+#Bring in config file variables.
 . $(dirname "$0")/config.sh
 
+#Some Temporary variables
 tmp=tmp
 finalForecasttmp="$tmp$finalForecast"
 
@@ -16,6 +19,7 @@ $wgetPath -O "$webPath/$xmlFile" $rssURL
 #/path/to/curl -o /your/location/ECXMLfile.txt https://weather.gc.ca/rss/city/bc-46_e.xml
 
 #Export all the variables for perl
+export perlversion=$version
 export perlwebPath=$webPath
 export perlxmlFile=$xmlFile
 export perlforecastURL=$forecastURL
@@ -39,14 +43,14 @@ export perlwindyColor=$windyColor
 export perlhRainColor=$hRainColor
 export perlvhRainColor=$vhRainColor
 
-## THE LOCATION OF forecast.pl
+
 echo 'running perl script'
+
+## Running the perl script with -C to ensure UTF-8 compliance.
 
 perl -C $scriptPath/forecast.pl
 
-## THE LOCATION OF THE TEMPORARY FILE CAN BE THE SAME AS YOUR forecast.pl and ECXMLFile.
-
-##ECForecast.html must be in a public web directory to be included on your webpage.
+## Copying the new file from temporary to final file and removing the temporary.
 
 cp $webPath/$finalForecasttmp $webPath/$finalForecast
 rm $webPath/$finalForecasttmp

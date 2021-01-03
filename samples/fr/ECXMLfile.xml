@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <feed xmlns="http://www.w3.org/2005/Atom" xml:lang="fr-ca">
+ 
+<!--
+Ce fichier contient des données destinées aux lecteurs ou agrégateurs RSS.
+Pour en apprendre davantage au sujet du service RSS, veuillez vous rendre à https://www.canada.ca/fr/environnement-changement-climatique/services/conditions-meteorologiques-ressources-outils-generaux/facon-acceder-previsions.html
+-->
+
+ <title>Québec - Météo - Environnement Canada</title>
+ <link rel="related" href="https://www.meteo.gc.ca/city/pages/qc-133_metric_f.html" type="text/html"/>
+ <link rel="self" href="https://www.meteo.gc.ca/rss/city/qc-133_f.xml" type="application/atom+xml"/>
+ <link rel="alternate" hreflang="en-ca" href="https://www.weather.gc.ca/rss/city/qc-133_e.xml" type="application/atom+xml"/>
+ <author>
+ <name>Environnement Canada</name>
+ <uri>https://www.meteo.gc.ca</uri>
+ </author>
+ <updated>2021-01-03T19:50:30Z</updated>
+ <id>tag:meteo.gc.ca,2013-04-16:20210103195030</id>
+ <logo>https://www.meteo.gc.ca/template/gcweb/v5.0.1/assets/wmms-alt.png</logo>
+ <icon>https://www.meteo.gc.ca/template/gcweb/v5.0.1/assets/favicon.ico</icon>
+ <rights>Droit d'auteur 2021, Environnement Canada</rights>
+ <entry>
+ <title>Aucune veille ou alerte en vigueur, Québec</title>
+ <link type="text/html" href="https://www.meteo.gc.ca/warnings/index_f.html"/>
+ <updated>2021-01-02T20:45:00Z</updated>
+ <published>2021-01-02T20:45:00Z</published>
+ <category term="Veilles et avertissements"/>
+ <summary type="html">Aucune veille ou alerte en vigueur.</summary>
+ <id>tag:meteo.gc.ca,2013-04-16:qc-133_w1:20210102204500</id>
+ </entry>
+ <entry>
+ <title>Conditions actuelles: Nuageux, -3,8&#xB0;C</title>
+ <link type="text/html" href="https://www.meteo.gc.ca/city/pages/qc-133_metric_f.html"/>
+ <updated>2021-01-03T19:00:00Z</updated>
+ <published>2021-01-03T19:00:00Z</published>
+ <category term="Conditions actuelles"/>
+ <summary type="html"><![CDATA[<b>Enregistrées à:</b> Aéroport int. Lesage de Québec 14h00 HNE dimanche 03 janvier 2021 <br/>
+<b>Condition:</b> Nuageux <br/>
+<b>Température:</b> -3,8&deg;C <br/>
+<b>Pression / Tendance:</b> 102,0 kPa à la baisse<br/>
+<b>Visibilité:</b> 40,2 km<br/>
+<b>Humidité:</b> 76 %<br/>
+<b>Refroidissement éolien:</b> -9 <br/>
+<b>Point de rosée:</b> -7,3&deg;C <br/>
+<b>Vent:</b> ESE 13 km/h<br/>
+<b>Cote air santé:</b>  <br/>
+]]></summary>
+ <id>tag:meteo.gc.ca,2013-04-16:qc-133_cc:20210103190000</id>
+ </entry>
+ <entry>
+ <title>Dimanche: Généralement nuageux. Maximum moins 4.</title>
+ <link type="text/html" href="https://www.meteo.gc.ca/city/pages/qc-133_metric_f.html"/>
+ <updated>2021-01-03T16:30:00Z</updated>
+ <published>2021-01-03T16:30:00Z</published>
+ <category term="Prévisions météo"/>
+ <summary type="html">Nuageux. Devenant alternance de soleil et de nuages cet après-midi. Vents jusqu'à 15 km/h. Maximum moins 4. Refroidissement éolien moins 11 cet après-midi. Indice UV de 1 ou bas. Prévisions émises 11h30 HNE dimanche 03 janvier 2021</summary>
+ <id>tag:meteo.gc.ca,2013-04-16:qc-133_fc1:20210103163000</id>
+ </entry>
+ <entry>
+ <title>Ce soir et cette nuit: Généralement nuageux. Minimum moins 10.</title>
+ <link type="text/html" href="https://www.meteo.gc.ca/city/pages/qc-133_metric_f.html"/>
+ <updated>2021-01-03T16:30:00Z</updated>
+ <published>2021-01-03T16:30:00Z</published>
+ <category term="Prévisions météo"/>
+ <summary type="html">Généralement nuageux. Vents jusqu'à 15 km/h. Minimum moins 10. Refroidissement éolien moins 9 ce soir et moins 14 au cours de la nuit. Prévisions émises 11h30 HNE dimanche 03 janvier 2021</summary>
+ <id>tag:meteo.gc.ca,2013-04-16:qc-133_fc2:20210103163000</id>
+ </entry>
+ <entry>
+ <title>Lundi: Alternance de soleil et de nuages. Maximum moins 3.</title>
+ <link type="text/html" href="https://www.meteo.gc.ca/city/pages/qc-133_metric_f.html"/>
+ <updated>2021-01-03T16:30:00Z</updated>
+ <published>2021-01-03T16:30:00Z</published>
+ <category term="Prévisions météo"/>
+ <summary type="html">Dégagement le matin. Vents jusqu'à 15 km/h. Maximum moins 3. Refroidissement éolien moins 15 le matin et moins 7 en après-midi. Indice UV de 1 ou bas. Prévisions émises 11h30 HNE dimanche 03 janvier 2021</summary>
+ <id>tag:meteo.gc.ca,2013-04-16:qc-133_fc3:20210103163000</id>
+ </entry>
+ <entry>
+ <title>Lundi soir et nuit: Dégagé. Minimum moins 6.</title>
+ <link type="text/html" href="https://www.meteo.gc.ca/city/pages/qc-133_metric_f.html"/>
+ <updated>2021-01-03T16:30:00Z</updated>
+ <published>2021-01-03T16:30:00Z</published>
+ <category term="Prévisions météo"/>
+ <summary type="html">Dégagé. Minimum moins 6. Prévisions émises 11h30 HNE dimanche 03 janvier 2021</summary>
+ <id>tag:meteo.gc.ca,2013-04-16:qc-133_fc4:20210103163000</id>
+ </entry>
+ <entry>
+ <title>Mardi: Nuageux. Maximum moins 2.</title>
+ <link type="text/html" href="https://www.meteo.gc.ca/city/pages/qc-133_metric_f.html"/>
+ <updated>2021-01-03T16:30:00Z</updated>
+ <published>2021-01-03T16:30:00Z</published>
+ <category term="Prévisions météo"/>
+ <summary type="html">Nuageux. Maximum moins 2. Prévisions émises 11h30 HNE dimanche 03 janvier 2021</summary>
+ <id>tag:meteo.gc.ca,2013-04-16:qc-133_fc5:20210103163000</id>
+ </entry>
+ <entry>
+ <title>Mardi soir et nuit: Nuageux. Minimum moins 6.</title>
+ <link type="text/html" href="https://www.meteo.gc.ca/city/pages/qc-133_metric_f.html"/>
+ <updated>2021-01-03T16:30:00Z</updated>
+ <published>2021-01-03T16:30:00Z</published>
+ <category term="Prévisions météo"/>
+ <summary type="html">Nuageux. Minimum moins 6. Prévisions émises 11h30 HNE dimanche 03 janvier 2021</summary>
+ <id>tag:meteo.gc.ca,2013-04-16:qc-133_fc6:20210103163000</id>
+ </entry>
+ <entry>
+ <title>Mercredi: Nuageux. Maximum moins 1.</title>
+ <link type="text/html" href="https://www.meteo.gc.ca/city/pages/qc-133_metric_f.html"/>
+ <updated>2021-01-03T16:30:00Z</updated>
+ <published>2021-01-03T16:30:00Z</published>
+ <category term="Prévisions météo"/>
+ <summary type="html">Nuageux. Maximum moins 1. Prévisions émises 11h30 HNE dimanche 03 janvier 2021</summary>
+ <id>tag:meteo.gc.ca,2013-04-16:qc-133_fc7:20210103163000</id>
+ </entry>
+ <entry>
+ <title>Mercredi soir et nuit: Passages nuageux. Minimum moins 8.</title>
+ <link type="text/html" href="https://www.meteo.gc.ca/city/pages/qc-133_metric_f.html"/>
+ <updated>2021-01-03T16:30:00Z</updated>
+ <published>2021-01-03T16:30:00Z</published>
+ <category term="Prévisions météo"/>
+ <summary type="html">Passages nuageux. Minimum moins 8. Prévisions émises 11h30 HNE dimanche 03 janvier 2021</summary>
+ <id>tag:meteo.gc.ca,2013-04-16:qc-133_fc8:20210103163000</id>
+ </entry>
+ <entry>
+ <title>Jeudi: Ensoleillé. Maximum moins 1.</title>
+ <link type="text/html" href="https://www.meteo.gc.ca/city/pages/qc-133_metric_f.html"/>
+ <updated>2021-01-03T16:30:00Z</updated>
+ <published>2021-01-03T16:30:00Z</published>
+ <category term="Prévisions météo"/>
+ <summary type="html">Ensoleillé. Maximum moins 1. Prévisions émises 11h30 HNE dimanche 03 janvier 2021</summary>
+ <id>tag:meteo.gc.ca,2013-04-16:qc-133_fc9:20210103163000</id>
+ </entry>
+ <entry>
+ <title>Jeudi soir et nuit: Passages nuageux. Minimum moins 7.</title>
+ <link type="text/html" href="https://www.meteo.gc.ca/city/pages/qc-133_metric_f.html"/>
+ <updated>2021-01-03T16:30:00Z</updated>
+ <published>2021-01-03T16:30:00Z</published>
+ <category term="Prévisions météo"/>
+ <summary type="html">Passages nuageux. Minimum moins 7. Prévisions émises 11h30 HNE dimanche 03 janvier 2021</summary>
+ <id>tag:meteo.gc.ca,2013-04-16:qc-133_fc10:20210103163000</id>
+ </entry>
+ <entry>
+ <title>Vendredi: Alternance de soleil et de nuages. Maximum moins 4.</title>
+ <link type="text/html" href="https://www.meteo.gc.ca/city/pages/qc-133_metric_f.html"/>
+ <updated>2021-01-03T16:30:00Z</updated>
+ <published>2021-01-03T16:30:00Z</published>
+ <category term="Prévisions météo"/>
+ <summary type="html">Alternance de soleil et de nuages. Maximum moins 4. Prévisions émises 11h30 HNE dimanche 03 janvier 2021</summary>
+ <id>tag:meteo.gc.ca,2013-04-16:qc-133_fc11:20210103163000</id>
+ </entry>
+ <entry>
+ <title>Vendredi soir et nuit: Passages nuageux. Minimum moins 8.</title>
+ <link type="text/html" href="https://www.meteo.gc.ca/city/pages/qc-133_metric_f.html"/>
+ <updated>2021-01-03T16:30:00Z</updated>
+ <published>2021-01-03T16:30:00Z</published>
+ <category term="Prévisions météo"/>
+ <summary type="html">Passages nuageux. Minimum moins 8. Prévisions émises 11h30 HNE dimanche 03 janvier 2021</summary>
+ <id>tag:meteo.gc.ca,2013-04-16:qc-133_fc12:20210103163000</id>
+ </entry>
+ <entry>
+ <title>Samedi: Alternance de soleil et de nuages. Maximum moins 5.</title>
+ <link type="text/html" href="https://www.meteo.gc.ca/city/pages/qc-133_metric_f.html"/>
+ <updated>2021-01-03T16:30:00Z</updated>
+ <published>2021-01-03T16:30:00Z</published>
+ <category term="Prévisions météo"/>
+ <summary type="html">Alternance de soleil et de nuages. Maximum moins 5. Prévisions émises 11h30 HNE dimanche 03 janvier 2021</summary>
+ <id>tag:meteo.gc.ca,2013-04-16:qc-133_fc13:20210103163000</id>
+ </entry>
+ </feed>
+

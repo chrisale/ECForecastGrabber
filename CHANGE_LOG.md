@@ -1,4 +1,19 @@
 # Change Log
+
+**v2.0.0**
+
+* Added a config.sh.default.fr french version of the config file with french instructions.
+
+* Added French Language Forecast Page Support. Oui c'est en français! Adding french equivalent text captures for most captures already implemented in English.
+
+* Fixed target link for warnings.
+
+* General code cleanup.
+
+* Added version display on footer tag line.
+
+* Added more rain and wind captures.
+
 **v1.3.1**
 
 * Added more highlighting for rain, wind, and temperatures.

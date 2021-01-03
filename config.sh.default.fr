@@ -1,25 +1,25 @@
 #!/bin/bash
-## CONFIG FILE FOR FORECAST GRABBER
-## v2.0.0
+## CONFIGURATION DE  ECFORECASTGRABBER
+## EN FRANCAIS
 
-## Full path to wget 
+## Emplacement de wget
 #eg. /usr/bin/wget
 wgetPath="/usr/bin/wget"
 
-## Path to your script directory. Recommended outside your web accessible directory.
+## Emplacement de la directoire de scripte. Recommende une place qui n'est pas accessible a la web.
 #eg. /var/www/supportfiles/ECForecastGrabber
 scriptPath="/var/www/supportfiles/ECForecastGrabber"
 
-## Path to final web directory where XML and HTML file will be stored.
+## Emplacement de la web publique. Document XML and HTML sont emplacé içi.
 #eg. /var/www/httpdocs
 webPath="/var/www/httpdocs"
 
-## Full URL to the to your desired city's forecast page.
+## URL de la page de prévision pour votre citée désirée.
 #eg. https://weather.gc.ca/city/pages/bc-46_metric_e.html
 forecastURL="https://weather.gc.ca/city/pages/bc-46_metric_e.html"
 
-## Full URL to the RSS feed for your desired city.
-## Look for the orange RSS/Atom link at the bottom of the forecast page.
+##  URL de la RSS pour votre citée désirée.
+## Attention a la lien en orange de RSS/Atom vers le bas de la page. 
 #eg. https://weather.gc.ca/rss/city/bc-46_e.xml
 rssURL="https://weather.gc.ca/rss/city/bc-46_e.xml"
 
@@ -28,31 +28,31 @@ rssURL="https://weather.gc.ca/rss/city/bc-46_e.xml"
 ## eg. Ottawa \(Kanata - Orléans\)
 forecastPlaceName="Port Alberni"
 
-## Clickable name for your forecast, this can be anything but is often the same as the forecastPlaceName. No need for escape characters.
+## Nom de la place. Ca peut etre la meme que forecastPlaceName ou ce que tu veut.
 ## eg. Vancouver Island Inland Sections - Forecast
 forecastName="Port Alberni"
 
-## Full URL of the warnings page for your location.
+## URL de la page de avertissement.
 ## eg. https://weather.gc.ca/warnings/report_e.html?bc45
 warnLink="https://weather.gc.ca/warnings/report_e.html?bc45"
 
-## Full URL of the lightning detection web page for your region.
+## URL de lightning dans ton region.
 ## eg. https://weather.gc.ca/lightning/index_e.html?id=PAC#mapTop
 thunderLink="https://weather.gc.ca/lightning/index_e.html?id=PAC#mapTop"
 
 ###############################################################################
-#### THE FOLLOWING DON'T NEED TO BE CHANGED BUT CAN BE.
+#### Vous n'ait pas besoin de changez les settings apres cette message.
 ###############################################################################
 
-## Name of the XML file
+## Nom de la XML.
 ## eg. ECXMLfile.xml
 xmlFile="ECXMLfile.xml"
 
-##Final Web File Name - A temporary file will also be derived from this filename and placed in the same directory when the script runs.
+## Nom de la HTML finale. Tu vas utilisez cette nom pour votre page sur the web.
 ## eg. ECForecast,html
 finalForecast="ECForecast.html"
 
-##Message that appears at the bottom of the text forecast
+## Message a las fin de votre prévision.
 footerMsg="This forecast is generated and processed from Environment Canada reports. No guarantees are made or given on its accuracy."
 
 ##Style information for formatting and display of the text forecasts.

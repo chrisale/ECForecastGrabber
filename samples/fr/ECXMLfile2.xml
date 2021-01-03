@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <feed xmlns="http://www.w3.org/2005/Atom" xml:lang="fr-ca">
+ 
+<!--
+Ce fichier contient des données destinées aux lecteurs ou agrégateurs RSS.
+Pour en apprendre davantage au sujet du service RSS, veuillez vous rendre à https://www.canada.ca/fr/environnement-changement-climatique/services/conditions-meteorologiques-ressources-outils-generaux/facon-acceder-previsions.html
+-->
+
+ <title>Masset - Météo - Environnement Canada</title>
+ <link rel="related" href="https://www.meteo.gc.ca/city/pages/bc-56_metric_f.html" type="text/html"/>
+ <link rel="self" href="https://www.meteo.gc.ca/rss/city/bc-56_f.xml" type="application/atom+xml"/>
+ <link rel="alternate" hreflang="en-ca" href="https://www.weather.gc.ca/rss/city/bc-56_e.xml" type="application/atom+xml"/>
+ <author>
+ <name>Environnement Canada</name>
+ <uri>https://www.meteo.gc.ca</uri>
+ </author>
+ <updated>2021-01-03T20:10:33Z</updated>
+ <id>tag:meteo.gc.ca,2013-04-16:20210103201033</id>
+ <logo>https://www.meteo.gc.ca/template/gcweb/v5.0.1/assets/wmms-alt.png</logo>
+ <icon>https://www.meteo.gc.ca/template/gcweb/v5.0.1/assets/favicon.ico</icon>
+ <rights>Droit d'auteur 2021, Environnement Canada</rights>
+ <entry>
+ <title>AVERTISSEMENT DE VENT , Masset</title>
+ <link type="text/html" href="https://www.meteo.gc.ca/warnings/report_f.html?bc50"/>
+ <updated>2021-01-03T19:04:00Z</updated>
+ <published>2021-01-03T19:04:00Z</published>
+ <category term="Veilles et avertissements"/>
+ <summary type="html">Le public de la région concernée doit porter une attention particulière aux conditions météorologiques potentiellement dangereuses et prendre les mesures de sécurité qui s'imposent. Émis à: 11h04 HNP dimanche 03 janvier 2021</summary>
+ <id>tag:meteo.gc.ca,2013-04-16:bc-56_w1:202101031904</id>
+ </entry>
+ <entry>
+ <title>Conditions actuelles: Généralement ensoleillé, 5,6&#xB0;C</title>
+ <link type="text/html" href="https://www.meteo.gc.ca/city/pages/bc-56_metric_f.html"/>
+ <updated>2021-01-03T20:00:00Z</updated>
+ <published>2021-01-03T20:00:00Z</published>
+ <category term="Conditions actuelles"/>
+ <summary type="html"><![CDATA[<b>Enregistrées à:</b> Aéroport municipal de Masset 12h00 HNP dimanche 03 janvier 2021 <br/>
+<b>Condition:</b> Généralement ensoleillé <br/>
+<b>Température:</b> 5,6&deg;C <br/>
+<b>Pression / Tendance:</b> 99,9 kPa à la hausse<br/>
+<b>Visibilité:</b> 24,1 km<br/>
+<b>Humidité:</b> 88 %<br/>
+<b>Point de rosée:</b> 3,8&deg;C <br/>
+<b>Vent:</b> S 12 km/h<br/>
+<b>Cote air santé:</b> N,D. <br/>
+]]></summary>
+ <id>tag:meteo.gc.ca,2013-04-16:bc-56_cc:20210103200000</id>
+ </entry>
+ <entry>
+ <title>Dimanche: Possibilité d'averses. Températures stables près de 6. PdP 40%</title>
+ <link type="text/html" href="https://www.meteo.gc.ca/city/pages/bc-56_metric_f.html"/>
+ <updated>2021-01-03T19:00:00Z</updated>
+ <published>2021-01-03T19:00:00Z</published>
+ <category term="Prévisions météo"/>
+ <summary type="html">Alternance de soleil et de nuages avec 40 pour cent de probabilité d'averses. Venteux. Températures stables près de 6. Indice UV de 1 ou bas. Prévisions émises 11h00 HNP dimanche 03 janvier 2021</summary>
+ <id>tag:meteo.gc.ca,2013-04-16:bc-56_fc1:20210103190000</id>
+ </entry>
+ <entry>
+ <title>Ce soir et cette nuit: Pluie. Températures stables près de 6.</title>
+ <link type="text/html" href="https://www.meteo.gc.ca/city/pages/bc-56_metric_f.html"/>
+ <updated>2021-01-03T19:00:00Z</updated>
+ <published>2021-01-03T19:00:00Z</published>
+ <category term="Prévisions météo"/>
+ <summary type="html">Devenant nuageux ce soir suivi de pluie. Vents du sud de 30 km/h devenant du sud-est à 50 à 70 ce soir puis augmentant à 70 à 100 après minuit. Températures stables près de 6. Prévisions émises 11h00 HNP dimanche 03 janvier 2021</summary>
+ <id>tag:meteo.gc.ca,2013-04-16:bc-56_fc2:20210103190000</id>
+ </entry>
+ <entry>
+ <title>Lundi: Possibilité d'averses. Températures stables près de 6. PdP 60%</title>
+ <link type="text/html" href="https://www.meteo.gc.ca/city/pages/bc-56_metric_f.html"/>
+ <updated>2021-01-03T19:00:00Z</updated>
+ <published>2021-01-03T19:00:00Z</published>
+ <category term="Prévisions météo"/>
+ <summary type="html">Nuageux avec 60 pour cent de probabilité d'averses. Vents du sud de 60 à 80 km/h. Températures stables près de 6. Prévisions émises 11h00 HNP dimanche 03 janvier 2021</summary>
+ <id>tag:meteo.gc.ca,2013-04-16:bc-56_fc3:20210103190000</id>
+ </entry>
+ <entry>
+ <title>Lundi soir et nuit: Averses. Minimum plus 5.</title>
+ <link type="text/html" href="https://www.meteo.gc.ca/city/pages/bc-56_metric_f.html"/>
+ <updated>2021-01-03T19:00:00Z</updated>
+ <published>2021-01-03T19:00:00Z</published>
+ <category term="Prévisions météo"/>
+ <summary type="html">Averses. Très venteux. Minimum plus 5. Prévisions émises 11h00 HNP dimanche 03 janvier 2021</summary>
+ <id>tag:meteo.gc.ca,2013-04-16:bc-56_fc4:20210103190000</id>
+ </entry>
+ <entry>
+ <title>Mardi: Averses. Maximum 7.</title>
+ <link type="text/html" href="https://www.meteo.gc.ca/city/pages/bc-56_metric_f.html"/>
+ <updated>2021-01-03T19:00:00Z</updated>
+ <published>2021-01-03T19:00:00Z</published>
+ <category term="Prévisions météo"/>
+ <summary type="html">Averses. Très venteux. Maximum 7. Prévisions émises 11h00 HNP dimanche 03 janvier 2021</summary>
+ <id>tag:meteo.gc.ca,2013-04-16:bc-56_fc5:20210103190000</id>
+ </entry>
+ <entry>
+ <title>Mardi soir et nuit: Averses. Minimum plus 5.</title>
+ <link type="text/html" href="https://www.meteo.gc.ca/city/pages/bc-56_metric_f.html"/>
+ <updated>2021-01-03T19:00:00Z</updated>
+ <published>2021-01-03T19:00:00Z</published>
+ <category term="Prévisions météo"/>
+ <summary type="html">Averses. Minimum plus 5. Prévisions émises 11h00 HNP dimanche 03 janvier 2021</summary>
+ <id>tag:meteo.gc.ca,2013-04-16:bc-56_fc6:20210103190000</id>
+ </entry>
+ <entry>
+ <title>Mercredi: Averses. Maximum 6.</title>
+ <link type="text/html" href="https://www.meteo.gc.ca/city/pages/bc-56_metric_f.html"/>
+ <updated>2021-01-03T19:00:00Z</updated>
+ <published>2021-01-03T19:00:00Z</published>
+ <category term="Prévisions météo"/>
+ <summary type="html">Averses. Maximum 6. Prévisions émises 11h00 HNP dimanche 03 janvier 2021</summary>
+ <id>tag:meteo.gc.ca,2013-04-16:bc-56_fc7:20210103190000</id>
+ </entry>
+ <entry>
+ <title>Mercredi soir et nuit: Possibilité d'averses. Minimum plus 5. PdP 30%</title>
+ <link type="text/html" href="https://www.meteo.gc.ca/city/pages/bc-56_metric_f.html"/>
+ <updated>2021-01-03T19:00:00Z</updated>
+ <published>2021-01-03T19:00:00Z</published>
+ <category term="Prévisions météo"/>
+ <summary type="html">Nuageux avec 30 pour cent de probabilité d'averses. Minimum plus 5. Prévisions émises 11h00 HNP dimanche 03 janvier 2021</summary>
+ <id>tag:meteo.gc.ca,2013-04-16:bc-56_fc8:20210103190000</id>
+ </entry>
+ <entry>
+ <title>Jeudi: Pluie. Maximum 8.</title>
+ <link type="text/html" href="https://www.meteo.gc.ca/city/pages/bc-56_metric_f.html"/>
+ <updated>2021-01-03T19:00:00Z</updated>
+ <published>2021-01-03T19:00:00Z</published>
+ <category term="Prévisions météo"/>
+ <summary type="html">Pluie. Très venteux. Maximum 8. Prévisions émises 11h00 HNP dimanche 03 janvier 2021</summary>
+ <id>tag:meteo.gc.ca,2013-04-16:bc-56_fc9:20210103190000</id>
+ </entry>
+ <entry>
+ <title>Jeudi soir et nuit: Pluie. Minimum plus 5.</title>
+ <link type="text/html" href="https://www.meteo.gc.ca/city/pages/bc-56_metric_f.html"/>
+ <updated>2021-01-03T19:00:00Z</updated>
+ <published>2021-01-03T19:00:00Z</published>
+ <category term="Prévisions météo"/>
+ <summary type="html">Pluie. Très venteux. Minimum plus 5. Prévisions émises 11h00 HNP dimanche 03 janvier 2021</summary>
+ <id>tag:meteo.gc.ca,2013-04-16:bc-56_fc10:20210103190000</id>
+ </entry>
+ <entry>
+ <title>Vendredi: Pluie. Maximum 7.</title>
+ <link type="text/html" href="https://www.meteo.gc.ca/city/pages/bc-56_metric_f.html"/>
+ <updated>2021-01-03T19:00:00Z</updated>
+ <published>2021-01-03T19:00:00Z</published>
+ <category term="Prévisions météo"/>
+ <summary type="html">Pluie. Maximum 7. Prévisions émises 11h00 HNP dimanche 03 janvier 2021</summary>
+ <id>tag:meteo.gc.ca,2013-04-16:bc-56_fc11:20210103190000</id>
+ </entry>
+ <entry>
+ <title>Vendredi soir et nuit: Possibilité d'averses. Minimum plus 5. PdP 70%</title>
+ <link type="text/html" href="https://www.meteo.gc.ca/city/pages/bc-56_metric_f.html"/>
+ <updated>2021-01-03T19:00:00Z</updated>
+ <published>2021-01-03T19:00:00Z</published>
+ <category term="Prévisions météo"/>
+ <summary type="html">Nuageux avec 70 pour cent de probabilité d'averses. Minimum plus 5. Prévisions émises 11h00 HNP dimanche 03 janvier 2021</summary>
+ <id>tag:meteo.gc.ca,2013-04-16:bc-56_fc12:20210103190000</id>
+ </entry>
+ <entry>
+ <title>Samedi: Pluie intermittente. Maximum 7.</title>
+ <link type="text/html" href="https://www.meteo.gc.ca/city/pages/bc-56_metric_f.html"/>
+ <updated>2021-01-03T19:00:00Z</updated>
+ <published>2021-01-03T19:00:00Z</published>
+ <category term="Prévisions météo"/>
+ <summary type="html">Pluie intermittente. Venteux. Maximum 7. Prévisions émises 11h00 HNP dimanche 03 janvier 2021</summary>
+ <id>tag:meteo.gc.ca,2013-04-16:bc-56_fc13:20210103190000</id>
+ </entry>
+ </feed>
+

@@ -13,11 +13,14 @@ The forecast.pl script then outputs a temporary file that forecastgrabber.sh the
 
 # What does it look like?
 
-Something like this (from https://www.alberniweather.ca):
-![image](https://github.com/chrisale/ECForecastGrabber/blob/main/images/forecastscreenshot.png)
+Something like this:
+![image](https://github.com/chrisale/ECForecastGrabber/blob/main/images/forecastscreenshot1.png)
+![image](https://github.com/chrisale/ECForecastGrabber/blob/main/images/forecastscreenshot2.png)
+![image](https://github.com/chrisale/ECForecastGrabber/blob/main/images/forecastscreenshot3.png)
 
 There is an example html file in the samples directory that can be used as a template.  It also includes a sample of the XML file produced by Environment Canada that is parsed by these scripts as well as the outputted html file from ECForecastGrabber.
 
+You can see a 'live' example on https://www.alberniweather.ca
 
 # Setup and Installation
 
@@ -26,6 +29,7 @@ PERL requirements: XML::Simple, Data::Dumper and HTTP::Date.
 wGet is also required.
 
 * Clone the repository or move the binary release directory into a suitable location to be activated on your computer or web server. Somewhere outside the public web directory is best.
+	- IMPORTANT: If you clone the repository note that the repository may be under active development. Usually there are only minor changes and don't cause issues but the release binbaries are stable.
 
 * Ensure forecastgrabber.sh has +x permissions so that it can be run as a script by cron.
 
@@ -47,10 +51,6 @@ wGet is also required.
 # Known Issues
 
 * Display of warning and forecast links and place names is highly dependent on perfect place name rendering. Double check your place name or send in an issue if you can't get yours to behave. Will be working on modifications to make this more robust in time.
-
-* French Language support: 
-	
-	French language Environment Canada forecasts are not supported at this time but will be added. English language forecasts of locations with French place names are supported.
 
 # Please Send Suggestions and Updates
 
