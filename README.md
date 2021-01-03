@@ -29,7 +29,7 @@ PERL requirements: XML::Simple, Data::Dumper and HTTP::Date.
 wGet is also required.
 
 * Clone the repository or move the binary release directory into a suitable location to be activated on your computer or web server. Somewhere outside the public web directory is best.
-	- IMPORTANT: If you clone the repository note that the repository may be under active development. Usually there are only minor changes and don't cause issues but the release binbaries are stable.
+	- IMPORTANT: If you clone the repository note that the repository may be under active development. Usually there are only minor changes and don't cause issues but the release binaries are stable.
 
 * Ensure forecastgrabber.sh has +x permissions so that it can be run as a script by cron.
 
