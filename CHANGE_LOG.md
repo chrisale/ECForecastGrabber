@@ -1,4 +1,15 @@
 # Change Log
+**v2.0.1**
+
+* Integrating Readme typo fixes.
+
+* some bug fixes.
+
+* Added more wind and rain captures.
+
+* Added support for colouring warnings.
+
+* Added support for up to 3 simultaneous warnings.
 
 **v2.0.0**
 
