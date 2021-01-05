@@ -60,6 +60,7 @@ my $flurriesColor = $ENV{'perlflurriesColor'};
 my $windyColor = $ENV{'perlwindyColor'};
 my $hRainColor = $ENV{'perlhRainColor'};
 my $vhRainColor = $ENV{'perlvhRainColor'};
+my $warningColor = $ENV{'perlwarningColor'};
 
 
 my $comma = ";";
@@ -130,6 +131,12 @@ foreach (@weatherkeys) {
     }
     if (index($_, 'w1') != -1) {
     $warnings = $_;
+    }
+    if (index($_, 'w2') != -1) {
+    $warnings2 = $_;
+    }
+    if (index($_, 'w3') != -1) {
+    $warnings3 = $_;
     }
     }
 #print @weatherkeyfinal[2];
@@ -272,12 +279,25 @@ my $fullforecast = '';
 $fullforecast = $forecastlink . " - ";
 
 #Build warning at top with the name of the place.
-$warn = $data->{entry}{$warnings}{title};
-$fullforecast = $fullforecast . $warn;
+$warn1 = $data->{entry}{$warnings}{title};
+
+#Build warning2 at top with the name of the place.
+$warn2 = $data->{entry}{$warnings2}{title};
+
+#Build warning2 at top with the name of the place.
+$warn3 = $data->{entry}{$warnings3}{title};
+
+
+$fullforecast = $fullforecast . $warn1 . " - " . $warn2 . " - " . $warn3;
 
 #Build in the warning content if there is any.
-$warn2 = $data->{entry}{$warnings}{summary}{content};
-$fullforecast = $fullforecast . $warn2 . "</p><p>";
+#Build in the warning2 content if there is any.
+$warn1content = $data->{entry}{$warnings}{summary}{content};
+$warn2content = $data->{entry}{$warnings2}{summary}{content};
+$warn3content = $data->{entry}{$warnings3}{summary}{content};
+
+$fullforecast = $fullforecast . $warn1content . $warn2content . $warn3content . "</p><p>";
+
 
 #Omit the warning content as it is not needed and just do some formatting.
 #$warn2 = $data->{entry}{$warnings}{summary}{content};
@@ -722,75 +742,7 @@ $fullforecast =~ s/maximum 38/<strong style="color: $hotTemp">maximum 38<\/stron
 $fullforecast =~ s/maximum 39/<strong style="color: $hotTemp">maximum 39<\/strong>/g;
 $fullforecast =~ s/maximum 40/<strong style="color: $hotTemp">maximum 40<\/strong>/g;
 $fullforecast =~ s/maximum 41/<strong style="color: $hotTemp">maximum 41<\/strong>/g;
-#WINDY STUFF
-$fullforecast =~ s/very windy/<strong style="color: $windyColor">very windy<\/strong>/g;
-$fullforecast =~ s/Very windy/<strong style="color: $windyColor">Very windy<\/strong>/g;
-$fullforecast =~ s/windy/<strong style="color: $windyColor">windy<\/strong>/g;
-$fullforecast =~ s/Windy/<strong style="color: $windyColor">Windy<\/strong>/g;
 
-
-$fullforecast =~ s/Très venteux/<strong style="color: $windyColor">Très venteux<\/strong>/g;
-$fullforecast =~ s/très venteux/<strong style="color: $windyColor">très venteux<\/strong>/g;
-$fullforecast =~ s/venteux/<strong style="color: $windyColor">venteux<\/strong>/g;
-$fullforecast =~ s/Venteux/<strong style="color: $windyColor">Venteux<\/strong>/g;
-
-$fullforecast =~ s/50 to 70/<strong style="color: $windyColor">50 to 70<\/strong>/g;
-$fullforecast =~ s/60 to 80/<strong style="color: $windyColor">60 to 80<\/strong>/g;
-$fullforecast =~ s/70 to 90/<strong style="color: $windyColor">70 to 90<\/strong>/g;
-$fullforecast =~ s/70 to 100/<strong style="color: $windyColor">70 to 100<\/strong>/g;
-$fullforecast =~ s/90 to 110/<strong style="color: $windyColor">90 to 110<\/strong>/g;
-
-$fullforecast =~ s/50 à 70/<strong style="color: $windyColor">50 à 70<\/strong>/g;
-$fullforecast =~ s/60 à 80/<strong style="color: $windyColor">60 à 80<\/strong>/g;
-$fullforecast =~ s/70 à 90/<strong style="color: $windyColor">70 à 90<\/strong>/g;
-$fullforecast =~ s/70 à 100/<strong style="color: $windyColor">70 à 100<\/strong>/g;
-$fullforecast =~ s/90 à 110/<strong style="color: $windyColor">90 à 110<\/strong>/g;
-
-$fullforecast =~ s/15 km\/h/<strong style="color: $windyColor">15 km\/h<\/strong>/g;
-$fullforecast =~ s/20 km\/h/<strong style="color: $windyColor">20 km\/h<\/strong>/g;
-$fullforecast =~ s/25 km\/h/<strong style="color: $windyColor">25 km\/h<\/strong>/g;
-$fullforecast =~ s/30 km\/h/<strong style="color: $windyColor">30 km\/h<\/strong>/g;
-$fullforecast =~ s/35 km\/h/<strong style="color: $windyColor">35 km\/h<\/strong>/g;
-$fullforecast =~ s/40 km\/h/<strong style="color: $windyColor">40 km\/h<\/strong>/g;
-$fullforecast =~ s/45 km\/h/<strong style="color: $windyColor">45 km\/h<\/strong>/g;
-$fullforecast =~ s/50 km\/h/<strong style="color: $windyColor">50 km\/h<\/strong>/g;
-$fullforecast =~ s/55 km\/h/<strong style="color: $windyColor">55 km\/h<\/strong>/g;
-$fullforecast =~ s/60 km\/h/<strong style="color: $windyColor">60 km\/h<\/strong>/g;
-$fullforecast =~ s/65 km\/h/<strong style="color: $windyColor">65 km\/h<\/strong>/g;
-$fullforecast =~ s/70 km\/h/<strong style="color: $windyColor">70 km\/h<\/strong>/g;
-$fullforecast =~ s/75 km\/h/<strong style="color: $windyColor">75 km\/h<\/strong>/g;
-$fullforecast =~ s/80 km\/h/<strong style="color: $windyColor">80 km\/h<\/strong>/g;
-$fullforecast =~ s/km\/h/<strong style="color: $windyColor">km\/h<\/strong>/g;
-
-
-$fullforecast =~ s/gusting to 40/<strong style="color: $windyColor">gusting to 40<\/strong>/g;
-$fullforecast =~ s/gusting to 45/<strong style="color: $windyColor">gusting to 45<\/strong>/g;
-$fullforecast =~ s/gusting to 50/<strong style="color: $windyColor">gusting to 50<\/strong>/g;
-$fullforecast =~ s/gusting to 55/<strong style="color: $windyColor">gusting to 55<\/strong>/g;
-$fullforecast =~ s/gusting to 60/<strong style="color: $windyColor">gusting to 60<\/strong>/g;
-$fullforecast =~ s/gusting to 65/<strong style="color: $windyColor">gusting to 65<\/strong>/g;
-$fullforecast =~ s/gusting to 70/<strong style="color: $windyColor">gusting to 70<\/strong>/g;
-$fullforecast =~ s/gusting to 75/<strong style="color: $windyColor">gusting to 75<\/strong>/g;
-$fullforecast =~ s/gusting to 80/<strong style="color: $windyColor">gusting to 80<\/strong>/g;
-$fullforecast =~ s/gusting to 85/<strong style="color: $windyColor">gusting to 85<\/strong>/g;
-$fullforecast =~ s/gusting to 90/<strong style="color: $windyColor">gusting to 90<\/strong>/g;
-$fullforecast =~ s/gusting to 95/<strong style="color: $windyColor">gusting to 95<\/strong>/g;
-
-$fullforecast =~ s/rafales à 40/<strong style="color: $windyColor">rafales à 40<\/strong>/g;
-$fullforecast =~ s/rafales à 45/<strong style="color: $windyColor">rafales à 45<\/strong>/g;
-$fullforecast =~ s/rafales à 50/<strong style="color: $windyColor">rafales à 50<\/strong>/g;
-$fullforecast =~ s/rafales à 55/<strong style="color: $windyColor">rafales à 55<\/strong>/g;
-$fullforecast =~ s/rafales à 60/<strong style="color: $windyColor">rafales à 60<\/strong>/g;
-$fullforecast =~ s/rafales à 65/<strong style="color: $windyColor">rafales à 65<\/strong>/g;
-$fullforecast =~ s/rafales à 70/<strong style="color: $windyColor">rafales à 70<\/strong>/g;
-$fullforecast =~ s/rafales à 75/<strong style="color: $windyColor">rafales à 75<\/strong>/g;
-$fullforecast =~ s/rafales à 80/<strong style="color: $windyColor">rafales à 80<\/strong>/g;
-$fullforecast =~ s/rafales à 85/<strong style="color: $windyColor">rafales à 85<\/strong>/g;
-$fullforecast =~ s/rafales à 90/<strong style="color: $windyColor">rafales à 90<\/strong>/g;
-$fullforecast =~ s/rafales à 95/<strong style="color: $windyColor">rafales à 95<\/strong>/g;
-
-$fullforecast =~ s/gusty winds/<strong style="color: $windyColor">gusty winds<\/strong>/g;
-$fullforecast =~ s/Gusty winds/<strong style="color: $windyColor">Gusty winds<\/strong>/g;
 #RAINY STUFF
 $fullforecast =~ s/Rain at times heavy/<strong style="color: $hRainColor">Rain at times heavy<\/strong>/g;
 $fullforecast =~ s/rain at times heavy/<strong style="color: $hRainColor">rain at times heavy<\/strong>/g;
@@ -826,12 +778,14 @@ $fullforecast =~ s/Hauteur prévue de 65 mm/<strong style="color: $vhRainColor">
 
 $fullforecast =~ s/Amount 15 to 25 mm/<strong style="color: $hRainColor">Amount 15 to 25 mm<\/strong>/g;
 $fullforecast =~ s/Amount 20 to 25 mm/<strong style="color: $hRainColor">Amount 20 to 25 mm<\/strong>/g;
+$fullforecast =~ s/Amount 20 to 30 mm/<strong style="color: $hRainColor">Amount 20 to 30 mm<\/strong>/g;
 $fullforecast =~ s/Amount 25 to 30 mm/<strong style="color: $hRainColor">Amount 25 to 30 mm<\/strong>/g;
 $fullforecast =~ s/Amount 30 to 40 mm/<strong style="color: $vhRainColor">Amount 30 to 40 mm<\/strong>/g;
 $fullforecast =~ s/Amount 35 to 40 mm/<strong style="color: $vhRainColor">Amount 35 to 40 mm<\/strong>/g;
 $fullforecast =~ s/Amount 40 to 45 mm/<strong style="color: $vhRainColor">Amount 40 to 45 mm<\/strong>/g;
 $fullforecast =~ s/Amount 40 to 50 mm/<strong style="color: $vhRainColor">Amount 40 to 50 mm<\/strong>/g;
 $fullforecast =~ s/Amount 45 to 50 mm/<strong style="color: $vhRainColor">Amount 45 to 50 mm<\/strong>/g;
+$fullforecast =~ s/Amount 50 to 70 mm/<strong style="color: $vhRainColor">Amount 50 to 70 mm<\/strong>/g;
 
 $fullforecast =~ s/Hauteur prévue de 15 à 25 mm/<strong style="color: $hRainColor">Hauteur prévue de 15 à 25 mm<\/strong>/g;
 $fullforecast =~ s/Hauteur prévue de 20 à 25 mm/<strong style="color: $hRainColor">Hauteur prévue de 20 à 25 mm<\/strong>/g;
@@ -841,62 +795,162 @@ $fullforecast =~ s/Hauteur prévue de 35 à 40 mm/<strong style="color: $vhRainC
 $fullforecast =~ s/Hauteur prévue de 40 à 45 mm/<strong style="color: $vhRainColor">Hauteur prévue de 40 à 45 mm<\/strong>/g;
 $fullforecast =~ s/Hauteur prévue de 40 à 50 mm/<strong style="color: $vhRainColor">Hauteur prévue de 40 à 50 mm<\/strong>/g;
 $fullforecast =~ s/Hauteur prévue de 45 à 50 mm/<strong style="color: $vhRainColor">Hauteur prévue de 45 à 50 mm<\/strong>/g;
+$fullforecast =~ s/Hauteur prévue de 50 à 70 mm/<strong style="color: $vhRainColor">Hauteur prévue de 50 à 70 mm<\/strong>/g;
+
+#WINDY STUFF
+$fullforecast =~ s/very windy/<strong style="color: $windyColor">very windy<\/strong>/g;
+$fullforecast =~ s/Very windy/<strong style="color: $windyColor">Very windy<\/strong>/g;
+$fullforecast =~ s/windy/<strong style="color: $windyColor">windy<\/strong>/g;
+$fullforecast =~ s/Windy/<strong style="color: $windyColor">Windy<\/strong>/g;
+
+
+$fullforecast =~ s/Très venteux/<strong style="color: $windyColor">Très venteux<\/strong>/g;
+$fullforecast =~ s/très venteux/<strong style="color: $windyColor">très venteux<\/strong>/g;
+$fullforecast =~ s/venteux/<strong style="color: $windyColor">venteux<\/strong>/g;
+$fullforecast =~ s/Venteux/<strong style="color: $windyColor">Venteux<\/strong>/g;
+
+$fullforecast =~ s/30 to 50/<strong style="color: $windyColor">30 to 50<\/strong>/g;
+$fullforecast =~ s/40 to 60/<strong style="color: $windyColor">40 to 60<\/strong>/g;
+$fullforecast =~ s/50 to 70/<strong style="color: $windyColor">50 to 70<\/strong>/g;
+$fullforecast =~ s/60 to 80/<strong style="color: $windyColor">60 to 80<\/strong>/g;
+$fullforecast =~ s/60 to 90/<strong style="color: $windyColor">60 to 90<\/strong>/g;
+$fullforecast =~ s/70 to 90/<strong style="color: $windyColor">70 to 90<\/strong>/g;
+$fullforecast =~ s/70 to 100/<strong style="color: $windyColor">70 to 100<\/strong>/g;
+$fullforecast =~ s/80 to 100/<strong style="color: $windyColor">80 to 100<\/strong>/g;
+$fullforecast =~ s/90 to 110/<strong style="color: $windyColor">90 to 110<\/strong>/g;
+$fullforecast =~ s/90 to 120/<strong style="color: $windyColor">90 to 120<\/strong>/g;
+$fullforecast =~ s/100 to 120/<strong style="color: $windyColor">100 to 120<\/strong>/g;
+
+$fullforecast =~ s/30 à 50/<strong style="color: $windyColor">30 à 50<\/strong>/g;
+$fullforecast =~ s/40 à 60/<strong style="color: $windyColor">40 à 60<\/strong>/g;
+$fullforecast =~ s/50 à 70/<strong style="color: $windyColor">50 à 70<\/strong>/g;
+$fullforecast =~ s/60 à 80/<strong style="color: $windyColor">60 à 80<\/strong>/g;
+$fullforecast =~ s/60 à 90/<strong style="color: $windyColor">60 à 90<\/strong>/g;
+$fullforecast =~ s/70 à 90/<strong style="color: $windyColor">70 à 90<\/strong>/g;
+$fullforecast =~ s/70 à 100/<strong style="color: $windyColor">70 à 100<\/strong>/g;
+$fullforecast =~ s/80 à 100/<strong style="color: $windyColor">80 à 100<\/strong>/g;
+$fullforecast =~ s/90 à 110/<strong style="color: $windyColor">90 à 110<\/strong>/g;
+$fullforecast =~ s/90 à 120/<strong style="color: $windyColor">90 à 120<\/strong>/g;
+$fullforecast =~ s/100 à 120/<strong style="color: $windyColor">100 à 120<\/strong>/g;
+
+$fullforecast =~ s/15 km\/h/<strong style="color: $windyColor">15 km\/h<\/strong>/g;
+$fullforecast =~ s/20 km\/h/<strong style="color: $windyColor">20 km\/h<\/strong>/g;
+$fullforecast =~ s/25 km\/h/<strong style="color: $windyColor">25 km\/h<\/strong>/g;
+$fullforecast =~ s/30 km\/h/<strong style="color: $windyColor">30 km\/h<\/strong>/g;
+$fullforecast =~ s/35 km\/h/<strong style="color: $windyColor">35 km\/h<\/strong>/g;
+$fullforecast =~ s/40 km\/h/<strong style="color: $windyColor">40 km\/h<\/strong>/g;
+$fullforecast =~ s/45 km\/h/<strong style="color: $windyColor">45 km\/h<\/strong>/g;
+$fullforecast =~ s/50 km\/h/<strong style="color: $windyColor">50 km\/h<\/strong>/g;
+$fullforecast =~ s/55 km\/h/<strong style="color: $windyColor">55 km\/h<\/strong>/g;
+$fullforecast =~ s/60 km\/h/<strong style="color: $windyColor">60 km\/h<\/strong>/g;
+$fullforecast =~ s/65 km\/h/<strong style="color: $windyColor">65 km\/h<\/strong>/g;
+$fullforecast =~ s/70 km\/h/<strong style="color: $windyColor">70 km\/h<\/strong>/g;
+$fullforecast =~ s/75 km\/h/<strong style="color: $windyColor">75 km\/h<\/strong>/g;
+$fullforecast =~ s/80 km\/h/<strong style="color: $windyColor">80 km\/h<\/strong>/g;
+$fullforecast =~ s/85 km\/h/<strong style="color: $windyColor">85 km\/h<\/strong>/g;
+$fullforecast =~ s/90 km\/h/<strong style="color: $windyColor">90 km\/h<\/strong>/g;
+$fullforecast =~ s/95 km\/h/<strong style="color: $windyColor">95 km\/h<\/strong>/g;
+$fullforecast =~ s/100 km\/h/<strong style="color: $windyColor">100 km\/h<\/strong>/g;
+$fullforecast =~ s/105 km\/h/<strong style="color: $windyColor">105 km\/h<\/strong>/g;
+$fullforecast =~ s/110 km\/h/<strong style="color: $windyColor">110 km\/h<\/strong>/g;
+$fullforecast =~ s/115 km\/h/<strong style="color: $windyColor">115 km\/h<\/strong>/g;
+$fullforecast =~ s/120 km\/h/<strong style="color: $windyColor">120 km\/h<\/strong>/g;
+$fullforecast =~ s/125 km\/h/<strong style="color: $windyColor">125 km\/h<\/strong>/g;
+$fullforecast =~ s/130 km\/h/<strong style="color: $windyColor">130 km\/h<\/strong>/g;
+$fullforecast =~ s/135 km\/h/<strong style="color: $windyColor">135 km\/h<\/strong>/g;
+$fullforecast =~ s/140 km\/h/<strong style="color: $windyColor">140 km\/h<\/strong>/g;
+$fullforecast =~ s/145 km\/h/<strong style="color: $windyColor">145 km\/h<\/strong>/g;
+$fullforecast =~ s/150 km\/h/<strong style="color: $windyColor">150 km\/h<\/strong>/g;
+$fullforecast =~ s/155 km\/h/<strong style="color: $windyColor">155 km\/h<\/strong>/g;
+
+$fullforecast =~ s/km\/h/<strong style="color: $windyColor">km\/h<\/strong>/g;
+
+
+$fullforecast =~ s/gusting to 40/<strong style="color: $windyColor">gusting to 40<\/strong>/g;
+$fullforecast =~ s/gusting to 45/<strong style="color: $windyColor">gusting to 45<\/strong>/g;
+$fullforecast =~ s/gusting to 50/<strong style="color: $windyColor">gusting to 50<\/strong>/g;
+$fullforecast =~ s/gusting to 55/<strong style="color: $windyColor">gusting to 55<\/strong>/g;
+$fullforecast =~ s/gusting to 60/<strong style="color: $windyColor">gusting to 60<\/strong>/g;
+$fullforecast =~ s/gusting to 65/<strong style="color: $windyColor">gusting to 65<\/strong>/g;
+$fullforecast =~ s/gusting to 70/<strong style="color: $windyColor">gusting to 70<\/strong>/g;
+$fullforecast =~ s/gusting to 75/<strong style="color: $windyColor">gusting to 75<\/strong>/g;
+$fullforecast =~ s/gusting to 80/<strong style="color: $windyColor">gusting to 80<\/strong>/g;
+$fullforecast =~ s/gusting to 85/<strong style="color: $windyColor">gusting to 85<\/strong>/g;
+$fullforecast =~ s/gusting to 90/<strong style="color: $windyColor">gusting to 90<\/strong>/g;
+$fullforecast =~ s/gusting to 95/<strong style="color: $windyColor">gusting to 95<\/strong>/g;
+
+$fullforecast =~ s/rafales à 40/<strong style="color: $windyColor">rafales à 40<\/strong>/g;
+$fullforecast =~ s/rafales à 45/<strong style="color: $windyColor">rafales à 45<\/strong>/g;
+$fullforecast =~ s/rafales à 50/<strong style="color: $windyColor">rafales à 50<\/strong>/g;
+$fullforecast =~ s/rafales à 55/<strong style="color: $windyColor">rafales à 55<\/strong>/g;
+$fullforecast =~ s/rafales à 60/<strong style="color: $windyColor">rafales à 60<\/strong>/g;
+$fullforecast =~ s/rafales à 65/<strong style="color: $windyColor">rafales à 65<\/strong>/g;
+$fullforecast =~ s/rafales à 70/<strong style="color: $windyColor">rafales à 70<\/strong>/g;
+$fullforecast =~ s/rafales à 75/<strong style="color: $windyColor">rafales à 75<\/strong>/g;
+$fullforecast =~ s/rafales à 80/<strong style="color: $windyColor">rafales à 80<\/strong>/g;
+$fullforecast =~ s/rafales à 85/<strong style="color: $windyColor">rafales à 85<\/strong>/g;
+$fullforecast =~ s/rafales à 90/<strong style="color: $windyColor">rafales à 90<\/strong>/g;
+$fullforecast =~ s/rafales à 95/<strong style="color: $windyColor">rafales à 95<\/strong>/g;
+
+$fullforecast =~ s/gusty winds/<strong style="color: $windyColor">gusty winds<\/strong>/g;
+$fullforecast =~ s/Gusty winds/<strong style="color: $windyColor">Gusty winds<\/strong>/g;
+
 #WARNINGS
 
 $fullforecast =~ s/No watches or warnings in effect. $forecastPlaceName//g;
 $fullforecast =~ s/Aucune veille ou alerte en vigueur. $forecastPlaceName//g;
 
-$fullforecast =~ s/SNOWFALL WARNING ENDED, $forecastPlaceName/<strong class="warning"><a target='_blank' href="$warnLink">SNOWFALL WARNING ENDED<\/a><\/strong>/g;
-$fullforecast =~ s/WIND WARNING ENDED, $forecastPlaceName/<strong class="warning"><a target='_blank' href="$warnLink">WIND WARNING ENDED<\/a><\/strong>/g;
-$fullforecast =~ s/RAINFALL WARNING ENDED, $forecastPlaceName/<strong class="warning"><a target='_blank' href="$warnLink">RAINFALL WARNING ENDED<\/a><\/strong>/g;
+$fullforecast =~ s/SNOWFALL WARNING ENDED, $forecastPlaceName/<strong><a target='_blank' style="color: $warningColor;" href="$warnLink">SNOWFALL WARNING ENDED<\/a><\/strong>/g;
+$fullforecast =~ s/WIND WARNING ENDED, $forecastPlaceName/<strong><a target='_blank' style="color: $warningColor;" href="$warnLink">WIND WARNING ENDED<\/a><\/strong>/g;
+$fullforecast =~ s/RAINFALL WARNING ENDED, $forecastPlaceName/<strong><a target='_blank' style="color: $warningColor;" href="$warnLink">RAINFALL WARNING ENDED<\/a><\/strong>/g;
 
-$fullforecast =~ s/FREEZING RAIN WARNING ENDED, $forecastPlaceName/<strong class="warning"><a target='_blank' href="$warnLink">FREEZING RAIN WARNING ENDED<\/a><\/strong>/g;
-$fullforecast =~ s/FREEZING DRIZZLE WARNING ENDED, $forecastPlaceName/<strong class="warning"><a target='_blank' href="$warnLink">FREEZING DRIZZLE WARNING ENDED<\/a><\/strong>/g;
+$fullforecast =~ s/FREEZING RAIN WARNING ENDED, $forecastPlaceName/<strong><a target='_blank' style="color: $warningColor;" href="$warnLink">FREEZING RAIN WARNING ENDED<\/a><\/strong>/g;
+$fullforecast =~ s/FREEZING DRIZZLE WARNING ENDED, $forecastPlaceName/<strong><a target='_blank' style="color: $warningColor;" href="$warnLink">FREEZING DRIZZLE WARNING ENDED<\/a><\/strong>/g;
 
-$fullforecast =~ s/WINTER STORM WARNING ENDED, $forecastPlaceName/<strong class="warning"><a target='_blank' href="$warnLink">WINTER STORM ENDED<\/a><\/strong>/g;
+$fullforecast =~ s/WINTER STORM WARNING ENDED, $forecastPlaceName/<strong><a target='_blank' style="color: $warningColor;" href="$warnLink">WINTER STORM ENDED<\/a><\/strong>/g;
 
-$fullforecast =~ s/WIND WARNING , $forecastPlaceName/<strong class="warning"><a target="_blank" class="warning" href="$warnLink">WIND WARNING IN EFFECT<\/a><\/strong>/g;
-$fullforecast =~ s/AVERTISSEMENT DE VENT , $forecastPlaceName/<strong class="warning"><a target="_blank" class="warning" href="$warnLink">AVERTISSEMENT DE VENT <\/a><\/strong>/g;
+$fullforecast =~ s/WIND WARNING , $forecastPlaceName/<strong><a target="_blank" style="color: $warningColor;" href="$warnLink">WIND WARNING IN EFFECT<\/a><\/strong>/g;
+$fullforecast =~ s/AVERTISSEMENT DE VENT , $forecastPlaceName/<strong><a target="_blank" style="color: $warningColor;" href="$warnLink">AVERTISSEMENT DE VENT <\/a><\/strong>/g;
 
-$fullforecast =~ s/AVERTISSEMENT DE PLUIE VERGLAÇANTE , $forecastPlaceName/<strong class="warning"><a target='_blank' href="$warnLink">AVERTISSEMENT DE PLUIE VERGLAÇANTE<\/a><\/strong>/g;
+$fullforecast =~ s/AVERTISSEMENT DE PLUIE VERGLAÇANTE , $forecastPlaceName/<strong><a target='_blank' style="color: $warningColor;" href="$warnLink">AVERTISSEMENT DE PLUIE VERGLAÇANTE<\/a><\/strong>/g;
 
-$fullforecast =~ s/FREEZING DRIZZLE WARNING , $forecastPlaceName/<strong class="warning"><a target='_blank' href="$warnLink">FREEZING DRIZZLE WARNING IN EFFECT<\/a><\/strong>/g;
+$fullforecast =~ s/FREEZING DRIZZLE WARNING , $forecastPlaceName/<strong><a target='_blank' style="color: $warningColor;" href="$warnLink">FREEZING DRIZZLE WARNING IN EFFECT<\/a><\/strong>/g;
 
-$fullforecast =~ s/AVERTISSEMENT DE PLUIE VERGLAÇANTE , $forecastPlaceName/<strong class="warning"><a target='_blank' href="$warnLink">AVERTISSEMENT DE PLUIE VERGLAÇANTE<\/a><\/strong>/g;
+$fullforecast =~ s/AVERTISSEMENT DE PLUIE VERGLAÇANTE , $forecastPlaceName/<strong><a target='_blank' style="color: $warningColor;" href="$warnLink">AVERTISSEMENT DE PLUIE VERGLAÇANTE<\/a><\/strong>/g;
 
-$fullforecast =~ s/FREEZING DRIZZLE WARNING , $forecastPlaceName/<strong class="warning"><a target='_blank' href="$warnLink">FREEZING DRIZZLE WARNING IN EFFECT<\/a><\/strong>/g;
-
-
-$fullforecast =~ s/WINTER STORM WARNING , $forecastPlaceName/<strong class="warning"><a target='_blank' href="$warnLink">WINTER STORM WARNING IN EFFECT<\/a><\/strong>/g;
-$fullforecast =~ s/AVERTISSEMENT DE TEMPÊTE HIVERNALE , $forecastPlaceName/<strong class="warning"><a target='_blank' href="$warnLink">AVERTISSEMENT DE TEMPÊTE HIVERNALE<\/a><\/strong>/g;
-
-$fullforecast =~ s/WINTER STORM WATCH , $forecastPlaceName/<strong class="warning"><a target='_blank' href="$warnLink">WINTER STORM WATCH IN EFFECT<\/a><\/strong>/g;
-
-$fullforecast =~ s/EXTREME COLD WARNING , $forecastPlaceName/<strong class="warning"><a target='_blank' href="$warnLink">EXTREME COLD WARNING<\/a><\/strong>/g;
-$fullforecast =~ s/AVERTISSEMENT DE FROID EXTRÊME , $forecastPlaceName/<strong class="warning"><a target='_blank' href="$warnLink">AVERTISSEMENT DE FROID EXTRÊME <\/a><\/strong>/g;
+$fullforecast =~ s/FREEZING DRIZZLE WARNING , $forecastPlaceName/<strong><a target='_blank' style="color: $warningColor;" href="$warnLink">FREEZING DRIZZLE WARNING IN EFFECT<\/a><\/strong>/g;
 
 
-$fullforecast =~ s/RAINFALL WARNING , $forecastPlaceName/<strong class="warning"><a target='_blank' href="$warnLink">RAINFALL WARNING IN EFFECT<\/a><\/strong>/g;
-$fullforecast =~ s/AVERTISSEMENT DE PLUIE , $forecastPlaceName/<strong class="warning"><a target='_blank' href="$warnLink">AVERTISSEMENT DE PLUIE <\/a><\/strong>/g;
+$fullforecast =~ s/WINTER STORM WARNING , $forecastPlaceName/<strong><a target='_blank' style="color: $warningColor;" href="$warnLink">WINTER STORM WARNING IN EFFECT<\/a><\/strong>/g;
+$fullforecast =~ s/AVERTISSEMENT DE TEMPÊTE HIVERNALE , $forecastPlaceName/<strong><a target='_blank' style="color: $warningColor;" href="$warnLink">AVERTISSEMENT DE TEMPÊTE HIVERNALE<\/a><\/strong>/g;
+
+$fullforecast =~ s/WINTER STORM WATCH , $forecastPlaceName/<strong><a target='_blank' style="color: $warningColor;" href="$warnLink">WINTER STORM WATCH IN EFFECT<\/a><\/strong>/g;
+
+$fullforecast =~ s/EXTREME COLD WARNING , $forecastPlaceName/<strong><a target='_blank' style="color: $warningColor;" href="$warnLink">EXTREME COLD WARNING<\/a><\/strong>/g;
+$fullforecast =~ s/AVERTISSEMENT DE FROID EXTRÊME , $forecastPlaceName/<strong><a target='_blank' style="color: $warningColor;" href="$warnLink">AVERTISSEMENT DE FROID EXTRÊME <\/a><\/strong>/g;
 
 
-$fullforecast =~ s/SNOWFALL WARNING , $forecastPlaceName/<strong class="warning"><a target='_blank' href="$warnLink">SNOWFALL WARNING IN EFFECT<\/a><\/strong>/g;
-$fullforecast =~ s/AVERTISSEMENT DE NEIGE , $forecastPlaceName/<strong class="warning"><a target='_blank' href="$warnLink">AVERTISSEMENT DE NEIGE <\/a><\/strong>/g;
-
-$fullforecast =~ s/SPECIAL WEATHER STATEMENT , $forecastPlaceName/<strong ><a target='_blank' href="$warnLink">SPECIAL WEATHER STATEMENT IN EFFECT<\/a><\/strong>/g;
-$fullforecast =~ s/BULLETIN MÉTÉOROLOGIQUE SPÉCIAL , $forecastPlaceName/<strong ><a target='_blank' href="$warnLink">BULLETIN MÉTÉOROLOGIQUE SPÉCIAL<\/a><\/strong>/g;
+$fullforecast =~ s/RAINFALL WARNING , $forecastPlaceName/<strong><a target='_blank' style="color: $warningColor;" href="$warnLink">RAINFALL WARNING IN EFFECT<\/a><\/strong>/g;
+$fullforecast =~ s/AVERTISSEMENT DE PLUIE , $forecastPlaceName/<strong><a target='_blank' style="color: $warningColor;" href="$warnLink">AVERTISSEMENT DE PLUIE <\/a><\/strong>/g;
 
 
-$fullforecast =~ s/SPECIAL AIR QUALITY STATEMENT , $forecastPlaceName/<strong class="warning"><a target='_blank' href="$warnLink">SPECIAL AIR QUALITY STATEMENT IN EFFECT<\/a><\/strong>/g;
-$fullforecast =~ s/SEVERE THUNDERSTORM WATCH , $forecastPlaceName/<strong class="warning"><a target='_blank' href="$warnLink">SEVERE THUNDERSTORM WATCH IN EFFECT<\/a><\/strong>/g;
-$fullforecast =~ s/SEVERE THUNDERSTORM WARNING , $forecastPlaceName/<strong class="warning"><a target='_blank' href="$warnLink">SEVERE THUNDERSTORM WARNING IN EFFECT<\/a><\/strong>/g;
-$fullforecast =~ s/HEAT WARNING , $forecastPlaceName/<strong class="warning"><a target='_blank' href="$warnLink">HEAT WARNING IN EFFECT<\/a><\/strong>/g;
+$fullforecast =~ s/SNOWFALL WARNING , $forecastPlaceName/<strong><a target='_blank' style="color: $warningColor;" href="$warnLink">SNOWFALL WARNING IN EFFECT<\/a><\/strong>/g;
+$fullforecast =~ s/AVERTISSEMENT DE NEIGE , $forecastPlaceName/<strong><a target='_blank' style="color: $warningColor;" href="$warnLink">AVERTISSEMENT DE NEIGE <\/a><\/strong>/g;
+
+$fullforecast =~ s/SPECIAL WEATHER STATEMENT , $forecastPlaceName/<strong ><a target='_blank' style="color: $warningColor;" href="$warnLink">SPECIAL WEATHER STATEMENT IN EFFECT<\/a><\/strong>/g;
+$fullforecast =~ s/BULLETIN MÉTÉOROLOGIQUE SPÉCIAL , $forecastPlaceName/<strong ><a target='_blank' style="color: $warningColor;" href="$warnLink">BULLETIN MÉTÉOROLOGIQUE SPÉCIAL<\/a><\/strong>/g;
+
+
+$fullforecast =~ s/SPECIAL AIR QUALITY STATEMENT , $forecastPlaceName/<strong><a target='_blank' style="color: $warningColor;" href="$warnLink">SPECIAL AIR QUALITY STATEMENT IN EFFECT<\/a><\/strong>/g;
+$fullforecast =~ s/SEVERE THUNDERSTORM WATCH , $forecastPlaceName/<strong><a target='_blank' style="color: $warningColor;" href="$warnLink">SEVERE THUNDERSTORM WATCH IN EFFECT<\/a><\/strong>/g;
+$fullforecast =~ s/SEVERE THUNDERSTORM WARNING , $forecastPlaceName/<strong><a target='_blank' style="color: $warningColor;" href="$warnLink">SEVERE THUNDERSTORM WARNING IN EFFECT<\/a><\/strong>/g;
+$fullforecast =~ s/HEAT WARNING , $forecastPlaceName/<strong><a target='_blank' style="color: $warningColor;" href="$warnLink">HEAT WARNING IN EFFECT<\/a><\/strong>/g;
 
 $fullforecast =~ s/Persons in or near this area should be on the lookout for adverse weather conditions and take necessary safety precautions./<br\/>/g;
 $fullforecast =~ s/Le public de la région concernée doit porter une attention particulière aux conditions météorologiques potentiellement dangereuses et prendre les mesures de sécurité qui s'imposent./<br\/>/g;
 
-$fullforecast =~ s/FOG ADVISORY , $forecastPlaceName/<strong><a target='_blank' href="$warnLink">FOG ADVISORY IN EFFECT<\/a><\/strong>/g;
-$fullforecast =~ s/SMOG WARNING , $forecastPlaceName/<strong><a target='_blank' href="$warnLink">SMOG WARNING<\/a><\/strong>/g;
+$fullforecast =~ s/FOG ADVISORY , $forecastPlaceName/<strong><a target='_blank' style="color: $warningColor;"  href="$warnLink">FOG ADVISORY IN EFFECT<\/a><\/strong>/g;
+$fullforecast =~ s/SMOG WARNING , $forecastPlaceName/<strong><a target='_blank' style="color: $warningColor;" href="$warnLink">SMOG WARNING<\/a><\/strong>/g;
 
 $fullforecast =~ s/No watches or warnings in effect./<strong><a target='_blank' href="$warnLink">No watches or warnings in effect.<\/a><\/strong>/g;
 $fullforecast =~ s/Aucune veille ou alerte en vigueur./<strong><a target='_blank' href="$warnLink">Aucune veille ou alerte en vigueur.<\/a><\/strong>/g;

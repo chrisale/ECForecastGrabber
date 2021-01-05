@@ -1,6 +1,6 @@
 #!/bin/bash
 ## CONFIG FILE FOR FORECAST GRABBER
-## v2.0.0
+## v2.0.1
 
 ## Full path to wget 
 #eg. /usr/bin/wget
@@ -75,6 +75,7 @@ thunderWarn="#ffaa00"
 windyColor="#990088"
 hRainColor="#008800"
 vhRainColor="#880000"
+warningColor="#ff0000"
 
 ## Other adjustable colours
 #Default colour of the whole paragraph containing the forecast.

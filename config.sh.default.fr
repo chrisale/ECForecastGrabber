@@ -1,6 +1,6 @@
 #!/bin/bash
-## CONFIGURATION DE  ECFORECASTGRABBER
-## EN FRANCAIS
+## CONFIGURATION DE ECFORECASTGRABBER EN FRANCAIS
+## v2.0.1
 
 ## Emplacement de wget
 #eg. /usr/bin/wget
@@ -75,6 +75,7 @@ thunderWarn="#ffaa00"
 windyColor="#990088"
 hRainColor="#008800"
 vhRainColor="#880000"
+warningColor="#ff0000"
 
 ## Other adjustable colours
 #Default colour of the whole paragraph containing the forecast.
