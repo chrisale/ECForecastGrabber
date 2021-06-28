@@ -1,4 +1,12 @@
 # Change Log
+***v2.0.2**
+
+* Added 40+ temperature highlights.
+
+* Added Extreme Humidex Highlights.
+
+* Bug Fix: Saturday wasn't highlighted.
+
 **v2.0.1**
 
 * Integrating Readme typo fixes.

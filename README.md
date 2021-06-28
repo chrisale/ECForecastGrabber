@@ -3,7 +3,7 @@ This cronjob and perl script running on your webserver or local computer will pu
 
 It also augments the text with links, colours and other features that bring a little more interactivity to the plain text.
 
-You can also make copies of these files and have as many forecasts downloaded and processed as you like.
+You can have as many copies of this package running as you like to be able to produce multiple forecasts.
 
 # How does it work?
 

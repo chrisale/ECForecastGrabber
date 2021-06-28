@@ -3,7 +3,7 @@
 ## Any issues, suggestions or contributions are welcome and can be made on github.
 export LANGUAGE=UTF8
 
-version="v2.0.1"
+version="v2.0.2"
 
 #Bring in config file variables.
 . $(dirname "$0")/config.sh
@@ -34,6 +34,8 @@ export perlfreezeRainWarn=$freezeRainWarn
 export perlfreezingTemp=$freezingTemp
 export perlnearfreezeTemp=$nearfreezeTemp
 export perlhotTemp=$hotTemp
+export perlexhotTemp=$exhotTemp
+export perlexHumidex=$exHumidex
 export perlthunderWarn=$thunderWarn
 export perlboldDays=$boldDays
 export perltextColor=$textColor

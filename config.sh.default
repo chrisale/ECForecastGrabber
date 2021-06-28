@@ -1,6 +1,6 @@
 #!/bin/bash
 ## CONFIG FILE FOR FORECAST GRABBER
-## v2.0.1
+## v2.0.2
 
 ## Full path to wget 
 #eg. /usr/bin/wget
@@ -41,7 +41,7 @@ warnLink="https://weather.gc.ca/warnings/report_e.html?bc45"
 thunderLink="https://weather.gc.ca/lightning/index_e.html?id=PAC#mapTop"
 
 ###############################################################################
-#### THE FOLLOWING DON'T NEED TO BE CHANGED BUT CAN BE.
+#### EVERYTHING BELOW THIS POINT DOESN'T NEED TO BE CHANGED BUT CAN BE.
 ###############################################################################
 
 ## Name of the XML file
@@ -57,6 +57,10 @@ footerMsg="This forecast is generated and processed from Environment Canada repo
 
 ##Style information for formatting and display of the text forecasts.
 
+###############################################################################
+#### STYLE, COLOURS, AND OTHER VISUAL PROPERTIES
+###############################################################################
+
 ## Would you like to days bolded
 ## Options are: bold or normal
 boldDays="bold"
@@ -70,6 +74,8 @@ nearfreezeTemp="#9999ff"
 freezingTemp="#0000ff"
 flurriesColor="#0000ff"
 hotTemp="#ff0000"
+exhotTemp="#cc00cc"
+exHumidex="#550055"
 thunderWarn="#ffaa00"
 thunderWarn="#ffaa00"
 windyColor="#990088"
