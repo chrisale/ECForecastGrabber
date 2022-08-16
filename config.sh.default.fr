@@ -1,6 +1,6 @@
 #!/bin/bash
 ## CONFIGURATION DE ECFORECASTGRABBER EN FRANCAIS
-## v2.0.2
+## v3.0
 
 ## Emplacement de wget
 #eg. /usr/bin/wget

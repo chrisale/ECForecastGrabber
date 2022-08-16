@@ -1,4 +1,8 @@
 # Change Log
+***3.0**
+
+* Introducing Nuu-cha-nulth translations
+
 ***v2.0.2**
 
 * Added 40+ temperature highlights.
