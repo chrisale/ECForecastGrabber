@@ -22,6 +22,13 @@ There is an example html file in the samples directory that can be used as a tem
 
 You can see a 'live' example on https://www.alberniweather.ca
 
+# Indigenous Language Translation 
+
+I am endeavouring to add the capability to substitute and translate, in whole or part, indigenous words and phrases in place of the standard Environment Canada English and French text. This is a significant amount of work and may be incomplete or incorrect at times.
+Enabling this is done through the config.sh file.  It should work whether you select the 'base' English or French Environment Canada forecast sources. It is done with the intent to be respectful of First Nations, Inuit and Métis ancestral, un-ceded lands and traditions in an effort to preserve their ancient languages.
+Currently the only supported language is based on the Nuu-cha-nulth family of languages on the West Coast of Vancouver Island. If you see any errors or have any suggestions for improvements, please contact me.
+
+
 # Setup and Installation
 
 Initial requirements are minimal and should exist on any system.

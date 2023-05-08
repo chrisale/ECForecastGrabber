@@ -4,6 +4,7 @@ use XML::Simple;
 use Data::Dumper;
 use HTTP::Date;
 use utf8;
+use Encode;
 #use warnings;
 #use diagnostics;
 
@@ -11,14 +12,17 @@ use utf8;
 my $perlversion = $ENV{'perlversion'};
 
 ## Adding trailing slash from user configuration
-
 my $perlWebPath = $ENV{'perlwebPath'};
 $perlWebPath = $perlWebPath . '/';
 
 ## XML file is the source of all data from Environment Canada
-
 my $xmlFile = $ENV{'perlxmlFile'};
 
+## Switch to determine if using Indigenous Translation
+my $enableIndigenous = $ENV{'perlenableIndigenous'};
+
+## Switch to determine if we are translating to Nuuchahnulth
+my $enableNCN = $ENV{'perlenableNCN'};
 
 ## Temporary text file 
 my $outputForecastOnlyfile = $ENV{'perlfinalForecasttmp'};
@@ -26,9 +30,10 @@ my $outputForecastOnlyfile = $ENV{'perlfinalForecasttmp'};
 ## Placeholder as we were doing current conditions at one point.
 my $outputConditionsandForecastfile = 'ECCurCondTmp.txt';
 
+## Environment Canada URL to the source forecast file.
 my $forecastURL = $ENV{'perlforecastURL'};
 
-
+## Name of the actual forecast location, display name and footer messages
 my $forecastPlaceName = $ENV{'perlforecastPlaceName'};
 my $forecastName = $ENV{'perlforecastName'};
 my $footerMsg = $ENV{'perlfooterMsg'};
@@ -71,6 +76,10 @@ my $forecastlinkpreamble = "<p><strong><a target='_blank' id='curforcst' href='"
 my $forecastlinkpostamble = "'>";
 my $forecastnamepostamble = "</a></strong>";
 my $forecastlink = $forecastlinkpreamble . $forecastURL . $forecastlinkpostamble . $forecastName . $forecastnamepostamble;
+my $warnings = '';
+my $warnings2 = '';
+my $warnings3 = '';
+
 
 $xmlFile = $perlWebPath . $xmlFile;
 $outputForecastOnlyfile = $perlWebPath . $outputForecastOnlyfile;
@@ -89,44 +98,47 @@ while( my ($k, $v) = each %$getkeys ) {
         push(@weatherkeys, $k);
     }
 foreach (@weatherkeys) {
-      if (index($_, 'fc1:') != -1) {
+    if (index($_, 'fc0:') != -1) {
     $weatherkeyfinal[0] = $_;
     }
-     if (index($_, 'fc2:') != -1) {
+    if (index($_, 'fc1:') != -1) {
     $weatherkeyfinal[1] = $_;
     }
-    if (index($_, 'fc3:') != -1) {
+    if (index($_, 'fc2:') != -1) {
     $weatherkeyfinal[2] = $_;
     }
-    if (index($_, 'fc4:') != -1) {
+    if (index($_, 'fc3:') != -1) {
     $weatherkeyfinal[3] = $_;
     }
-    if (index($_, 'fc5:') != -1) {
+    if (index($_, 'fc4:') != -1) {
     $weatherkeyfinal[4] = $_;
     }
-    if (index($_, 'fc6:') != -1) {
+    if (index($_, 'fc5:') != -1) {
     $weatherkeyfinal[5] = $_;
     }
-    if (index($_, 'fc7:') != -1) {
+    if (index($_, 'fc6:') != -1) {
     $weatherkeyfinal[6] = $_;
     }
-    if (index($_, 'fc8:') != -1) {
+    if (index($_, 'fc7:') != -1) {
     $weatherkeyfinal[7] = $_;
     }
-    if (index($_, 'fc9:') != -1) {
+    if (index($_, 'fc8:') != -1) {
     $weatherkeyfinal[8] = $_;
     }
-    if (index($_, 'fc10:') != -1) {
+    if (index($_, 'fc9:') != -1) {
     $weatherkeyfinal[9] = $_;
     }
-    if (index($_, 'fc11:') != -1) {
+    if (index($_, 'fc10:') != -1) {
     $weatherkeyfinal[10] = $_;
     }
-     if (index($_, 'fc12:') != -1) {
+    if (index($_, 'fc11:') != -1) {
     $weatherkeyfinal[11] = $_;
     }
-     if (index($_, 'fc13:') != -1) {
+     if (index($_, 'fc12:') != -1) {
     $weatherkeyfinal[12] = $_;
+    }
+     if (index($_, 'fc13:') != -1) {
+    $weatherkeyfinal[13] = $_;
     }
     if (index($_, 'cc') != -1) {
     $currentconditionskey = $_;
@@ -281,6 +293,11 @@ my $fullforecast = '';
 $fullforecast = $forecastlink . " - ";
 
 #Build warning at top with the name of the place.
+
+my $warn2 = "_";
+my $warn3 = "_";
+
+
 $warn1 = $data->{entry}{$warnings}{title};
 
 #Build warning2 at top with the name of the place.
@@ -288,7 +305,6 @@ $warn2 = $data->{entry}{$warnings2}{title};
 
 #Build warning2 at top with the name of the place.
 $warn3 = $data->{entry}{$warnings3}{title};
-
 
 $fullforecast = $fullforecast . $warn1 . " - " . $warn2 . " - " . $warn3;
 
@@ -485,6 +501,7 @@ $fullforecast = $fullforecast . $day13dc;
 
 
 ## GETTING RID OF WHAT WE DO NOT WANT IN THE STRING AND ADDING SOME FEATURES TO THE TEXT. 
+
 ####### BUILDING INLINE STYLE ATTRIBUTE VALUES
 
 my $mainStyleElement = "<style>.warning {color: #ff0000; font-size:large;} </style>";
@@ -1034,15 +1051,71 @@ $fullforecast =~ s/SMOG WARNING , $forecastPlaceName/<strong><a target='_blank' 
 $fullforecast =~ s/No watches or warnings in effect./<strong><a target='_blank' href="$warnLink">No watches or warnings in effect.<\/a><\/strong>/g;
 $fullforecast =~ s/Aucune veille ou alerte en vigueur./<strong><a target='_blank' href="$warnLink">Aucune veille ou alerte en vigueur.<\/a><\/strong>/g;
 
+
+## INDIGENOUS TRANSLATION SECTION First Check to see if Indigenous Translation is enabled.
+
+if ($enableIndigenous eq 'Yes') {
+
+# A reference for UTF8 characters to make inserting various letters and symbols easier.
+# &#578; = ʔ
+# &ccaron; = č
+# &scaron; = š
+# &#411; = ƛ
+# &lstrok; = ł
+# &#x313; = adds upper apostrophe
+# &#803; = adds dot below
+# &#695; = adds a w
+# kwisaaʔiš
+
+#my $indigenous = " Indigenous Languages are Enabled.";
+#$fullforecast = $fullforecast . $indigenous;
+
+## Which language are we using, there is no else.
+
+	if ($enableNCN eq 'Yes') {
+	
+	#$fullforecast = $fullforecast . "TEST VALUES: Forecast - rain - showers - Showers - cloudy - Cloudy periods - wind - Windy - Snow - Fog - Frost - Thunderstorms - Hail - ";
+	## Sunny Translated to "It is a beautiful day today" https://nuuchahnulth.org/language/phrases/it-beautiful-day-today
+	$fullforecast =~ s/Forecast/&#578;aaqinh&#803;a n&#x313;aas&#578;ii/gi; # "What is the day doinng?"
+	$fullforecast =~ s/Sunny/&#578;uu&#578;uqukma/gi; # "It is nice weatther"
+	$fullforecast =~ s/Rain/m&#x313;i&#411;aama/gi; # "It is raining"
+	$fullforecast =~ s/Showers/m&#x313;i&#411;m&#x313;i&#411;&scaron;/gi; # "It is raining off and on"
+	$fullforecast =~ s/Cloudy periods/&lstrok;iw&#x313;ah&#803;akma/gi; # "It is cloudy"
+	$fullforecast =~ s/Cloudy/&lstrok;iw&#x313;ah&#803;akma/gi; # "It is cloudy"
+	$fullforecast =~ s/thunderstorms/wiiqsiima/gi; # "It is stormy"
+	$fullforecast =~ s/Windy/yu&#578;ima/gi; # "It is windy"
+	$fullforecast =~ s/Wind/yu&#578;ima/gi; # "It is windy"
+	$fullforecast =~ s/Snow/k&#695;isaama/gi; # "It is snowing"
+	$fullforecast =~ s/Flurries/k&#695;isaama/gi; # "It is snowing"
+	$fullforecast =~ s/Fog/&#578;u&ccaron;qakma/gi; # "It is foggy"
+	$fullforecast =~ s/Frost/k&#695;imacyuma/gi; # "It is frosty"
+	$fullforecast =~ s/Hail/kacaama/gi; # "It is hailing "
+	
+	#$fullforecast = $fullforecast . " - TEST VALUES: Forecast - rain - showers - Showers - cloudy - Cloudy periods - wind - Windy - Snow - Fog - Frost - Thunderstorms - Hail - ";
+	
+	my $nuuchahnulth = " Displayed in Nuu&ccaron;aan&#x313;u&lstrok; Barkley Dialect. Please contact me if you see any errors or have any suggestions for improvements.</span>";
+	$fullforecast = $fullforecast . $nuuchahnulth;
+
+	}
+
+}
+
+## If Indigenous language is not enabled, don't need to do much but for debugging, adding a message is good, or future feature.
+else {
+my $indigenous = " Indigenous Languages Not Enabled.";
+$fullforecast = $fullforecast . $indigenous;
+}
+
 my $copyrightEC = "<span style='font-size: xx-small;'>" . $footerMsg . " - Powered by <a href='https://github.com/chrisale/ECForecastGrabber' target='_blank'> ECForecastGrabber-" . $perlversion . "</a></span>";
 $fullforecast = $fullforecast . $copyrightEC;
+
 
 ##NOW WE STICK THEM ALL IN A FINAL COMMA DELIMITED LIST AND PUT THEM IN A FILE READY TO INGEST
 my $finalconditions = "ECTime;" . $obstime . "ECTemp;" . $temp . "ECPressure;" . $pressure . "ECTrend;" . $pressuretrend . "ECHumidity;" . $humidity . "ECChill;" . $chill . "ECDew;" . $dew . "ECWind;" . $wind . "ECAirQ;" . $airq . "ECForecast;" . $fullforecast;
 #$finalconditions = "ECTime;" . $obstime . "ECTemp;" . $temp . "ECPressure;" . $pressure . "ECTrend;" . $pressuretrend . "ECHumidity;" . $humidity . "ECChill;" . "N/A;" . "ECDew;" . $dew . "ECWind;" . $wind . "ECAirQ;" . $airq . "ECForecast;" . $fullforecast;
 
 ### VALID HTML PAGE PREAMBLE AND POSTAMBLE
-my $htmlPreamble = "<!DOCTYPE html><html lang='en'><head><title>EC Forecast Grabber</title><meta charset='utf-8' />" . $mainStyleElement . "</head><body>";
+my $htmlPreamble = "<!DOCTYPE html><html lang='en'><head><title>EC Forecast Grabber</title><meta charset='utf-8' http-equiv='refresh' content='15'/>" . $mainStyleElement . "</head><body>";
 my $htmlPostamble = "</body></html>";
 
 
@@ -1053,6 +1126,7 @@ $finalconditions = $htmlPreamble . $fullforecast . $htmlPostamble;
 
 ##Encoding the output in UTF8 for language support.
 utf8::encode($finalconditions);
+#$finalconditions = encode("UTF-8", $finalconditions).
 
 #$finalconditions = "ECTime;" . $obstime . "ECTemp;" . $temp . "ECPressure;" . $pressure . "ECTrend;" . $pressuretrend . "ECHumidity;" . $humidity . "ECChill;" . "N/A;" . "ECDew;" . $dew . "ECWind;" . $wind . "ECAirQ;" . $airq . "ECForecast;" . $fullforecast;
 
