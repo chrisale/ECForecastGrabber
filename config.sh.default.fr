@@ -14,7 +14,7 @@ scriptPath="/var/www/supportfiles/ECForecastGrabber"
 #eg. /var/www/httpdocs
 webPath="/var/www/httpdocs"
 
-## URL de la page de prévision pour votre citée désirée.
+## URL de la page de prévision pour votre citée désirée en Anglais ou Français.
 #eg. https://weather.gc.ca/city/pages/bc-46_metric_e.html
 forecastURL="https://weather.gc.ca/city/pages/bc-46_metric_e.html"
 
@@ -22,6 +22,14 @@ forecastURL="https://weather.gc.ca/city/pages/bc-46_metric_e.html"
 ## Attention a la lien en orange de RSS/Atom vers le bas de la page. 
 #eg. https://weather.gc.ca/rss/city/bc-46_e.xml
 rssURL="https://weather.gc.ca/rss/city/bc-46_e.xml"
+
+## Indigenous Language Translation (Yes or No)
+## Only one language; English, French, or Indigenous, can be displayed at a time per instance of ECForecastGrabber. You must create
+## additional instances of ECForecastGrabber on your webpage to see more than one language at a time.
+## Translation will only be active if enableIndigenous variable is Yes
+## "enableNCN" = Nuuchanulth Language (Yes or No)
+enableIndigenous="No"
+enableNCN="No"
 
 ## Exact name of the location associated with the forecast page as outputted by the XML file. This includes spaces and must be precise - If you get a double output of the name or warning, double check this variable.
 ## If the name has an apostrophe or brackets you must escape them with a backslash.

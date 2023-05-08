@@ -22,6 +22,8 @@ $wgetPath -O "$webPath/$xmlFile" $rssURL
 export perlversion=$version
 export perlwebPath=$webPath
 export perlxmlFile=$xmlFile
+export perlenableIndigenous=$enableIndigenous
+export perlenableNCN=$enableNCN
 export perlforecastURL=$forecastURL
 export perlforecastPlaceName=$forecastPlaceName
 export perlwarnLink=$warnLink

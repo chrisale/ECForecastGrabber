@@ -1,7 +1,11 @@
 # Change Log
 ***3.0**
 
-* Introducing Nuu-cha-nulth translations
+* Introducing Nuu-cha-nulth translations.
+
+* Cleaned up some comments in various files.
+
+* Fixed Bug that omitted the current day forecast.
 
 ***v2.0.2**
 
