@@ -1,4 +1,17 @@
 # Change Log
+
+****3.1**
+
+* Added support for Marine Forecasts
+
+* Started to fix Warnings - Fixed Special Weather Statement
+
+* Removed References for Today and Tonight for Normal Forecast and modified them for the Marine forecast.
+
+* Added Tseshaht and Hupacasath word translations
+
+* Removed "Indigenous language not enabled" debug message.
+
 ***3.0**
 
 * Introducing Nuu-cha-nulth translations.
