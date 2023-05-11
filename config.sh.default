@@ -27,6 +27,9 @@ rssURL="https://weather.gc.ca/rss/city/bc-46_e.xml"
 enableIndigenous="No"
 enableNCN="No"
 
+##Marine Forecast Yes or No
+enableMarine="No"
+
 ## Exact name of the location associated with the forecast page as outputted by the XML file. This includes spaces and must be precise - If you get a double output of the name or warning, double check this variable.
 ## If the name has an apostrophe or brackets you must escape them with a backslash.
 ## eg. Ottawa \(Kanata - Orléans\)

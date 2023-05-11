@@ -1,10 +1,6 @@
 #!/bin/bash
-## CONFIGURATION DE ECFORECASTGRABBER EN FRANCAIS
-## v3.0
-
-## Emplacement de wget
-#eg. /usr/bin/wget
-wgetPath="/usr/bin/wget"
+## CONFIG FILE FOR FORECAST GRABBER
+## v3.1.1
 
 ## Emplacement de la directoire de scripte. Recommende une place qui n'est pas accessible a la web.
 #eg. /var/www/supportfiles/ECForecastGrabber
@@ -31,6 +27,9 @@ rssURL="https://weather.gc.ca/rss/city/bc-46_e.xml"
 enableIndigenous="No"
 enableNCN="No"
 
+##Marine Forecast Yes or No
+enableMarine="No"
+
 ## Exact name of the location associated with the forecast page as outputted by the XML file. This includes spaces and must be precise - If you get a double output of the name or warning, double check this variable.
 ## If the name has an apostrophe or brackets you must escape them with a backslash.
 ## eg. Ottawa \(Kanata - Orléans\)
@@ -47,6 +46,10 @@ warnLink="https://weather.gc.ca/warnings/report_e.html?bc45"
 ## URL de lightning dans ton region.
 ## eg. https://weather.gc.ca/lightning/index_e.html?id=PAC#mapTop
 thunderLink="https://weather.gc.ca/lightning/index_e.html?id=PAC#mapTop"
+
+## Emplacement de wget
+#eg. /usr/bin/wget
+wgetPath="/usr/bin/wget"
 
 ###############################################################################
 #### Vous n'ait pas besoin de changez les settings apres cette message.
