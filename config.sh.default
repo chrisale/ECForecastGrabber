@@ -1,10 +1,6 @@
 #!/bin/bash
 ## CONFIG FILE FOR FORECAST GRABBER
-## v3.0
-
-## Full path to wget 
-#eg. /usr/bin/wget
-wgetPath="/usr/bin/wget"
+## v3.1
 
 ## Path to your script directory. Recommended outside your web accessible directory.
 #eg. /var/www/supportfiles/ECForecastGrabber
@@ -47,6 +43,10 @@ warnLink="https://weather.gc.ca/warnings/report_e.html?bc45"
 ## Full URL of the lightning detection web page for your region.
 ## eg. https://weather.gc.ca/lightning/index_e.html?id=PAC#mapTop
 thunderLink="https://weather.gc.ca/lightning/index_e.html?id=PAC#mapTop"
+
+## Full path to wget 
+#eg. /usr/bin/wget
+wgetPath="/usr/bin/wget"
 
 ###############################################################################
 #### EVERYTHING BELOW THIS POINT DOESN'T NEED TO BE CHANGED BUT CAN BE.

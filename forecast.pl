@@ -140,6 +140,15 @@ foreach (@weatherkeys) {
      if (index($_, 'fc13:') != -1) {
     $weatherkeyfinal[13] = $_;
     }
+    if (index($_, 'regular_forecast:') != -1) {
+    $weatherkeyfinal[14] = $_;
+    }
+    if (index($_, 'waves:') != -1) {
+    $weatherkeyfinal[15] = $_;
+    }
+    if (index($_, 'extended_forecast:') != -1) {
+    $weatherkeyfinal[16] = $_;
+    }
     if (index($_, 'cc') != -1) {
     $currentconditionskey = $_;
     }
@@ -499,6 +508,65 @@ $day13dc =~ s/Forecast(.*)$//g;
 $day13dc =~ s/Prévisions(.*)$//g;
 $fullforecast = $fullforecast . $day13dc;
 
+$day14 = $data->{entry}{$weatherkeyfinal[13]}{title};
+$day14 =~ s/:(.*)$/: /g;
+$fullforecast = $fullforecast . $day14;
+$day14dc = $data->{entry}{$weatherkeyfinal[13]}{summary}{content};
+$day14dc =~ s/Forecast(.*)$//g;
+$day14dc =~ s/Prévisions(.*)$//g;
+$fullforecast = $fullforecast . $day14dc;
+
+#### BELOW THIS IS THE MARINE FORECAST SECTION AND ONLY APPLIES TO THE MARINE FORECAST
+
+
+
+$marineRegForecast = $data->{entry}{$weatherkeyfinal[14]}{title};
+### GETTING RID OF EVERYTHING AFTER THE PERIOD IN THE MARINE FORECAST TITLE
+$marineRegForecast =~ s/\.(.*)$/ - /g;
+$issuedmarineRegForecast = $data->{entry}{$weatherkeyfinal[14]}{summary}{content};
+##SEARCH FOR THE WORD ISSUED AND EVERYTHING AFTER IT THEN GRAB JUST THAT ADD IN THE WORD ISSUED AGAIN AND END UP WITH JUST THE ISSUED TIME
+## GETTING RID OF WHAT WE DO NOT WANT IN THE STRING
+$issuedmarineRegForecast =~ s/Issued(.*)$/$1/;
+$marineRegForecast = "<em><strong> Marine Forecast Issued " . $1 . "</strong></em>: " . $marineRegForecast;
+$fullforecast = $fullforecast . $marineRegForecast;
+$marineRegForecastdc = $data->{entry}{$weatherkeyfinal[14]}{summary}{content};
+### GETTING RID OF THE "ISSUED" TEXT AT THE END OF THE SUMMARY
+$marineRegForecastdc =~ s/Issued(.*)$//g;
+$fullforecast = $fullforecast . $marineRegForecastdc;
+
+$marineWaves = $data->{entry}{$weatherkeyfinal[15]}{title};
+$marineWaves =~ s/\.(.*)$/-/g;
+
+$issuedmarineWaves = $data->{entry}{$weatherkeyfinal[15]}{summary}{content};
+$issuedmarineWaves =~ s/Issued(.*)$/$1/;
+$marineWaves = "<em><strong> Waves Forecast Issued " . $1 . "</strong></em>: " . $marineWaves;
+$fullforecast = $fullforecast . $marineWaves;
+$marineWavesdc = $data->{entry}{$weatherkeyfinal[15]}{summary}{content};
+$marineWavesdc  =~ s/Issued(.*)$//g;
+$fullforecast = $fullforecast . $marineWavesdc;
+
+$marineExtForecast = $data->{entry}{$weatherkeyfinal[16]}{title};
+$marineExtForecast =~ s/-(.*)$/ - /g;
+$issuedmarineExtForecast = $data->{entry}{$weatherkeyfinal[16]}{summary}{content};
+$issuedmarineExtForecast =~ s/Issued(.*)$/$1/;
+$marineExtForecast = "<em><strong> Extended Marine Forecast Issued " . $1 . "</strong></em>: " . $marineExtForecast;
+$fullforecast = $fullforecast . $marineExtForecast;
+$marineExtForecastdc = $data->{entry}{$weatherkeyfinal[16]}{summary}{content};
+$marineExtForecastdc =~ s/Issued(.*)$//g;
+$fullforecast = $fullforecast . $marineExtForecastdc;
+$fullforecast =~ s/<br\/>//g;
+$fullforecast =~ s/<p>//g;
+$fullforecast =~ s/<\/p>//g;
+
+
+
+#Omit the warning content as it is not needed and just do some formatting.
+#$warn2 = $data->{entry}{$warnings}{summary}{content};
+#$fullforecast = $fullforecast . "</p><p>";
+
+$issued = $data->{entry}{$weatherkeyfinal[0]}{summary}{content};
+$issued =~ s/^(.*)Forecast/Forecast/g;
+
 
 ## GETTING RID OF WHAT WE DO NOT WANT IN THE STRING AND ADDING SOME FEATURES TO THE TEXT. 
 
@@ -523,11 +591,7 @@ my $thunderstrongStyle = "style='color:" . $thunderWarn . ";'";
 $fullforecast =~ s/<p><em>/<p $mainparaStyle ><em>/g;
 $fullforecast =~ s/Forecast issued/ Forecast Issued/g;
 $fullforecast =~ s/Prévisions émises/ Prévisions Émises/g;
-$fullforecast =~ s/Today/ Today: /g;
-$fullforecast =~ s/Aujourdhui/ Aujourdhui: /g;
-$fullforecast =~ s/Day:/ <strong $daystrongStyle > Day:<\/strong>/g;
-$fullforecast =~ s/Tomorrow/ <strong $daystrongStyle > Tomorrow:<\/strong>/g;
-$fullforecast =~ s/Tonight/ <strong $daystrongStyle > Tonight:<\/strong>/g;
+$fullforecast =~ s/Tomorrow/ <strong $daystrongStyle > Tomorrow<\/strong>/g;
 $fullforecast =~ s/Ce soir et cette nuit/ <strong $daystrongStyle > Ce soir et cette nuit<\/strong>/g;
 $fullforecast =~ s/Night:/<strong $daystrongStyle > Night:<\/strong>/g;
 $fullforecast =~ s/Monday:/<strong $daystrongStyle > Monday:<\/strong>/g;
@@ -991,6 +1055,17 @@ $fullforecast =~ s/rafales à 95/<strong style="color: $windyColor">rafales à 9
 $fullforecast =~ s/gusty winds/<strong style="color: $windyColor">gusty winds<\/strong>/g;
 $fullforecast =~ s/Gusty winds/<strong style="color: $windyColor">Gusty winds<\/strong>/g;
 
+#MARINE WEATHER
+$fullforecast =~ s/variable 5 to 15 knots/<strong style="color: $windyColor">variable 5 to 15 knots<\/strong>/g;
+$fullforecast =~ s/southeast 10 to 20/<strong style="color: $windyColor">southeast 10 to 20<\/strong>/g;
+$fullforecast =~ s/northwest 15/<strong style="color: $windyColor">northwest 15<\/strong>/g;
+
+#MARINE LOCATIONS
+$fullforecast =~ s/Barkley Sound/<strong style="color: $daystrongStyle">Barkley Sound<\/strong>/g;
+$fullforecast =~ s/Estevan Point/<strong style="color: $daystrongStyle">Estevan Point<\/strong>/g;
+
+
+
 #WARNINGS
 
 $fullforecast =~ s/No watches or warnings in effect. $forecastPlaceName//g;
@@ -1005,48 +1080,48 @@ $fullforecast =~ s/FREEZING DRIZZLE WARNING ENDED, $forecastPlaceName/<strong><a
 
 $fullforecast =~ s/WINTER STORM WARNING ENDED, $forecastPlaceName/<strong><a target='_blank' style="color: $warningColor;" href="$warnLink">WINTER STORM ENDED<\/a><\/strong>/g;
 
-$fullforecast =~ s/WIND WARNING , $forecastPlaceName/<strong><a target="_blank" style="color: $warningColor;" href="$warnLink">WIND WARNING IN EFFECT<\/a><\/strong>/g;
+$fullforecast =~ s/WIND WARNING, $forecastPlaceName/<strong><a target="_blank" style="color: $warningColor;" href="$warnLink">WIND WARNING IN EFFECT<\/a><\/strong>/g;
 $fullforecast =~ s/AVERTISSEMENT DE VENT , $forecastPlaceName/<strong><a target="_blank" style="color: $warningColor;" href="$warnLink">AVERTISSEMENT DE VENT <\/a><\/strong>/g;
 
-$fullforecast =~ s/AVERTISSEMENT DE PLUIE VERGLAÇANTE , $forecastPlaceName/<strong><a target='_blank' style="color: $warningColor;" href="$warnLink">AVERTISSEMENT DE PLUIE VERGLAÇANTE<\/a><\/strong>/g;
+$fullforecast =~ s/AVERTISSEMENT DE PLUIE VERGLAÇANTE, $forecastPlaceName/<strong><a target='_blank' style="color: $warningColor;" href="$warnLink">AVERTISSEMENT DE PLUIE VERGLAÇANTE<\/a><\/strong>/g;
 
-$fullforecast =~ s/FREEZING DRIZZLE WARNING , $forecastPlaceName/<strong><a target='_blank' style="color: $warningColor;" href="$warnLink">FREEZING DRIZZLE WARNING IN EFFECT<\/a><\/strong>/g;
+$fullforecast =~ s/FREEZING DRIZZLE WARNING, $forecastPlaceName/<strong><a target='_blank' style="color: $warningColor;" href="$warnLink">FREEZING DRIZZLE WARNING IN EFFECT<\/a><\/strong>/g;
 
-$fullforecast =~ s/AVERTISSEMENT DE PLUIE VERGLAÇANTE , $forecastPlaceName/<strong><a target='_blank' style="color: $warningColor;" href="$warnLink">AVERTISSEMENT DE PLUIE VERGLAÇANTE<\/a><\/strong>/g;
+$fullforecast =~ s/AVERTISSEMENT DE PLUIE VERGLAÇANTE, $forecastPlaceName/<strong><a target='_blank' style="color: $warningColor;" href="$warnLink">AVERTISSEMENT DE PLUIE VERGLAÇANTE<\/a><\/strong>/g;
 
-$fullforecast =~ s/FREEZING DRIZZLE WARNING , $forecastPlaceName/<strong><a target='_blank' style="color: $warningColor;" href="$warnLink">FREEZING DRIZZLE WARNING IN EFFECT<\/a><\/strong>/g;
-
-
-$fullforecast =~ s/WINTER STORM WARNING , $forecastPlaceName/<strong><a target='_blank' style="color: $warningColor;" href="$warnLink">WINTER STORM WARNING IN EFFECT<\/a><\/strong>/g;
-$fullforecast =~ s/AVERTISSEMENT DE TEMPÊTE HIVERNALE , $forecastPlaceName/<strong><a target='_blank' style="color: $warningColor;" href="$warnLink">AVERTISSEMENT DE TEMPÊTE HIVERNALE<\/a><\/strong>/g;
-
-$fullforecast =~ s/WINTER STORM WATCH , $forecastPlaceName/<strong><a target='_blank' style="color: $warningColor;" href="$warnLink">WINTER STORM WATCH IN EFFECT<\/a><\/strong>/g;
-
-$fullforecast =~ s/EXTREME COLD WARNING , $forecastPlaceName/<strong><a target='_blank' style="color: $warningColor;" href="$warnLink">EXTREME COLD WARNING<\/a><\/strong>/g;
-$fullforecast =~ s/AVERTISSEMENT DE FROID EXTRÊME , $forecastPlaceName/<strong><a target='_blank' style="color: $warningColor;" href="$warnLink">AVERTISSEMENT DE FROID EXTRÊME <\/a><\/strong>/g;
+$fullforecast =~ s/FREEZING DRIZZLE WARNING, $forecastPlaceName/<strong><a target='_blank' style="color: $warningColor;" href="$warnLink">FREEZING DRIZZLE WARNING IN EFFECT<\/a><\/strong>/g;
 
 
-$fullforecast =~ s/RAINFALL WARNING , $forecastPlaceName/<strong><a target='_blank' style="color: $warningColor;" href="$warnLink">RAINFALL WARNING IN EFFECT<\/a><\/strong>/g;
+$fullforecast =~ s/WINTER STORM WARNING, $forecastPlaceName/<strong><a target='_blank' style="color: $warningColor;" href="$warnLink">WINTER STORM WARNING IN EFFECT<\/a><\/strong>/g;
+$fullforecast =~ s/AVERTISSEMENT DE TEMPÊTE HIVERNALE, $forecastPlaceName/<strong><a target='_blank' style="color: $warningColor;" href="$warnLink">AVERTISSEMENT DE TEMPÊTE HIVERNALE<\/a><\/strong>/g;
+
+$fullforecast =~ s/WINTER STORM WATCH, $forecastPlaceName/<strong><a target='_blank' style="color: $warningColor;" href="$warnLink">WINTER STORM WATCH IN EFFECT<\/a><\/strong>/g;
+
+$fullforecast =~ s/EXTREME COLD WARNING, $forecastPlaceName/<strong><a target='_blank' style="color: $warningColor;" href="$warnLink">EXTREME COLD WARNING<\/a><\/strong>/g;
+$fullforecast =~ s/AVERTISSEMENT DE FROID EXTRÊME, $forecastPlaceName/<strong><a target='_blank' style="color: $warningColor;" href="$warnLink">AVERTISSEMENT DE FROID EXTRÊME <\/a><\/strong>/g;
+
+
+$fullforecast =~ s/RAINFALL WARNING, $forecastPlaceName/<strong><a target='_blank' style="color: $warningColor;" href="$warnLink">RAINFALL WARNING IN EFFECT<\/a><\/strong>/g;
 $fullforecast =~ s/AVERTISSEMENT DE PLUIE , $forecastPlaceName/<strong><a target='_blank' style="color: $warningColor;" href="$warnLink">AVERTISSEMENT DE PLUIE <\/a><\/strong>/g;
 
 
-$fullforecast =~ s/SNOWFALL WARNING , $forecastPlaceName/<strong><a target='_blank' style="color: $warningColor;" href="$warnLink">SNOWFALL WARNING IN EFFECT<\/a><\/strong>/g;
-$fullforecast =~ s/AVERTISSEMENT DE NEIGE , $forecastPlaceName/<strong><a target='_blank' style="color: $warningColor;" href="$warnLink">AVERTISSEMENT DE NEIGE <\/a><\/strong>/g;
+$fullforecast =~ s/SNOWFALL WARNING, $forecastPlaceName/<strong><a target='_blank' style="color: $warningColor;" href="$warnLink">SNOWFALL WARNING IN EFFECT<\/a><\/strong>/g;
+$fullforecast =~ s/AVERTISSEMENT DE NEIGE, $forecastPlaceName/<strong><a target='_blank' style="color: $warningColor;" href="$warnLink">AVERTISSEMENT DE NEIGE <\/a><\/strong>/g;
 
-$fullforecast =~ s/SPECIAL WEATHER STATEMENT , $forecastPlaceName/<strong ><a target='_blank' style="color: $warningColor;" href="$warnLink">SPECIAL WEATHER STATEMENT IN EFFECT<\/a><\/strong>/g;
-$fullforecast =~ s/BULLETIN MÉTÉOROLOGIQUE SPÉCIAL , $forecastPlaceName/<strong ><a target='_blank' style="color: $warningColor;" href="$warnLink">BULLETIN MÉTÉOROLOGIQUE SPÉCIAL<\/a><\/strong>/g;
+$fullforecast =~ s/SPECIAL WEATHER STATEMENT, $forecastPlaceName/<strong ><a target='_blank' style="color: $warningColor;" href="$warnLink">SPECIAL WEATHER STATEMENT IN EFFECT<\/a><\/strong>/g;
+$fullforecast =~ s/BULLETIN MÉTÉOROLOGIQUE SPECIAL, $forecastPlaceName/<strong ><a target='_blank' style="color: $warningColor;" href="$warnLink">BULLETIN MÉTÉOROLOGIQUE SPÉCIAL<\/a><\/strong>/g;
 
 
-$fullforecast =~ s/SPECIAL AIR QUALITY STATEMENT , $forecastPlaceName/<strong><a target='_blank' style="color: $warningColor;" href="$warnLink">SPECIAL AIR QUALITY STATEMENT IN EFFECT<\/a><\/strong>/g;
-$fullforecast =~ s/SEVERE THUNDERSTORM WATCH , $forecastPlaceName/<strong><a target='_blank' style="color: $warningColor;" href="$warnLink">SEVERE THUNDERSTORM WATCH IN EFFECT<\/a><\/strong>/g;
-$fullforecast =~ s/SEVERE THUNDERSTORM WARNING , $forecastPlaceName/<strong><a target='_blank' style="color: $warningColor;" href="$warnLink">SEVERE THUNDERSTORM WARNING IN EFFECT<\/a><\/strong>/g;
-$fullforecast =~ s/HEAT WARNING , $forecastPlaceName/<strong><a target='_blank' style="color: $warningColor;" href="$warnLink">HEAT WARNING IN EFFECT<\/a><\/strong>/g;
+$fullforecast =~ s/SPECIAL AIR QUALITY STATEMENT, $forecastPlaceName/<strong><a target='_blank' style="color: $warningColor;" href="$warnLink">SPECIAL AIR QUALITY STATEMENT IN EFFECT<\/a><\/strong>/g;
+$fullforecast =~ s/SEVERE THUNDERSTORM WATCH, $forecastPlaceName/<strong><a target='_blank' style="color: $warningColor;" href="$warnLink">SEVERE THUNDERSTORM WATCH IN EFFECT<\/a><\/strong>/g;
+$fullforecast =~ s/SEVERE THUNDERSTORM WARNING, $forecastPlaceName/<strong><a target='_blank' style="color: $warningColor;" href="$warnLink">SEVERE THUNDERSTORM WARNING IN EFFECT<\/a><\/strong>/g;
+$fullforecast =~ s/HEAT WARNING, $forecastPlaceName/<strong><a target='_blank' style="color: $warningColor;" href="$warnLink">HEAT WARNING IN EFFECT<\/a><\/strong>/g;
 
 $fullforecast =~ s/Persons in or near this area should be on the lookout for adverse weather conditions and take necessary safety precautions./<br\/>/g;
 $fullforecast =~ s/Le public de la région concernée doit porter une attention particulière aux conditions météorologiques potentiellement dangereuses et prendre les mesures de sécurité qui s'imposent./<br\/>/g;
 
-$fullforecast =~ s/FOG ADVISORY , $forecastPlaceName/<strong><a target='_blank' style="color: $warningColor;"  href="$warnLink">FOG ADVISORY IN EFFECT<\/a><\/strong>/g;
-$fullforecast =~ s/SMOG WARNING , $forecastPlaceName/<strong><a target='_blank' style="color: $warningColor;" href="$warnLink">SMOG WARNING<\/a><\/strong>/g;
+$fullforecast =~ s/FOG ADVISORY, $forecastPlaceName/<strong><a target='_blank' style="color: $warningColor;"  href="$warnLink">FOG ADVISORY IN EFFECT<\/a><\/strong>/g;
+$fullforecast =~ s/SMOG WARNING, $forecastPlaceName/<strong><a target='_blank' style="color: $warningColor;" href="$warnLink">SMOG WARNING<\/a><\/strong>/g;
 
 $fullforecast =~ s/No watches or warnings in effect./<strong><a target='_blank' href="$warnLink">No watches or warnings in effect.<\/a><\/strong>/g;
 $fullforecast =~ s/Aucune veille ou alerte en vigueur./<strong><a target='_blank' href="$warnLink">Aucune veille ou alerte en vigueur.<\/a><\/strong>/g;
@@ -1076,7 +1151,7 @@ if ($enableIndigenous eq 'Yes') {
 	
 	#$fullforecast = $fullforecast . "TEST VALUES: Forecast - rain - showers - Showers - cloudy - Cloudy periods - wind - Windy - Snow - Fog - Frost - Thunderstorms - Hail - ";
 	## Sunny Translated to "It is a beautiful day today" https://nuuchahnulth.org/language/phrases/it-beautiful-day-today
-	$fullforecast =~ s/Forecast/&#578;aaqinh&#803;a n&#x313;aas&#578;ii/gi; # "What is the day doinng?"
+	$fullforecast =~ s/Forecast/&#578;aaqinh&#803;a n&#x313;aas&#578;ii/gi; # "What is the day doing?"
 	$fullforecast =~ s/Sunny/&#578;uu&#578;uqukma/gi; # "It is nice weatther"
 	$fullforecast =~ s/Rain/m&#x313;i&#411;aama/gi; # "It is raining"
 	$fullforecast =~ s/Showers/m&#x313;i&#411;m&#x313;i&#411;&scaron;/gi; # "It is raining off and on"
@@ -1102,7 +1177,7 @@ if ($enableIndigenous eq 'Yes') {
 
 ## If Indigenous language is not enabled, don't need to do much but for debugging, adding a message is good, or future feature.
 else {
-my $indigenous = " Indigenous Languages Not Enabled.";
+my $indigenous = "";
 $fullforecast = $fullforecast . $indigenous;
 }
 
