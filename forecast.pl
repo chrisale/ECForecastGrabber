@@ -24,6 +24,9 @@ my $enableIndigenous = $ENV{'perlenableIndigenous'};
 ## Switch to determine if we are translating to Nuuchahnulth
 my $enableNCN = $ENV{'perlenableNCN'};
 
+## Switch to determine if we are translating to Nuuchahnulth
+my $enableMarine = $ENV{'perlenableMarine'};
+
 ## Temporary text file 
 my $outputForecastOnlyfile = $ENV{'perlfinalForecasttmp'};
 
@@ -72,7 +75,7 @@ my $warningColor = $ENV{'perlwarningColor'};
 
 my $comma = ";";
 $xml = new XML::Simple;
-my $forecastlinkpreamble = "<p><strong><a target='_blank' id='curforcst' href='";
+my $forecastlinkpreamble = "<strong><a target='_blank' id='curforcst' href='";
 my $forecastlinkpostamble = "'>";
 my $forecastnamepostamble = "</a></strong>";
 my $forecastlink = $forecastlinkpreamble . $forecastURL . $forecastlinkpostamble . $forecastName . $forecastnamepostamble;
@@ -320,15 +323,21 @@ $fullforecast = $fullforecast . $warn1 . " - " . $warn2 . " - " . $warn3;
 #Build in the warning content if there is any.
 #Build in the warning2 content if there is any.
 $warn1content = $data->{entry}{$warnings}{summary}{content};
-$warn2content = $data->{entry}{$warnings2}{summary}{content};
-$warn3content = $data->{entry}{$warnings3}{summary}{content};
+$warn1content =~ s/Issued:(.*)/<a target='_blank' href="$warnLink">Statement Issued $1 <\/a> - - /g;
 
-$fullforecast = $fullforecast . $warn1content . $warn2content . $warn3content . "</p><p>";
+$warn2content = $data->{entry}{$warnings2}{summary}{content};
+$warn2content =~ s/Issued:(.*)/<a target='_blank' href="$warnLink">Statement Issued $1 <\/a> - - /g;
+$warn3content = $data->{entry}{$warnings3}{summary}{content};
+$warn3content =~ s/Issued:(.*)/<a target='_blank' href="$warnLink">Statement Issued $1 <\/a> - - /g;
+
+
+
+$fullforecast = $fullforecast . $warn1content . $warn2content . $warn3content;
 
 
 #Omit the warning content as it is not needed and just do some formatting.
 #$warn2 = $data->{entry}{$warnings}{summary}{content};
-#$fullforecast = $fullforecast . "</p><p>";
+
 
 $issued = $data->{entry}{$weatherkeyfinal[0]}{summary}{content};
 $issued =~ s/^(.*)Forecast/Forecast/g;
@@ -519,7 +528,7 @@ $fullforecast = $fullforecast . $day14dc;
 #### BELOW THIS IS THE MARINE FORECAST SECTION AND ONLY APPLIES TO THE MARINE FORECAST
 
 
-
+if ($enableIndigenous eq 'Yes') {
 $marineRegForecast = $data->{entry}{$weatherkeyfinal[14]}{title};
 ### GETTING RID OF EVERYTHING AFTER THE PERIOD IN THE MARINE FORECAST TITLE
 $marineRegForecast =~ s/\.(.*)$/ - /g;
@@ -536,7 +545,6 @@ $fullforecast = $fullforecast . $marineRegForecastdc;
 
 $marineWaves = $data->{entry}{$weatherkeyfinal[15]}{title};
 $marineWaves =~ s/\.(.*)$/-/g;
-
 $issuedmarineWaves = $data->{entry}{$weatherkeyfinal[15]}{summary}{content};
 $issuedmarineWaves =~ s/Issued(.*)$/$1/;
 $marineWaves = "<em><strong> Waves Forecast Issued " . $1 . "</strong></em>: " . $marineWaves;
@@ -555,14 +563,12 @@ $marineExtForecastdc = $data->{entry}{$weatherkeyfinal[16]}{summary}{content};
 $marineExtForecastdc =~ s/Issued(.*)$//g;
 $fullforecast = $fullforecast . $marineExtForecastdc;
 $fullforecast =~ s/<br\/>//g;
-$fullforecast =~ s/<p>//g;
-$fullforecast =~ s/<\/p>//g;
-
+}
 
 
 #Omit the warning content as it is not needed and just do some formatting.
 #$warn2 = $data->{entry}{$warnings}{summary}{content};
-#$fullforecast = $fullforecast . "</p><p>";
+
 
 $issued = $data->{entry}{$weatherkeyfinal[0]}{summary}{content};
 $issued =~ s/^(.*)Forecast/Forecast/g;
@@ -588,7 +594,6 @@ my $thunderstrongStyle = "style='color:" . $thunderWarn . ";'";
 
 
 #GENERAL WEATHER TERMS
-$fullforecast =~ s/<p><em>/<p $mainparaStyle ><em>/g;
 $fullforecast =~ s/Forecast issued/ Forecast Issued/g;
 $fullforecast =~ s/Prévisions émises/ Prévisions Émises/g;
 $fullforecast =~ s/Tomorrow/ <strong $daystrongStyle > Tomorrow<\/strong>/g;
@@ -1117,14 +1122,16 @@ $fullforecast =~ s/SEVERE THUNDERSTORM WATCH, $forecastPlaceName/<strong><a targ
 $fullforecast =~ s/SEVERE THUNDERSTORM WARNING, $forecastPlaceName/<strong><a target='_blank' style="color: $warningColor;" href="$warnLink">SEVERE THUNDERSTORM WARNING IN EFFECT<\/a><\/strong>/g;
 $fullforecast =~ s/HEAT WARNING, $forecastPlaceName/<strong><a target='_blank' style="color: $warningColor;" href="$warnLink">HEAT WARNING IN EFFECT<\/a><\/strong>/g;
 
-$fullforecast =~ s/Persons in or near this area should be on the lookout for adverse weather conditions and take necessary safety precautions./<br\/>/g;
-$fullforecast =~ s/Le public de la région concernée doit porter une attention particulière aux conditions météorologiques potentiellement dangereuses et prendre les mesures de sécurité qui s'imposent./<br\/>/g;
-
 $fullforecast =~ s/FOG ADVISORY, $forecastPlaceName/<strong><a target='_blank' style="color: $warningColor;"  href="$warnLink">FOG ADVISORY IN EFFECT<\/a><\/strong>/g;
 $fullforecast =~ s/SMOG WARNING, $forecastPlaceName/<strong><a target='_blank' style="color: $warningColor;" href="$warnLink">SMOG WARNING<\/a><\/strong>/g;
 
 $fullforecast =~ s/No watches or warnings in effect./<strong><a target='_blank' href="$warnLink">No watches or warnings in effect.<\/a><\/strong>/g;
 $fullforecast =~ s/Aucune veille ou alerte en vigueur./<strong><a target='_blank' href="$warnLink">Aucune veille ou alerte en vigueur.<\/a><\/strong>/g;
+
+$fullforecast =~ s/Persons in or near this area should be on the lookout for adverse weather conditions and take necessary safety precautions.//g;
+$fullforecast =~ s/Le public de la région concernée doit porter une attention particulière aux conditions météorologiques potentiellement dangereuses et prendre les mesures de sécurité qui s'imposent.//g;
+
+
 
 
 ## INDIGENOUS TRANSLATION SECTION First Check to see if Indigenous Translation is enabled.
@@ -1180,6 +1187,7 @@ else {
 my $indigenous = "";
 $fullforecast = $fullforecast . $indigenous;
 }
+$fullforecast =~ s/<br\/>//g;
 
 my $copyrightEC = "<span style='font-size: xx-small;'>" . $footerMsg . " - Powered by <a href='https://github.com/chrisale/ECForecastGrabber' target='_blank'> ECForecastGrabber-" . $perlversion . "</a></span>";
 $fullforecast = $fullforecast . $copyrightEC;
