@@ -1,10 +1,19 @@
 # Change Log
 
-****3.1**
+**3.1.1**
+* Fixed Introduced bug with marine forecast.
+
+* Added toggle for Marine Forecast on/off in CONFIG.
+
+* Fixed some Warning display issues.
+
+* Updated French COnfig.
+
+**3.1**
 
 * Added support for Marine Forecasts
 
-* Started to fix Warnings - Fixed Special Weather Statement
+* Fixed Warnings - Environment Canada removed a space before a comma after their Warning messages. All spaces before commas after Advisories and Warnings are now removed.
 
 * Removed References for Today and Tonight for Normal Forecast and modified them for the Marine forecast.
 
@@ -12,7 +21,7 @@
 
 * Removed "Indigenous language not enabled" debug message.
 
-***3.0**
+**3.0**
 
 * Introducing Nuu-cha-nulth translations.
 
