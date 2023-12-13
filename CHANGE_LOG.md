@@ -1,5 +1,18 @@
 # Change Log
 
+**3.2**
+* Differentiated for Tseshaht from NCN 
+
+* Added numerous Marine Weather wind and sea values
+
+* Splitting code into modules for better extendability. Created ECFGMarine.pm, ECFGIndig, ECFGGeneral, and ECFGWarnings modules and subroutines.
+
+* Added config value endedwarn to control color when a "warning ended" message appears.
+
+* Made color codes in config files 3 digit instead of 6
+
+* Added config instructions for warning URLs for Marine
+
 **3.1.1**
 * Fixed Introduced bug with marine forecast.
 
