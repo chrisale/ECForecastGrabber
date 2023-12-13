@@ -3,7 +3,7 @@
 ## Any issues, suggestions or contributions are welcome and can be made on github.
 export LANGUAGE=UTF8
 
-version="v3.1.1"
+version="v3.2"
 
 #Bring in config file variables.
 . $(dirname "$0")/config.sh
@@ -23,7 +23,7 @@ export perlversion=$version
 export perlwebPath=$webPath
 export perlxmlFile=$xmlFile
 export perlenableIndigenous=$enableIndigenous
-export perlenableNCN=$enableNCN
+export perlenableTseshaht=$enableTseshaht
 export perlenableMarine=$enableMarine
 export perlforecastURL=$forecastURL
 export perlforecastPlaceName=$forecastPlaceName
@@ -48,6 +48,7 @@ export perlwindyColor=$windyColor
 export perlhRainColor=$hRainColor
 export perlvhRainColor=$vhRainColor
 export perlwarningColor=$warningColor
+export perlendedColor=$endedColor
 
 
 echo 'running perl script'

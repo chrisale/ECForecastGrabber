@@ -1,6 +1,6 @@
 #!/bin/bash
 ## CONFIG FILE FOR FORECAST GRABBER
-## v3.1.1
+## v3.2
 
 ## Path to your script directory. Recommended outside your web accessible directory.
 #eg. /var/www/supportfiles/ECForecastGrabber
@@ -23,9 +23,9 @@ rssURL="https://weather.gc.ca/rss/city/bc-46_e.xml"
 ## Only one language; English, French, or Indigenous, can be displayed at a time per instance of ECForecastGrabber. You must create
 ## additional instances of ECForecastGrabber on your webpage to see more than one language at a time.
 ## Translation will only be active if enableIndigenous variable is Yes
-## "enableNCN" = Nuuchanulth Language (Yes or No)
+## "enableTseshaht" = Nuuchanulth Language (Yes or No)
 enableIndigenous="No"
-enableNCN="No"
+enableTseshaht="No"
 
 ##Marine Forecast Yes or No
 enableMarine="No"
@@ -39,8 +39,9 @@ forecastPlaceName="Port Alberni"
 ## eg. Vancouver Island Inland Sections - Forecast
 forecastName="Port Alberni"
 
-## Full URL of the warnings page for your location.
+## Full URL of the warnings page for your location. If it's a Marine forecast it is the same as forecastURL but with #warnings appended to the end of the URL
 ## eg. https://weather.gc.ca/warnings/report_e.html?bc45
+## eg. https://weather.gc.ca/marine/forecast_e.html?mapID=02&siteID=12307#warnings
 warnLink="https://weather.gc.ca/warnings/report_e.html?bc45"
 
 ## Full URL of the lightning detection web page for your region.
@@ -55,7 +56,7 @@ wgetPath="/usr/bin/wget"
 #### EVERYTHING BELOW THIS POINT DOESN'T NEED TO BE CHANGED BUT CAN BE.
 ###############################################################################
 
-## Name of the XML file
+## Name of the XML file - IF you have multiple foreacasts on the same page you may need to change this.
 ## eg. ECXMLfile.xml
 xmlFile="ECXMLfile.xml"
 
@@ -79,20 +80,20 @@ boldDays="bold"
 ## Colors for warnings and events.
 ## eg. #ff7777
 ## or for a name eg. red
-freezeDrizzleWarn="#ff7777"
-freezeRainWarn="#ff66dd"
-nearfreezeTemp="#9999ff"
-freezingTemp="#0000ff"
-flurriesColor="#0000ff"
-hotTemp="#ff0000"
-exhotTemp="#cc00cc"
-exHumidex="#550055"
+freezeDrizzleWarn="#f77"
+freezeRainWarn="#f6d"
+nearfreezeTemp="#99f"
+freezingTemp="#00f"
+flurriesColor="#00f"
+hotTemp="#f00"
+exhotTemp="#c0c"
+exHumidex="#505"
 thunderWarn="#ffaa00"
-thunderWarn="#ffaa00"
-windyColor="#990088"
-hRainColor="#008800"
-vhRainColor="#880000"
-warningColor="#ff0000"
+windyColor="#908"
+hRainColor="#080"
+vhRainColor="#800"
+warningColor="#f00"
+endedColor="#0a6"
 
 ## Other adjustable colours
 #Default colour of the whole paragraph containing the forecast.
