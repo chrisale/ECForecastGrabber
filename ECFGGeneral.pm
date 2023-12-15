@@ -347,6 +347,8 @@ $fullforecast =~ s/Heavy rain/<strong style="color: $hRainColor">Heavy rain<\/st
 $fullforecast =~ s/pluie forte/<strong style="color: $hRainColor">pluie forte<\/strong>/g;
 $fullforecast =~ s/Pluie forte/<strong style="color: $hRainColor">Pluie forte<\/strong>/g;
 
+$fullforecast =~ s/Amount 5 mm/<strong style="color: $hRainColor">Amount 5 mm<\/strong>/g;
+$fullforecast =~ s/Amount 10 mm/<strong style="color: $hRainColor">Amount 10 mm<\/strong>/g;
 $fullforecast =~ s/Amount 20 mm/<strong style="color: $hRainColor">Amount 20 mm<\/strong>/g;
 $fullforecast =~ s/Amount 25 mm/<strong style="color: $hRainColor">Amount 25 mm<\/strong>/g;
 $fullforecast =~ s/Amount 30 mm/<strong style="color: $hRainColor">Amount 30 mm<\/strong>/g;
@@ -358,6 +360,8 @@ $fullforecast =~ s/Amount 55 mm/<strong style="color: $vhRainColor">Amount 55 mm
 $fullforecast =~ s/Amount 60 mm/<strong style="color: $vhRainColor">Amount 60 mm<\/strong>/g;
 $fullforecast =~ s/Amount 65 mm/<strong style="color: $vhRainColor">Amount 65 mm<\/strong>/g;
 
+$fullforecast =~ s/Hauteur prévue de 5 mm/<strong style="color: $hRainColor">Hauteur prévue de 5 mm<\/strong>/g;
+$fullforecast =~ s/Hauteur prévue de 10 mm/<strong style="color: $hRainColor">Hauteur prévue de 10 mm<\/strong>/g;
 $fullforecast =~ s/Hauteur prévue de 20 mm/<strong style="color: $hRainColor">Hauteur prévue de 20 mm<\/strong>/g;
 $fullforecast =~ s/Hauteur prévue de 25 mm/<strong style="color: $hRainColor">Hauteur prévue de 25 mm<\/strong>/g;
 $fullforecast =~ s/Hauteur prévue de 30 mm/<strong style="color: $hRainColor">Hauteur prévue de 30 mm<\/strong>/g;
@@ -369,6 +373,7 @@ $fullforecast =~ s/Hauteur prévue de 55 mm/<strong style="color: $vhRainColor">
 $fullforecast =~ s/Hauteur prévue de 60 mm/<strong style="color: $vhRainColor">Hauteur prévue de 60 mm<\/strong>/g;
 $fullforecast =~ s/Hauteur prévue de 65 mm/<strong style="color: $vhRainColor">Hauteur prévue de 65 mm<\/strong>/g;
 
+$fullforecast =~ s/Amount 10 to 20 mm/<strong style="color: $hRainColor">Amount 10 to 20 mm<\/strong>/g;
 $fullforecast =~ s/Amount 15 to 25 mm/<strong style="color: $hRainColor">Amount 15 to 25 mm<\/strong>/g;
 $fullforecast =~ s/Amount 20 to 25 mm/<strong style="color: $hRainColor">Amount 20 to 25 mm<\/strong>/g;
 $fullforecast =~ s/Amount 20 to 30 mm/<strong style="color: $hRainColor">Amount 20 to 30 mm<\/strong>/g;

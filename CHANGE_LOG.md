@@ -1,5 +1,18 @@
 # Change Log
 
+**3.3**
+* Added many new Tseshaht translations
+
+* Added a couple rain values
+
+* Corrected Tseshaht Footer
+
+* Added some formatting (hr)
+
+* Fixed bug in forecastgrabber.sh that prevented loading modules - cd to directory first then run perl script
+
+* Added Generation time to footer message.
+
 **3.2**
 * Differentiated for Tseshaht from NCN 
 

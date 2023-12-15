@@ -3,7 +3,7 @@
 ## Any issues, suggestions or contributions are welcome and can be made on github.
 export LANGUAGE=UTF8
 
-version="v3.2"
+version="v3.3"
 
 #Bring in config file variables.
 . $(dirname "$0")/config.sh
@@ -53,9 +53,9 @@ export perlendedColor=$endedColor
 
 echo 'running perl script'
 
-## Running the perl script with -C to ensure UTF-8 compliance.
-
-perl -C $scriptPath/forecast.pl
+## Running the perl script from the script directory to capture custom modules and with -C to ensure UTF-8 compliance.
+cd $scriptPath
+perl -C ./forecast.pl
 
 ## Copying the new file from temporary to final file and removing the temporary.
 
