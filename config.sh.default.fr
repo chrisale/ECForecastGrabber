@@ -1,6 +1,6 @@
 #!/bin/bash
 ## CONFIG FILE FOR FORECAST GRABBER
-## v3.2
+## v3.3
 
 ## Emplacement de la directoire de scripte. Recommende une place qui n'est pas accessible a la web.
 #eg. /var/www/supportfiles/ECForecastGrabber

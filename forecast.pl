@@ -3,6 +3,7 @@
 use XML::Simple;
 use Data::Dumper;
 use HTTP::Date;
+use Time::Piece;
 use utf8;
 use Encode;
 use ECFGMarine;
@@ -11,9 +12,11 @@ use ECFGWarnings;
 use ECFGTseshaht;
 #use warnings;
 #use diagnostics;
-
 ## Version of the Script
 my $perlversion = $ENV{'perlversion'};
+
+## Time the script was run
+my $time = localtime->strftime('%b %d %Y %H:%M:%S %Z');
 
 ## Adding trailing slash from user configuration
 my $perlWebPath = $ENV{'perlwebPath'};
@@ -346,7 +349,7 @@ $fullforecast = $fullforecast . $warn1content . $warn2content . $warn3content;
 $issued = $data->{entry}{$weatherkeyfinal[0]}{summary}{content};
 $issued =~ s/^(.*)Forecast/Forecast/g;
 $issued =~ s/^(.*)Prévisions/Prévisions/g;
-$fullforecast = $fullforecast . "<em>" . $issued . "</em> - ";
+$fullforecast = $fullforecast . "<hr><em>" . $issued . "</em> - ";
 
 
 =for comment
@@ -414,8 +417,6 @@ $fullforecast = $fullforecast . $day7dc;
 IF ENVIRONMENT CANADA IS NOT SHOWING CURRENT CONDITIONS IT WILL BREAK THE RSS FEED AND SHIFT EVERYTHING UP A LEVEL IN THE XML  THERE ARE TWO IDENTICAL SECTIONS HERE, THE FIRST WITH THE VALUES SHIFTED, THE SECOND WITHOUT
 =cut
 
-#print $weatherkeyfinal[0];
-#print $weatherkeyfinal[3];
 $day1 = $data->{entry}{$weatherkeyfinal[0]}{title};
 $day1 =~ s/:(.*)$/: /g;
 $fullforecast = $fullforecast . $day1;
@@ -648,29 +649,38 @@ if ($enableIndigenous eq 'Yes') {
 	#Weather Translations for ECFGTseshaht.pm
 
 $fullforecast = tseshaht_weather($fullforecast,$warnLink,$thunderLink,$boldDays,$textColor,$freezeDrizzleWarn,$freezeRainWarn,$freezingTemp,$nearfreezeTemp,$hotTemp,$exhotTemp,$exHumidex,$thunderWarn,$flurriesColor,$windyColor,$hRainColor,$vhRainColor,$warningColor,$endedColor,$comma,$forecastlink,$warnings,$warnings2,$warnings3,$forecastPlaceName,$forecastName,$footerMsg);
-	
-	
-
 	}
-
 }
-
 ## If Indigenous language is not enabled, don't need to do much but for debugging, adding a message is good, or future feature.
+
 else {
+
 my $indigenous = "";
 $fullforecast = $fullforecast . $indigenous;
+
 }
+
 $fullforecast =~ s/<br\/>//g;
 
-my $copyrightEC = "<span style='font-size: xx-small;'>" . $footerMsg . " - Powered by <a href='https://github.com/chrisale/ECForecastGrabber' target='_blank'> ECForecastGrabber-" . $perlversion . "</a></span>";
-$fullforecast = $fullforecast . $copyrightEC;
+## Getting rid of the <br>
 
+if ($enableIndigenous eq 'No') {
+my $copyrightEC = "<span style='font-size: xx-small;'><br>" . $footerMsg . " - Generated " . $time . " - Powered by <a href='https://github.com/chrisale/ECForecastGrabber' target='_blank'> ECForecastGrabber-" . $perlversion . "</a></span>";
+$fullforecast = $fullforecast . $copyrightEC;
+}
+else {
+my $copyrightEC = "<span style='font-size: xx-small;'>" . $footerMsg . " - Generated " . $time . " - Powered by <a href='https://github.com/chrisale/ECForecastGrabber' target='_blank'> ECForecastGrabber-" . $perlversion . "</a></span>";
+$fullforecast = $fullforecast . $copyrightEC;
+}
 
 ##NOW WE STICK THEM ALL IN A FINAL COMMA DELIMITED LIST AND PUT THEM IN A FILE READY TO INGEST
+
 my $finalconditions = "ECTime;" . $obstime . "ECTemp;" . $temp . "ECPressure;" . $pressure . "ECTrend;" . $pressuretrend . "ECHumidity;" . $humidity . "ECChill;" . $chill . "ECDew;" . $dew . "ECWind;" . $wind . "ECAirQ;" . $airq . "ECForecast;" . $fullforecast;
+
 #$finalconditions = "ECTime;" . $obstime . "ECTemp;" . $temp . "ECPressure;" . $pressure . "ECTrend;" . $pressuretrend . "ECHumidity;" . $humidity . "ECChill;" . "N/A;" . "ECDew;" . $dew . "ECWind;" . $wind . "ECAirQ;" . $airq . "ECForecast;" . $fullforecast;
 
 ### VALID HTML PAGE PREAMBLE AND POSTAMBLE
+
 my $htmlPreamble = "<!DOCTYPE html><html lang='en'><head><title>EC Forecast Grabber</title><meta charset='utf-8' http-equiv='refresh' content='15'/>" . $mainStyleElement . "</head><body>";
 my $htmlPostamble = "</body></html>";
 
