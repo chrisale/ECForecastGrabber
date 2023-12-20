@@ -1,4 +1,4 @@
-# Environment Canada Forecast Perl Script v3.3
+# Environment Canada Forecast Perl Script v3.3.1
 This cronjob and perl script running on your webserver or local computer will pull the text city and marine forecasts from Environment Canada and make them into a text and HTML based file that can be embedded into any webpage or blog with an \<iframe> element.
 
 It also augments the text with links, colours and other features that bring a little more interactivity to the plain text.
@@ -50,7 +50,9 @@ wGet is also required.
 	
 	A setting of */15 * * * * /your/location/forecastgrabber.sh would run it every 15 minutes.
 
-* Add the HTML file to your webpage with an iframe element like this:
+* You should now be able to see the HTML file created by the script.
+
+* To embed the HTML file into another webpage use an iframe element:
 	<iframe title="Your Local Forecast" width="1000" height="200" src="/ECForecast.html" name="YourTextForecast" style="border:none; width:1000; height:200px; " > </iframe>
 	
 	This can be added as a Custom HTML block in a modern wordpress blog or widget, or it can be added directly inside an HTML webpage.

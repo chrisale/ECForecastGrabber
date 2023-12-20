@@ -19,11 +19,26 @@ our @EXPORT = qw( tseshaht_weather );
 sub tseshaht_weather {
 #print "hello";
 
-	my ($fullforecast,$warnLink,$thunderLink,$boldDays,$textColor,$freezeDrizzleWarn,$freezeRainWarn,$freezingTemp,$nearfreezeTemp,$hotTemp,$exhotTemp,$exHumidex,$thunderWarn,$flurriesColor,$windyColor,$hRainColor,$vhRainColor,$warningColor,$endedColor,$comma,$forecastlink,$warnings,$warnings2,$warnings3,$forecastPlaceName,$forecastName,$footerMsg) = @_;
+	my ($fullforecast,$warnLink,$thunderLink,$boldDays,$textColor,$freezeDrizzleWarn,$freezeRainWarn,$freezingTemp,$nearfreezeTemp,$hotTemp,$exhotTemp,$exHumidex,$thunderWarn,$flurriesColor,$windyColor,$hRainColor,$vhRainColor,$warningColor,$endedColor,$comma,$forecastlink,$warnings,$warnings2,$warnings3,$forecastPlaceName,$forecastName,$footerMsg,$mainStyleElement,$daystrongStyle,$drizzstrongStyle,$frainstrongStyle,$flurstrongStyle,$snowflstrongStyle,$snowstrongStyle,$ftempstrongStyle,$htempstrongStyle,$thunderstrongStyle) = @_;
+
+
+####
+#GLOSSARY OF HTML ENCODINGS FOR INDIGENOUS LETTERS
+# ENCODINGS THAT START WITH A LETTER ARE ADDITIONS THAT CAN BE ADDED TO ANY LETTER.
+#
+# ʔ = &#660;
+# ʕ = &#x705;
+# ḥ = h&#803;
+# ł = &lstrok;
+# ƛ = &#411;
+# m̓ = m&#x313;
+# č = &ccaron;
+#
+####
 
 	$fullforecast =~ s/Forecast/<span title="What is the day doing?">&#660;aaqinh&#803;a n&#x313;aas&#660;ii<\/span>/gi; # "What is the day doing?"
 	$fullforecast =~ s/ night/<span title="night"> &#660;ath&#803;ii<\/span>/gi; # "night" ʔatḥii
-	$fullforecast =~ s/Sunny/<span title="It is nice weatther">&#411;&#x313;upaa<\/span>/gi; # "It is nice weatther"
+	$fullforecast =~ s/Sunny/<span title="It is nice weatther">&#411;&#x313;upaa<\/span>/gi; # "It is nice weather"
 	$fullforecast =~ s/ Sun /<span title="Sun"> hupa&lstrok; <\/span>/gi; # "sun"
 	$fullforecast =~ s/Clearing/<span title="Sky or Ceiling">hinaayi&lstrok;<\/span>/gi; # "Sky or Ceiling" hinaayił
 	$fullforecast =~ s/ Clear/<span title="good clear night"> ku&#411;uh&#803;ak<\/span>/gi; # "good clear night" kuuhak
@@ -36,9 +51,9 @@ sub tseshaht_weather {
 	$fullforecast =~ s/ cloud/<span title="It is cloudy"> &lstrok;iw&#x313;ah&#803;akma<\/span>/gi; # "It is cloudy"
 	$fullforecast =~ s/thunderstorms/<span title="It is stormy">wiiqsiima<\/span>/gi; # "It is stormy"
 	$fullforecast =~ s/Windy/<span title="It is windy">yu&#660;i<\/span>/gi; # "It is windy"
-	$fullforecast =~ s/ Wind /<span title="It is windy"> yu&#660;i <\/span>/gi; # "It is windy"
+	$fullforecast =~ s/Wind/<span title="It is windy"> yu&#660;i <\/span>/gi; # "It is windy"
 	$fullforecast =~ s/Snowing/<span title="It is snowing">k&#695;isaama<\/span>/gi; # "It is snowing"
-	$fullforecast =~ s/ Snow /<span title="It is snowing"> k&#x313;&#x695;iis <\/span>/gi; # "It is snowing"
+	$fullforecast =~ s/Snow/<span title="It is snowing">k&#x313;&#x2b7;is&scaron;i&#411;&#x313;asma<\/span>/gi; # "It will snow k̓ʷisšiƛ̓asma"
 	$fullforecast =~ s/Flurries/<span title="It is snowing">k&#695;isaama<\/span>/gi; # "It is snowing"
 	$fullforecast =~ s/Fog/<span title="It is foggy">&#660;u&ccaron;qakma<\/span>/gi; # "It is foggy"
 	$fullforecast =~ s/Frost/<span title="It is frosty">k&#695;imacyuma<\/span>/gi; # "It is frosty"
@@ -83,6 +98,7 @@ sub tseshaht_weather {
 	$fullforecast =~ s/Thursday/<span title="Four Days or Thursday">muu&ccaron;ii&lstrok;<\/span>/gi; # "Four Days or Thursday" muučiił
 	$fullforecast =~ s/Friday/<span title="Friday">su&ccaron;&#x313;a&ccaron;i&lstrok;<\/span>/gi; # "Friday"" suč̓ačił
 	$fullforecast =~ s/Sunday/<span title="Sunday">saantii<\/span>/gi; # "Sunday" saantii
+	$fullforecast =~ s/Territory/<span title="Territory or Chief's Territory'">h&#803;ah&#803;uu&lstrok;i<\/span>/gi; # "Territory" or "Chief's Territory" ḥaḥuułi
 	
 	
 	
