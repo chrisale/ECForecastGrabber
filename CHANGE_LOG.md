@@ -1,4 +1,12 @@
 # Change Log
+**3.3.1**
+* Fixed an introduced bug where not all variables were passed to newly separated pm files.
+
+* Restore translation for Territory.
+
+* Add encoding glossary comment to Tseshaht pm file.
+
+* Improved README File
 
 **3.3**
 * Added many new Tseshaht translations

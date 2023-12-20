@@ -3,7 +3,7 @@
 ## Any issues, suggestions or contributions are welcome and can be made on github.
 export LANGUAGE=UTF8
 
-version="v3.3"
+version="v3.3.1"
 
 #Bring in config file variables.
 . $(dirname "$0")/config.sh
