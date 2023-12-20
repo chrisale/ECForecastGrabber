@@ -6,7 +6,7 @@
 
 * Add encoding glossary comment to Tseshaht pm file.
 
-* Improved README File
+* Updated and Improved README File
 
 **3.3**
 * Added many new Tseshaht translations
