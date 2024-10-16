@@ -1,4 +1,4 @@
-# Environment Canada Forecast Perl Script v3.3.1
+# Environment Canada Forecast Perl Script v3.4.0
 This cronjob and perl script running on your webserver or local computer will pull the text city and marine forecasts from Environment Canada and make them into a text and HTML based file that can be embedded into any webpage or blog with an \<iframe> element.
 
 It also augments the text with links, colours and other features that bring a little more interactivity to the plain text.
@@ -48,6 +48,8 @@ wGet is also required.
 * Open config.sh in a text editor.
 
 * Modify the file paths and other configurations according to the instructions in the config file.
+
+* Ensure you input the coordinates appropriate for your forecast location. https://gps-coordinates.org is a good website.
 
 * Add a cronjob in your system to run the forecastgrabber.sh file.
 	

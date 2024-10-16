@@ -1,4 +1,11 @@
 # Change Log
+**3.4.0**
+* Updated location forecast links for new ECCC coordinates based links.
+
+**3.3.2**
+* Added Weather Warning to notices
+
+
 **3.3.1**
 * Fixed an introduced bug where not all variables were passed to newly separated pm files.
 

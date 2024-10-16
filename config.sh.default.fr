@@ -1,6 +1,6 @@
 #!/bin/bash
 ## CONFIG FILE FOR FORECAST GRABBER
-## v3.3.1
+## v3.4.0
 
 ## Emplacement de la directoire de scripte. Recommende une place qui n'est pas accessible a la web.
 #eg. /var/www/supportfiles/ECForecastGrabber
@@ -10,9 +10,15 @@ scriptPath="/var/www/supportfiles/ECForecastGrabber"
 #eg. /var/www/httpdocs
 webPath="/var/www/httpdocs"
 
-## URL de la page de prévision pour votre citée désirée en Anglais ou Français.
-#eg. https://weather.gc.ca/city/pages/bc-46_metric_e.html
-forecastURL="https://weather.gc.ca/city/pages/bc-46_metric_e.html"
+## URL de la page de prévision pour votre location désirée en Anglais ou Français.
+## Éliminé les nombres de la URL.
+# eg. https://weather.gc.ca/en/location/index.html?coords=
+forecastURL="https://weather.gc.ca/fr/location/index.html?coords="
+
+## Les coordonnées du location de la fin de "forecastURL", ou de ton location.
+## https://gps-coordinates.org is a good website to find coordinates.
+## eg. 49.242,-124.800
+latLong="49.242,-124.800"
 
 ##  URL de la RSS pour votre citée désirée.
 ## Attention a la lien en orange de RSS/Atom vers le bas de la page. 

@@ -64,6 +64,8 @@ $fullforecast =~ s/AVERTISSEMENT DE NEIGE, $forecastPlaceName/<strong><a target=
 $fullforecast =~ s/SPECIAL WEATHER STATEMENT, $forecastPlaceName/<strong ><a target='_blank' style="color: $warningColor;" href="$warnLink">SPECIAL WEATHER STATEMENT IN EFFECT<\/a><\/strong>/g;
 $fullforecast =~ s/BULLETIN MÉTÉOROLOGIQUE SPECIAL, $forecastPlaceName/<strong ><a target='_blank' style="color: $warningColor;" href="$warnLink">BULLETIN MÉTÉOROLOGIQUE SPÉCIAL<\/a><\/strong>/g;
 
+$fullforecast =~ s/WEATHER WARNING, $forecastPlaceName/<strong><a target='_blank' style="color: $warningColor;" href="$warnLink">WEATHER WARNING IN EFFECT<\/a><\/strong>/g;
+
 
 $fullforecast =~ s/SPECIAL AIR QUALITY STATEMENT, $forecastPlaceName/<strong><a target='_blank' style="color: $warningColor;" href="$warnLink">SPECIAL AIR QUALITY STATEMENT IN EFFECT<\/a><\/strong>/g;
 $fullforecast =~ s/SEVERE THUNDERSTORM WATCH, $forecastPlaceName/<strong><a target='_blank' style="color: $warningColor;" href="$warnLink">SEVERE THUNDERSTORM WATCH IN EFFECT<\/a><\/strong>/g;

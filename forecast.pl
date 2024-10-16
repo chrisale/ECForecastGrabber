@@ -1,5 +1,8 @@
 #!/usr/bin/perl
 # use module
+use FindBin; ## MAKE SURE TO ADD THE LOCAL PATH FOR THE MODULES
+use File::Spec;
+use lib File::Spec->catdir($FindBin::Bin);
 use XML::Simple;
 use Data::Dumper;
 use HTTP::Date;
@@ -40,8 +43,14 @@ my $outputForecastOnlyfile = $ENV{'perlfinalForecasttmp'};
 ## Placeholder as we were doing current conditions at one point.
 my $outputConditionsandForecastfile = 'ECCurCondTmp.txt';
 
-## Environment Canada URL to the source forecast file.
+## Environment Canada Beginning of URL to the source forecast file.
 my $forecastURL = $ENV{'perlforecastURL'};
+
+## Coordinates for the desired forecast location URL.
+my $latLong = $ENV{'perllatLong'};
+
+## Recombining the URL into a full address
+$forecastURL = $forecastURL . $latLong;
 
 ## Name of the actual forecast location, display name and footer messages
 my $forecastPlaceName = $ENV{'perlforecastPlaceName'};

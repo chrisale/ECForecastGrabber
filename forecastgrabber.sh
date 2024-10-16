@@ -3,7 +3,7 @@
 ## Any issues, suggestions or contributions are welcome and can be made on github.
 export LANGUAGE=UTF8
 
-version="v3.3.1"
+version="v3.4.0"
 
 #Bring in config file variables.
 . $(dirname "$0")/config.sh
@@ -26,6 +26,7 @@ export perlenableIndigenous=$enableIndigenous
 export perlenableTseshaht=$enableTseshaht
 export perlenableMarine=$enableMarine
 export perlforecastURL=$forecastURL
+export perllatLong=$latLong
 export perlforecastPlaceName=$forecastPlaceName
 export perlwarnLink=$warnLink
 export perlthunderLink=$thunderLink
