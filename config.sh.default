@@ -1,6 +1,6 @@
 #!/bin/bash
 ## CONFIG FILE FOR FORECAST GRABBER
-## v3.3.1
+## v3.4.0
 
 ## Path to your script directory. Recommended outside your web accessible directory.
 #eg. /var/www/supportfiles/ECForecastGrabber
@@ -10,14 +10,22 @@ scriptPath="/var/www/supportfiles/ECForecastGrabber"
 #eg. /var/www/httpdocs
 webPath="/var/www/httpdocs"
 
-## Full URL to the to your desired city's forecast page, English or French.
-#eg. https://weather.gc.ca/city/pages/bc-46_metric_e.html
-forecastURL="https://weather.gc.ca/city/pages/bc-46_metric_e.html"
+## Partial URL to your desired city's forecast page, English or French. Remove the coordinates at the end.
+## If you are using a Marine Forecast remove everything after the ".html"
+# eg. https://weather.gc.ca/en/location/index.html?coords=
+forecastURL="https://weather.gc.ca/en/location/index.html?coords="
+
+## You can specify the coordinates of your location, or a location you'd like for the forecast.
+## By default this should be the same as the values at the end of the full link used for forecastURL.
+## https://gps-coordinates.org is a good website to find coordinates.
+## If you are using a Marine forecast, this should start with a ?
+## eg. 49.242,-124.800
+latLong="49.242,-124.800"
 
 ## Full URL to the RSS feed for your desired city.
 ## Look for the orange RSS/Atom link at the bottom of the forecast page.
-#eg. https://weather.gc.ca/rss/city/bc-46_e.xml
-rssURL="https://weather.gc.ca/rss/city/bc-46_e.xml"
+#eg. https://weather.gc.ca/rss/weather/49.242_-124.8_e.xml
+rssURL="https://weather.gc.ca/rss/weather/49.242_-124.8_e.xml"
 
 ## Indigenous Language Translation (Yes or No)
 ## Only one language; English, French, or Indigenous, can be displayed at a time per instance of ECForecastGrabber. You must create
