@@ -1,4 +1,9 @@
 # Change Log
+**3.5.0**
+* Update forecasts with language and yellow/orange/red warnings
+* Added place name to Title of ECForecast.html file
+* Added many new cold-weather warnings
+
 **3.4.0**
 * Updated location forecast links for new ECCC coordinates based links.
 

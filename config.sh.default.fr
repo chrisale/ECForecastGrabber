@@ -1,6 +1,6 @@
 #!/bin/bash
 ## CONFIG FILE FOR FORECAST GRABBER
-## v3.4.0
+## v3.5.0
 
 ## Emplacement de la directoire de scripte. Recommende une place qui n'est pas accessible a la web.
 #eg. /var/www/supportfiles/ECForecastGrabber
@@ -100,6 +100,9 @@ hRainColor="#080"
 vhRainColor="#800"
 warningColor="#f00"
 endedColor="#0a6"
+yellowWarnColor="#ff0"
+orangeWarnColor="#f29f28"
+redWarnColor="#f00"
 
 ## Other adjustable colours
 #Default colour of the whole paragraph containing the forecast.

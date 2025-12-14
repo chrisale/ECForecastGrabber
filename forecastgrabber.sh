@@ -3,7 +3,7 @@
 ## Any issues, suggestions or contributions are welcome and can be made on github.
 export LANGUAGE=UTF8
 
-version="v3.4.0"
+version="v3.5.0"
 
 #Bring in config file variables.
 . $(dirname "$0")/config.sh
@@ -50,6 +50,9 @@ export perlhRainColor=$hRainColor
 export perlvhRainColor=$vhRainColor
 export perlwarningColor=$warningColor
 export perlendedColor=$endedColor
+export perlyellowWarnColor=$yellowWarnColor
+export perlorangeWarnColor=$orangeWarnColor
+export perlredWarnColor=$redWarnColor
 
 
 echo 'running perl script'
