@@ -1,7 +1,7 @@
 #!/usr/bin/perl
 # use moduleuse XML::Simple;
 package ECFGWarnings;
-use XML::Simple;
+use XML::LibXML;
 use Data::Dumper;
 use HTTP::Date;
 use utf8;
@@ -20,7 +20,9 @@ sub warnings_weather {
 #print "hello";
 
 	my ($fullforecast,$warnLink,$thunderLink,$boldDays,$textColor,$freezeDrizzleWarn,$freezeRainWarn,$freezingTemp,$nearfreezeTemp,$hotTemp,$exhotTemp,$exHumidex,$thunderWarn,$flurriesColor,$windyColor,$hRainColor,$vhRainColor,$warningColor,$endedColor,$yellowWarnColor,$orangeWarnColor,$redWarnColor,$comma,$forecastlink,$warnings,$warnings2,$warnings3,$forecastPlaceName,$forecastName,$footerMsg,$mainStyleElement,$daystrongStyle,$drizzstrongStyle,$frainstrongStyle,$flurstrongStyle,$snowflstrongStyle,$snowstrongStyle,$ftempstrongStyle,$htempstrongStyle,$thunderstrongStyle) = @_;
-
+print "\n";
+print $warnLink;
+print "\n";
 $fullforecast =~ s/No watches or warnings in effect. $forecastPlaceName//g;
 $fullforecast =~ s/Aucune veille ou alerte en vigueur. $forecastPlaceName//g;
 
@@ -37,6 +39,7 @@ $fullforecast =~ s/FREEZING DRIZZLE WARNING ENDED, $forecastPlaceName/<strong><a
 
 $fullforecast =~ s/WINTER STORM WARNING ENDED, $forecastPlaceName/<strong><a target='_blank' style="color: $warningColor;" href="$warnLink">WINTER STORM ENDED<\/a><\/strong>/g;
 
+
 ##STATEMENTS AND WATCHES TO GET TO BEFORE WARNINGS
 
 
@@ -51,7 +54,7 @@ $fullforecast =~ s/SPECIAL AIR QUALITY STATEMENT, $forecastPlaceName/<strong><a 
 $fullforecast =~ s/SPECIAL WEATHER STATEMENT, $forecastPlaceName/<strong ><a target='_blank' style="color: $warningColor;" href="$warnLink">SPECIAL WEATHER STATEMENT IN EFFECT<\/a><\/strong>/g;
 $fullforecast =~ s/BULLETIN MÉTÉOROLOGIQUE SPECIAL, $forecastPlaceName/<strong ><a target='_blank' style="color: $warningColor;" href="$warnLink">BULLETIN MÉTÉOROLOGIQUE SPÉCIAL<\/a><\/strong>/g;
 
-$fullforecast =~ s/FOG ADVISORY, $forecastPlaceName/<strong><a target='_blank' style="color: $warningColor;"  href="$warnLink">FOG ADVISORY IN EFFECT<\/a><\/strong>/g;
+$fullforecast =~ s/YELLOW ADVISORY - FOG, $forecastPlaceName/<strong><a target='_blank' style="color: $warningColor;"  href="$warnLink">YELLOW ADVISORY - FOG<\/a><\/strong>/g;
 
 
 ##GENERIC WEATHER WARNING
@@ -59,6 +62,22 @@ $fullforecast =~ s/WEATHER WARNING, $forecastPlaceName/<strong><a target='_blank
 
 #SMOG WARNING
 $fullforecast =~ s/SMOG WARNING, $forecastPlaceName/<strong><a target='_blank' style="color: $warningColor;" href="$warnLink">SMOG WARNING<\/a><\/strong>/g;
+
+##HIGHWAY STATEMENTS
+
+if ($fullforecast =~ m/Highway/) {
+$fullforecast =~ s/YELLOW WARNING.* - /<strong><a target='_blank' style="background-color: $yellowWarnColor; color: #000;" href="$warnLink">YELLOW WARNING - Local Highway <\/a><\/strong>/g;
+$fullforecast =~ s/AVERTISSEMENT JAUNE*/<strong><a target='_blank' style="background-color: $yellowWarnColor; color: #000;" href="$warnLink">AVERTISSEMENT JAUNE <\/a><\/strong>/g;
+
+$fullforecast =~ s/ORANGE WARNING*/<strong><a target='_blank' style="background-color: $orangeWarnColor; color: #000;" href="$warnLink">ORANGE WARNING<\/a><\/strong>/g;
+$fullforecast =~ s/AVERTISSEMENT ORANGE*/<strong><a target='_blank' style="background-color: $orangeWarnColor; color: #000;" href="$warnLink">AVERTISSEMENT ORANGE <\/a><\/strong>/g;
+
+$fullforecast =~ s/RED WARNING*/<strong><a target='_blank' style="background-color: $redWarnColor; color: #000;" href="$warnLink">RED WARNING<\/a><\/strong>/g;
+$fullforecast =~ s/AVERTISSEMENT ROUGE*/<strong><a target='_blank' style="background-color: $redWarnColor; color: #000;" href="$warnLink">AVERTISSEMENT ROUGE <\/a><\/strong>/g;
+}
+
+
+
 
 
 ##WIND WARNING WARNINGS**

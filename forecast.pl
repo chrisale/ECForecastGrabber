@@ -3,7 +3,8 @@
 use FindBin; ## MAKE SURE TO ADD THE LOCAL PATH FOR THE MODULES
 use File::Spec;
 use lib File::Spec->catdir($FindBin::Bin);
-use XML::Simple;
+use XML::LibXML;
+use XML::LibXML::XPathContext;
 use Data::Dumper;
 use HTTP::Date;
 use Time::Piece;
@@ -44,13 +45,14 @@ my $outputForecastOnlyfile = $ENV{'perlfinalForecasttmp'};
 my $outputConditionsandForecastfile = 'ECCurCondTmp.txt';
 
 ## Environment Canada Beginning of URL to the source forecast file.
-my $forecastURL = $ENV{'perlforecastURL'};
+#my $forecastURL = $ENV{'perlforecastURL'};
+my $forecastURL = '';
 
 ## Coordinates for the desired forecast location URL.
 my $latLong = $ENV{'perllatLong'};
 
 ## Recombining the URL into a full address
-$forecastURL = $forecastURL . $latLong;
+#$forecastURL = $forecastURL . $latLong;
 
 ## Name of the actual forecast location, display name and footer messages
 my $forecastPlaceName = $ENV{'perlforecastPlaceName'};
@@ -65,7 +67,8 @@ utf8::decode($footerMsg);
 
 #####
 
-my $warnLink = $ENV{'perlwarnLink'};
+#my $warnLink = $ENV{'perlwarnLink'};
+my $warnLink = '';
 my $thunderLink = $ENV{'perlthunderLink'};
 
 ##STYLES
@@ -94,32 +97,52 @@ my $redWarnColor = $ENV{'perlredWarnColor'};
 
 
 my $comma = ";";
-$xml = new XML::Simple;
+
 my $forecastlinkpreamble = "<strong><a target='_blank' id='curforcst' href='";
 my $forecastlinkpostamble = "'>";
 my $forecastnamepostamble = "</a></strong>";
-my $forecastlink = $forecastlinkpreamble . $forecastURL . $forecastlinkpostamble . $forecastName . $forecastnamepostamble;
-my $warnings = '';
-my $warnings2 = '';
-my $warnings3 = '';
-
 
 $xmlFile = $perlWebPath . $xmlFile;
 $outputForecastOnlyfile = $perlWebPath . $outputForecastOnlyfile;
 $outputConditionsandForecastfile = $perlWebPath . $outputConditionsandForecastfile;
 
-# read XML file
-my $data = $xml->XMLin($xmlFile);
+# reading XML file and registering a new path context from the ECCC context
+# https://grantm.github.io/perl-libxml-by-example/namespaces.html
+
+my $dom = XML::LibXML->load_xml(location => $xmlFile, no_blanks => 1);
+my $xpc = XML::LibXML::XPathContext->new($dom);
+$xpc->registerNs('eccc', 'http://www.w3.org/2005/Atom');
+
+#my $uri = $xpc->lookupNs('eccc');
+#print $uri;
+
+
+
+#Storing the whole document from the <feed> element onward
+#my($fullXMLDoc) = $xpc->findnodes('//eccc:feed') or die "No metadata";
+
+#print "yes";
+#print 'XPath: /title   Matched: ', $stuff;
+#print "no/n";
+
+#print "hello";
+
+
+##GET ALL ID TAGS SO THEY CAN ACT AS KEYS TO IDENTIFY EVERY
+#ENTRY IN THE DOCUMENT UNIQUELY
+
+foreach my $el ($xpc->findnodes('//eccc:id', $xmlFile)) {
+    my $value = $el->to_literal or next;
+    push(@weatherkeys, $value);
+    
+}
+
+
 
 ## IF THE CURRENT CONDITIONS ARE OFFLINE THEN WE DON"T DO ANYTHING HERE AND JUST SWITCH TO GETTING THE FIRST (0) LINE SO IT DOESN"T GET THE FORECAST BY MISTAKE
-## GRABBING THE PROPER PART OF THE XML DOCUMENT STRUCTURE FOR CURRENT CONDITIONS
-#$currentconditions = $data->{channel}->{item}->[0]->{description};
-## GRABBING THE PROPER PART OF THE XML DOCUMENT STRUCTURE FOR CURRENT CONDITIONS
-$getkeys = $data->{entry};
-while( my ($k, $v) = each %$getkeys ) {
-       # print "$k\n";
-        push(@weatherkeys, $k);
-    }
+
+my %weatherkeyfinal;
+    
 foreach (@weatherkeys) {
     if (index($_, 'fc0:') != -1) {
     $weatherkeyfinal[0] = $_;
@@ -163,6 +186,18 @@ foreach (@weatherkeys) {
      if (index($_, 'fc13:') != -1) {
     $weatherkeyfinal[13] = $_;
     }
+    if (index($_, 'cc') != -1) {
+    $currentconditionskey = $_;
+    }
+    if (index($_, 'w1') != -1) {
+    $warning[0] = $_;
+    }
+    if (index($_, 'w2') != -1) {
+    $warning[1] = $_;
+    }
+    if (index($_, 'w3') != -1) {
+    $warning[2] = $_;
+    }
     if (index($_, 'regular_forecast:') != -1) {
     $weatherkeyfinal[14] = $_;
     }
@@ -172,29 +207,93 @@ foreach (@weatherkeys) {
     if (index($_, 'extended_forecast:') != -1) {
     $weatherkeyfinal[16] = $_;
     }
-    if (index($_, 'cc') != -1) {
-    $currentconditionskey = $_;
+    
     }
-    if (index($_, 'w1') != -1) {
-    $warnings = $_;
-    }
-    if (index($_, 'w2') != -1) {
-    $warnings2 = $_;
-    }
-    if (index($_, 'w3') != -1) {
-    $warnings3 = $_;
-    }
-    }
-#print @weatherkeyfinal[2];
-#print $weathercc;
-#print $weatherwarn;
+
+
+#my @nodes = $xpc->findnodes("/books/book/authors/author/ firstname[text( )='Tom']/../ lastname[text( )='Christiansen']/ ancestor::book/title/text( )");
+
 my $allforecast = '';
-foreach (@weatherkeyfinal) {
-$allforecast = $allforecast . $data->{entry}{$_}{title};
-$allforecast = $allforecast . $data->{entry}{$_}{summary}{content};
+
+
+my %titles_by_id;
+my %summary_by_id;
+
+## Getting all of the entries from the XML file (ECCCC context is set at the top thanks to the xmlns attribute in the document.)
+
+for my $entry ($xpc->findnodes('//eccc:entry')) {
+
+#Getting stuff we need from each "node" based on looping through each entry that we just stored.
+
+    my ($id_node)    = $xpc->findnodes('eccc:id',    $entry);
+    my ($title_node) = $xpc->findnodes('eccc:title', $entry);
+    my ($summary_node) = $xpc->findnodes('eccc:summary', $entry);
+    my ($cat_node) = $xpc->findnodes('eccc:category', $entry);
+    
+    
+#Checking the Term for each entry so we can grab the links from them.
+
+    if ($cat_node && $cat_node->hasAttribute('term')) {
+        my $term = $cat_node->getAttribute('term');
+        
+        if ($term eq "Warnings and Watches") {
+        my ($link_node) = $xpc->findnodes('eccc:link', $entry);
+        $warnLink = $link_node->getAttribute('href');
+        #print $warnLink;        
+       
+        }
+        
+        if ($term eq "Current Condtions") {
+        my ($link_node) = $xpc->findnodes('eccc:link', $entry);
+        my $conditionsLink = $link_node->getAttribute('href');
+       
+        }
+        
+        if ($term eq "Weather Forecasts") {
+        my ($link_node) = $xpc->findnodes('eccc:link', $entry);
+        $forecastURL = $link_node->getAttribute('href');
+        print $forecastURL;
+        }
+        
+        
+    }
+
+# Now create variables and arrays for the titles and summaries based on each id.
+
+    next unless $id_node && $title_node;
+
+    my $id    = $id_node->textContent;
+    my $title = $title_node->textContent;
+    my $summary = $summary_node->textContent;
+
+    $titles_by_id{$id} = $title;
+    $summary_by_id{$id} = $summary;
 }
+
+
+
+foreach (@weatherkeyfinal) {
+$allforecast = $allforecast . $titles_by_id{$_};
+$allforecast = $allforecast . $summary_by_id{$_};
+}
+
+
+
+
+
+
+
+
+my $forecastlink = $forecastlinkpreamble . $forecastURL . $forecastlinkpostamble . $forecastName . $forecastnamepostamble;
+my %weatherkeyfinal;
+my %warning;
+
+
+
+
+
 #print $allforecast;
-$currentconditions = $data->{entry}{$currentconditionskey}{summary}{content};
+$currentconditions = $summary_by_id{$currentconditionskey};
 #print $currentconditions;
 ## GETTING RID OF WHAT WE DO NOT WANT IN THE STRING
 $currentconditions =~ s/<b>//g;
@@ -242,7 +341,6 @@ my @pressuretrendval = split(':', $pressuretrend);
 $pressuretrend = $pressuretrendval[1];
 $pressuretrend =~ s/\s+//g;
 $pressuretrend = $pressuretrend . $comma;
-
 
 $humidity = $values[4];
 my @humidityval = split(':', $humidity);
@@ -306,7 +404,7 @@ $airq = $airqval[1];
 $airq =~ s/\s+//g;
 $airq = $airq . $comma;
 }
-
+#print "\n";
 
 ######
 ######
@@ -314,13 +412,9 @@ $airq = $airq . $comma;
 ######
 ######
 
-
-# read XML file
-$data = $xml->XMLin($xmlFile);
-
-## GRABBING THE PROPER PART OF THE XML DOCUMENT STRUCTURE FOR CURRENT CONDITIONS
 my $fullforecast = '';
-#$warnLink = $data->{channel}->{item}->[0]->{link};
+
+
 
 $fullforecast = $forecastlink . " - ";
 
@@ -330,24 +424,26 @@ my $warn2 = "_";
 my $warn3 = "_";
 
 
-$warn1 = $data->{entry}{$warnings}{title};
+$warn1 = $titles_by_id{$warning[0]};
 
 #Build warning2 at top with the name of the place.
-$warn2 = $data->{entry}{$warnings2}{title};
+$warn2 = $titles_by_id{$warning[1]};
 
 #Build warning2 at top with the name of the place.
-$warn3 = $data->{entry}{$warnings3}{title};
+$warn3 = $titles_by_id{$warning[2]};
 
 $fullforecast = $fullforecast . $warn1 . " - " . $warn2 . " - " . $warn3;
 
+#print $fullforecast;
 #Build in the warning content if there is any.
-#Build in the warning2 content if there is any.
-$warn1content = $data->{entry}{$warnings}{summary}{content};
-$warn1content =~ s/Issued:(.*)/<a target='_blank' href="$warnLink">Statement Issued $1 <\/a> - - /g;
 
-$warn2content = $data->{entry}{$warnings2}{summary}{content};
+$warn1content = $summary_by_id{$warning[0]};
+$warn1content =~ s/Issued:(.*)/<a target='_blank' href="$warnLink">Statement Issued $1 <\/a> - - /g;
+#Build in the warning2 content if there is any.
+$warn2content = $summary_by_id{$warning[1]};
 $warn2content =~ s/Issued:(.*)/<a target='_blank' href="$warnLink">Statement Issued $1 <\/a> - - /g;
-$warn3content = $data->{entry}{$warnings3}{summary}{content};
+#Build in the warning3 content if there is any.
+$warn3content = $summary_by_id{$warning[2]};
 $warn3content =~ s/Issued:(.*)/<a target='_blank' href="$warnLink">Statement Issued $1 <\/a> - - /g;
 
 
@@ -355,11 +451,7 @@ $warn3content =~ s/Issued:(.*)/<a target='_blank' href="$warnLink">Statement Iss
 $fullforecast = $fullforecast . $warn1content . $warn2content . $warn3content;
 
 
-#Omit the warning content as it is not needed and just do some formatting.
-#$warn2 = $data->{entry}{$warnings}{summary}{content};
-
-
-$issued = $data->{entry}{$weatherkeyfinal[0]}{summary}{content};
+$issued = $summary_by_id{$weatherkeyfinal[0]};
 $issued =~ s/^(.*)Forecast/Forecast/g;
 $issued =~ s/^(.*)Prévisions/Prévisions/g;
 $fullforecast = $fullforecast . "<hr><em>" . $issued . "</em> - ";
@@ -430,115 +522,115 @@ $fullforecast = $fullforecast . $day7dc;
 IF ENVIRONMENT CANADA IS NOT SHOWING CURRENT CONDITIONS IT WILL BREAK THE RSS FEED AND SHIFT EVERYTHING UP A LEVEL IN THE XML  THERE ARE TWO IDENTICAL SECTIONS HERE, THE FIRST WITH THE VALUES SHIFTED, THE SECOND WITHOUT
 =cut
 
-$day1 = $data->{entry}{$weatherkeyfinal[0]}{title};
+$day1 = $titles_by_id{$weatherkeyfinal[0]};
 $day1 =~ s/:(.*)$/: /g;
 $fullforecast = $fullforecast . $day1;
-$day1dc = $data->{entry}{$weatherkeyfinal[0]}{summary}{content};
+$day1dc = $summary_by_id{$weatherkeyfinal[0]};
 $day1dc =~ s/Forecast(.*)$//g;
 $day1dc =~ s/Prévisions(.*)$//g;
 $fullforecast = $fullforecast . $day1dc;
 
 
-$day2 = $data->{entry}{$weatherkeyfinal[1]}{title};
+$day2 = $titles_by_id{$weatherkeyfinal[1]};
 $day2 =~ s/:(.*)$/: /g;
 $fullforecast = $fullforecast . $day2;
-$day2dc = $data->{entry}{$weatherkeyfinal[1]}{summary}{content};
+$day2dc = $summary_by_id{$weatherkeyfinal[1]};
 $day2dc =~ s/Forecast(.*)$//g;
 $day2dc =~ s/Prévisions(.*)$//g;
 $fullforecast = $fullforecast . $day2dc;
 
-$day3 = $data->{entry}{$weatherkeyfinal[2]}{title};
+$day3 = $titles_by_id{$weatherkeyfinal[2]};
 $day3 =~ s/:(.*)$/: /g;
 $fullforecast = $fullforecast . $day3;
-$day3dc = $data->{entry}{$weatherkeyfinal[2]}{summary}{content};
+$day3dc = $summary_by_id{$weatherkeyfinal[2]};
 $day3dc =~ s/Forecast(.*)$//g;
 $day3dc =~ s/Prévisions(.*)$//g;
 $fullforecast = $fullforecast . $day3dc;
 
-$day4 = $data->{entry}{$weatherkeyfinal[3]}{title};
+$day4 = $summary_by_id{$weatherkeyfinal[3]};
 $day4 =~ s/:(.*)$/: /g;
 $fullforecast = $fullforecast . $day4;
-$day4dc = $data->{entry}{$weatherkeyfinal[3]}{summary}{content};
+$day4dc = $summary_by_id{$weatherkeyfinal[3]};
 $day4dc =~ s/Forecast(.*)$//g;
 $day4dc =~ s/Prévisions(.*)$//g;
 $fullforecast = $fullforecast . $day4dc;
 
-$day5 = $data->{entry}{$weatherkeyfinal[4]}{title};
+$day5 = $titles_by_id{$weatherkeyfinal[4]};
 $day5 =~ s/:(.*)$/: /g;
 $fullforecast = $fullforecast . $day5;
-$day5dc = $data->{entry}{$weatherkeyfinal[4]}{summary}{content};
+$day5dc = $summary_by_id{$weatherkeyfinal[4]};
 $day5dc =~ s/Forecast(.*)$//g;
 $day5dc =~ s/Prévisions(.*)$//g;
 $fullforecast = $fullforecast . $day5dc;
 
-$day6 = $data->{entry}{$weatherkeyfinal[5]}{title};
+$day6 = $titles_by_id{$weatherkeyfinal[5]};
 $day6 =~ s/:(.*)$/: /g;
 $fullforecast = $fullforecast . $day6;
-$day6dc = $data->{entry}{$weatherkeyfinal[5]}{summary}{content};
+$day6dc = $summary_by_id{$weatherkeyfinal[5]};
 $day6dc =~ s/Forecast(.*)$//g;
 $day6dc =~ s/Prévisions(.*)$//g;
 $fullforecast = $fullforecast . $day6dc;
 
-$day7 = $data->{entry}{$weatherkeyfinal[6]}{title};
+$day7 = $titles_by_id{$weatherkeyfinal[6]};
 $day7 =~ s/:(.*)$/: /g;
 $fullforecast = $fullforecast . $day7;
-$day7dc = $data->{entry}{$weatherkeyfinal[6]}{summary}{content};
+$day7dc = $summary_by_id{$weatherkeyfinal[6]};
 $day7dc =~ s/Forecast(.*)$//g;
 $day7dc =~ s/Prévisions(.*)$//g;
 $fullforecast = $fullforecast . $day7dc;
 
-$day8 = $data->{entry}{$weatherkeyfinal[7]}{title};
+$day8 = $titles_by_id{$weatherkeyfinal[7]};
 $day8 =~ s/:(.*)$/: /g;
 $fullforecast = $fullforecast . $day8;
-$day8dc = $data->{entry}{$weatherkeyfinal[7]}{summary}{content};
+$day8dc = $summary_by_id{$weatherkeyfinal[7]};
 $day8dc =~ s/Forecast(.*)$//g;
 $day8dc =~ s/Prévisions(.*)$//g;
 $fullforecast = $fullforecast . $day8dc;
 
-$day9 = $data->{entry}{$weatherkeyfinal[8]}{title};
+$day9 = $titles_by_id{$weatherkeyfinal[8]};
 $day9 =~ s/:(.*)$/: /g;
 $fullforecast = $fullforecast . $day9;
-$day9dc = $data->{entry}{$weatherkeyfinal[8]}{summary}{content};
+$day9dc = $summary_by_id{$weatherkeyfinal[8]};
 $day9dc =~ s/Forecast(.*)$//g;
 $day9dc =~ s/Prévisions(.*)$//g;
 $fullforecast = $fullforecast . $day9dc;
 
-$day10 = $data->{entry}{$weatherkeyfinal[9]}{title};
+$day10 = $titles_by_id{$weatherkeyfinal[9]};
 $day10 =~ s/:(.*)$/: /g;
 $fullforecast = $fullforecast . $day10;
-$day10dc = $data->{entry}{$weatherkeyfinal[9]}{summary}{content};
+$day10dc = $summary_by_id{$weatherkeyfinal[9]};
 $day10dc =~ s/Forecast(.*)$//g;
 $day10dc =~ s/Prévisions(.*)$//g;
 $fullforecast = $fullforecast . $day10dc;
 
-$day11 = $data->{entry}{$weatherkeyfinal[10]}{title};
+$day11 = $titles_by_id{$weatherkeyfinal[10]};
 $day11 =~ s/:(.*)$/: /g;
 $fullforecast = $fullforecast . $day11;
-$day11dc = $data->{entry}{$weatherkeyfinal[10]}{summary}{content};
+$day11dc = $summary_by_id{$weatherkeyfinal[10]};
 $day11dc =~ s/Forecast(.*)$//g;
 $day11dc =~ s/Prévisions(.*)$//g;
 $fullforecast = $fullforecast . $day11dc;
 
-$day12 = $data->{entry}{$weatherkeyfinal[11]}{title};
+$day12 = $titles_by_id{$weatherkeyfinal[11]};
 $day12 =~ s/:(.*)$/: /g;
 $fullforecast = $fullforecast . $day12;
-$day12dc = $data->{entry}{$weatherkeyfinal[11]}{summary}{content};
+$day12dc = $summary_by_id{$weatherkeyfinal[11]};
 $day12dc =~ s/Forecast(.*)$//g;
 $day12dc =~ s/Prévisions(.*)$//g;
 $fullforecast = $fullforecast . $day12dc;
 
-$day13 = $data->{entry}{$weatherkeyfinal[12]}{title};
+$day13 = $titles_by_id{$weatherkeyfinal[12]};
 $day13 =~ s/:(.*)$/: /g;
 $fullforecast = $fullforecast . $day13;
-$day13dc = $data->{entry}{$weatherkeyfinal[12]}{summary}{content};
+$day13dc = $summary_by_id{$weatherkeyfinal[12]};
 $day13dc =~ s/Forecast(.*)$//g;
 $day13dc =~ s/Prévisions(.*)$//g;
 $fullforecast = $fullforecast . $day13dc;
 
-$day14 = $data->{entry}{$weatherkeyfinal[13]}{title};
+$day14 = $titles_by_id{$weatherkeyfinal[13]};
 $day14 =~ s/:(.*)$/: /g;
 $fullforecast = $fullforecast . $day14;
-$day14dc = $data->{entry}{$weatherkeyfinal[13]}{summary}{content};
+$day14dc = $summary_by_id{$weatherkeyfinal[13]};
 $day14dc =~ s/Forecast(.*)$//g;
 $day14dc =~ s/Prévisions(.*)$//g;
 $fullforecast = $fullforecast . $day14dc;
@@ -547,48 +639,46 @@ $fullforecast = $fullforecast . $day14dc;
 
 
 if ($enableMarine eq 'Yes') {
-$marineRegForecast = $data->{entry}{$weatherkeyfinal[14]}{title};
+$marineRegForecast = $titles_by_id{$weatherkeyfinal[14]};
 ### GETTING RID OF EVERYTHING AFTER THE PERIOD IN THE MARINE FORECAST TITLE
 $marineRegForecast =~ s/\.(.*)$/ - /g;
-$issuedmarineRegForecast = $data->{entry}{$weatherkeyfinal[14]}{summary}{content};
+$issuedmarineRegForecast = $summary_by_id{$weatherkeyfinal[14]};
 ##SEARCH FOR THE WORD ISSUED AND EVERYTHING AFTER IT THEN GRAB JUST THAT ADD IN THE WORD ISSUED AGAIN AND END UP WITH JUST THE ISSUED TIME
 ## GETTING RID OF WHAT WE DO NOT WANT IN THE STRING
 $issuedmarineRegForecast =~ s/Issued(.*)$/$1/;
 $marineRegForecast = "<em><strong> Marine Forecast Issued " . $1 . "</strong></em>: " . $marineRegForecast;
 $fullforecast = $fullforecast . $marineRegForecast;
-$marineRegForecastdc = $data->{entry}{$weatherkeyfinal[14]}{summary}{content};
+$marineRegForecastdc = $summary_by_id{$weatherkeyfinal[14]};
 ### GETTING RID OF THE "ISSUED" TEXT AT THE END OF THE SUMMARY
 $marineRegForecastdc =~ s/Issued(.*)$//g;
 $fullforecast = $fullforecast . $marineRegForecastdc;
 
-$marineWaves = $data->{entry}{$weatherkeyfinal[15]}{title};
+$marineWaves = $titles_by_id{$weatherkeyfinal[15]};
 $marineWaves =~ s/\.(.*)$/-/g;
-$issuedmarineWaves = $data->{entry}{$weatherkeyfinal[15]}{summary}{content};
+$issuedmarineWaves = $summary_by_id{$weatherkeyfinal[15]};
 $issuedmarineWaves =~ s/Issued(.*)$/$1/;
 $marineWaves = "<em><strong> Waves Forecast Issued " . $1 . "</strong></em>: " . $marineWaves;
 $fullforecast = $fullforecast . $marineWaves;
-$marineWavesdc = $data->{entry}{$weatherkeyfinal[15]}{summary}{content};
+$marineWavesdc = $summary_by_id{$weatherkeyfinal[15]};
 $marineWavesdc  =~ s/Issued(.*)$//g;
 $fullforecast = $fullforecast . $marineWavesdc;
 
-$marineExtForecast = $data->{entry}{$weatherkeyfinal[16]}{title};
+$marineExtForecast = $titles_by_id{$weatherkeyfinal[16]};
 $marineExtForecast =~ s/-(.*)$/ - /g;
-$issuedmarineExtForecast = $data->{entry}{$weatherkeyfinal[16]}{summary}{content};
+$issuedmarineExtForecast = $summary_by_id{$weatherkeyfinal[16]};
 $issuedmarineExtForecast =~ s/Issued(.*)$/$1/;
 $marineExtForecast = "<em><strong> Extended Marine Forecast Issued " . $1 . "</strong></em>: " . $marineExtForecast;
 $fullforecast = $fullforecast . $marineExtForecast;
-$marineExtForecastdc = $data->{entry}{$weatherkeyfinal[16]}{summary}{content};
+$marineExtForecastdc = $summary_by_id{$weatherkeyfinal[16]};
 $marineExtForecastdc =~ s/Issued(.*)$//g;
 $fullforecast = $fullforecast . $marineExtForecastdc;
 $fullforecast =~ s/<br\/>//g;
 }
 
 
-#Omit the warning content as it is not needed and just do some formatting.
-#$warn2 = $data->{entry}{$warnings}{summary}{content};
 
 
-$issued = $data->{entry}{$weatherkeyfinal[0]}{summary}{content};
+$issued = $summary_by_id{$weatherkeyfinal[0]};
 $issued =~ s/^(.*)Forecast/Forecast/g;
 
 
@@ -611,18 +701,18 @@ my $thunderstrongStyle = "style='color:" . $thunderWarn . ";'";
 
 #General Weather Changes in ECFGGeneral.pm
 
-$fullforecast = general_weather($fullforecast,$warnLink,$thunderLink,$boldDays,$textColor,$freezeDrizzleWarn,$freezeRainWarn,$freezingTemp,$nearfreezeTemp,$hotTemp,$exhotTemp,$exHumidex,$thunderWarn,$flurriesColor,$windyColor,$hRainColor,$vhRainColor,$warningColor,$endedColor,$yellowWarnColor,$orangeWarnColor,$redWarnColor,$comma,$forecastlink,$warnings,$warnings2,$warnings3,$forecastPlaceName,$forecastName,$footerMsg,$mainStyleElement,$daystrongStyle,$drizzstrongStyle,$frainstrongStyle,$flurstrongStyle,$snowflstrongStyle,$snowstrongStyle,$ftempstrongStyle,$htempstrongStyle,$thunderstrongStyle);
+$fullforecast = general_weather($fullforecast,$warnLink,$thunderLink,$boldDays,$textColor,$freezeDrizzleWarn,$freezeRainWarn,$freezingTemp,$nearfreezeTemp,$hotTemp,$exhotTemp,$exHumidex,$thunderWarn,$flurriesColor,$windyColor,$hRainColor,$vhRainColor,$warningColor,$endedColor,$yellowWarnColor,$orangeWarnColor,$redWarnColor,$comma,$forecastlink,$warning[0],$warning[1],$warning[2],$forecastPlaceName,$forecastName,$footerMsg,$mainStyleElement,$daystrongStyle,$drizzstrongStyle,$frainstrongStyle,$flurstrongStyle,$snowflstrongStyle,$snowstrongStyle,$ftempstrongStyle,$htempstrongStyle,$thunderstrongStyle);
 
 
 #Marine Weather Changes in ECFGMarine.pm
 
 
-$fullforecast = marine_weather($fullforecast,$warnLink,$thunderLink,$boldDays,$textColor,$freezeDrizzleWarn,$freezeRainWarn,$freezingTemp,$nearfreezeTemp,$hotTemp,$exhotTemp,$exHumidex,$thunderWarn,$flurriesColor,$windyColor,$hRainColor,$vhRainColor,$warningColor,$endedColor,$yellowWarnColor,$orangeWarnColor,$redWarnColor,$comma,$forecastlink,$warnings,$warnings2,$warnings3,$forecastPlaceName,$forecastName,$footerMsg,$mainStyleElement,$daystrongStyle,$drizzstrongStyle,$frainstrongStyle,$flurstrongStyle,$snowflstrongStyle,$snowstrongStyle,$ftempstrongStyle,$htempstrongStyle,$thunderstrongStyle);
+$fullforecast = marine_weather($fullforecast,$warnLink,$thunderLink,$boldDays,$textColor,$freezeDrizzleWarn,$freezeRainWarn,$freezingTemp,$nearfreezeTemp,$hotTemp,$exhotTemp,$exHumidex,$thunderWarn,$flurriesColor,$windyColor,$hRainColor,$vhRainColor,$warningColor,$endedColor,$yellowWarnColor,$orangeWarnColor,$redWarnColor,$comma,$forecastlink,$warning[0],$warning[1],$warning[2],$forecastPlaceName,$forecastName,$footerMsg,$mainStyleElement,$daystrongStyle,$drizzstrongStyle,$frainstrongStyle,$flurstrongStyle,$snowflstrongStyle,$snowstrongStyle,$ftempstrongStyle,$htempstrongStyle,$thunderstrongStyle);
 
 
 #Weather Warnings in ECFGWarnings.pm
 
-$fullforecast = warnings_weather($fullforecast,$warnLink,$thunderLink,$boldDays,$textColor,$freezeDrizzleWarn,$freezeRainWarn,$freezingTemp,$nearfreezeTemp,$hotTemp,$exhotTemp,$exHumidex,$thunderWarn,$flurriesColor,$windyColor,$hRainColor,$vhRainColor,$warningColor,$endedColor,$yellowWarnColor,$orangeWarnColor,$redWarnColor,$comma,$forecastlink,$warnings,$warnings2,$warnings3,$forecastPlaceName,$forecastName,$footerMsg,$mainStyleElement,$daystrongStyle,$drizzstrongStyle,$frainstrongStyle,$flurstrongStyle,$snowflstrongStyle,$snowstrongStyle,$ftempstrongStyle,$htempstrongStyle,$thunderstrongStyle);
+$fullforecast = warnings_weather($fullforecast,$warnLink,$thunderLink,$boldDays,$textColor,$freezeDrizzleWarn,$freezeRainWarn,$freezingTemp,$nearfreezeTemp,$hotTemp,$exhotTemp,$exHumidex,$thunderWarn,$flurriesColor,$windyColor,$hRainColor,$vhRainColor,$warningColor,$endedColor,$yellowWarnColor,$orangeWarnColor,$redWarnColor,$comma,$forecastlink,$warning[0],$warning[1],$warning[2],$forecastPlaceName,$forecastName,$footerMsg,$mainStyleElement,$daystrongStyle,$drizzstrongStyle,$frainstrongStyle,$flurstrongStyle,$snowflstrongStyle,$snowstrongStyle,$ftempstrongStyle,$htempstrongStyle,$thunderstrongStyle);
 
 
 
@@ -661,7 +751,7 @@ if ($enableIndigenous eq 'Yes') {
 	
 	#Weather Translations for ECFGTseshaht.pm
 
-$fullforecast = tseshaht_weather($fullforecast,$warnLink,$thunderLink,$boldDays,$textColor,$freezeDrizzleWarn,$freezeRainWarn,$freezingTemp,$nearfreezeTemp,$hotTemp,$exhotTemp,$exHumidex,$thunderWarn,$flurriesColor,$windyColor,$hRainColor,$vhRainColor,$warningColor,$endedColor,$yellowWarnColor,$orangeWarnColor,$redWarnColor,$comma,$forecastlink,$warnings,$warnings2,$warnings3,$forecastPlaceName,$forecastName,$footerMsg,$mainStyleElement,$daystrongStyle,$drizzstrongStyle,$frainstrongStyle,$flurstrongStyle,$snowflstrongStyle,$snowstrongStyle,$ftempstrongStyle,$htempstrongStyle,$thunderstrongStyle);
+$fullforecast = tseshaht_weather($fullforecast,$warnLink,$thunderLink,$boldDays,$textColor,$freezeDrizzleWarn,$freezeRainWarn,$freezingTemp,$nearfreezeTemp,$hotTemp,$exhotTemp,$exHumidex,$thunderWarn,$flurriesColor,$windyColor,$hRainColor,$vhRainColor,$warningColor,$endedColor,$yellowWarnColor,$orangeWarnColor,$redWarnColor,$comma,$forecastlink,$warning[0],$warning[1],$warning[2],$forecastPlaceName,$forecastName,$footerMsg,$mainStyleElement,$daystrongStyle,$drizzstrongStyle,$frainstrongStyle,$flurstrongStyle,$snowflstrongStyle,$snowstrongStyle,$ftempstrongStyle,$htempstrongStyle,$thunderstrongStyle);
 	}
 }
 ## If Indigenous language is not enabled, don't need to do much but for debugging, adding a message is good, or future feature.

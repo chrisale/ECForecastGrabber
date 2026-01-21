@@ -1,4 +1,11 @@
 # Change Log
+**3.5.1**
+* Added logic to deal with "highway" warnings in a general way.
+* Changed from using XML:Simple to XML:LibXML
+* Added Yellow Fog Advisory
+* Removed Warning Link from Configuration. Now fetching direct from XML file.
+* Removed Forecast Link from Configuration. Now fetching direct from XML file.
+
 **3.5.0**
 * Update forecasts with language and yellow/orange/red warnings
 * Added place name to Title of ECForecast.html file

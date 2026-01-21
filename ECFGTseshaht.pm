@@ -1,7 +1,7 @@
 #!/usr/bin/perl
 # use moduleuse XML::Simple;
 package ECFGTseshaht;
-use XML::Simple;
+use XML::LibXML;
 use Data::Dumper;
 use HTTP::Date;
 use utf8;

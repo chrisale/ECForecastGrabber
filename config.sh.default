@@ -1,6 +1,6 @@
 #!/bin/bash
 ## CONFIG FILE FOR FORECAST GRABBER
-## v3.5.0
+## v3.5.1
 
 ## Path to your script directory. Recommended outside your web accessible directory.
 #eg. /var/www/supportfiles/ECForecastGrabber
@@ -9,18 +9,6 @@ scriptPath="/var/www/supportfiles/ECForecastGrabber"
 ## Path to final web directory where XML and HTML file will be stored.
 #eg. /var/www/httpdocs
 webPath="/var/www/httpdocs"
-
-## Partial URL to your desired city's forecast page, English or French. Remove the coordinates at the end.
-## If you are using a Marine Forecast remove everything after the ".html"
-# eg. https://weather.gc.ca/en/location/index.html?coords=
-forecastURL="https://weather.gc.ca/en/location/index.html?coords="
-
-## You can specify the coordinates of your location, or a location you'd like for the forecast.
-## By default this should be the same as the values at the end of the full link used for forecastURL.
-## https://gps-coordinates.org is a good website to find coordinates.
-## If you are using a Marine forecast, this should start with a ?
-## eg. 49.242,-124.800
-latLong="49.242,-124.800"
 
 ## Full URL to the RSS feed for your desired city.
 ## Look for the orange RSS/Atom link at the bottom of the forecast page.
@@ -46,11 +34,6 @@ forecastPlaceName="Port Alberni"
 ## Clickable name for your forecast, this can be anything but is often the same as the forecastPlaceName. No need for escape characters.
 ## eg. Vancouver Island Inland Sections - Forecast
 forecastName="Port Alberni"
-
-## Full URL of the warnings page for your location. If it's a Marine forecast it is the same as forecastURL but with #warnings appended to the end of the URL
-## eg. https://weather.gc.ca/warnings/report_e.html?bc45
-## eg. https://weather.gc.ca/marine/forecast_e.html?mapID=02&siteID=12307#warnings
-warnLink="https://weather.gc.ca/warnings/report_e.html?bc45"
 
 ## Full URL of the lightning detection web page for your region.
 ## eg. https://weather.gc.ca/lightning/index_e.html?id=PAC#mapTop
@@ -100,7 +83,7 @@ thunderWarn="#ffaa00"
 windyColor="#908"
 hRainColor="#080"
 vhRainColor="#800"
-warningColor="#f00"
+warningColor="#777"
 endedColor="#0a6"
 yellowWarnColor="#ff0"
 orangeWarnColor="#f29f28"
